@@ -1,0 +1,66 @@
+﻿@model CoreMVCApplication.Models.MST_Cma
+@{
+    ViewData["Title"] = "Common Master ";
+    Layout = "~/Views/Shared/_GlobalLawLayout.cshtml";
+}
+
+<html>
+<head>
+</head>
+<body>
+    <form enctype="multipart/form-data">
+        <div class="col-md-12">
+            <div class="row">
+                <input type="hidden" id="id" asp-for="cma_id" />
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Name</label>
+                        <input type="text" placeholder="Name" id="txtName" asp-for="cma_name" />
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Shortname</label>
+                        <input type="text" placeholder="Shortname" id="Shortname" asp-for="cma_shortname" />
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Parent</label>
+                        <input type="text" placeholder="Parent" id="txtParent" asp-for="cma_parent" />
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Type</label>
+                        <input type="text" placeholder="Type" id="txtCMAType" asp-for="cma_type" />
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Cma Category</label>
+                        <input type="text" placeholder="Type" id="txtcmacategory" asp-for="cma_category" />
+                    </div>
+                </div>
+                <div class="col-md-6" style="margin-top:15px">
+                    <div class="form-group">
+                        <label>Status</label>
+                        <input type="checkbox" id="checkbox" asp-for="cma_Status" />
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <input type="submit" class="btn btn-primary" value="Save" asp-action="SaveMST_CMA" asp-controller="Patients" formmethod="post" />
+                </div>
+                @if (ViewBag.Message != null)
+                {
+                    <script type="text/javascript">
+                           window.onload = function () {
+                               alert("@ViewBag.Message");
+                           };
+                    </script>
+                }
+            </div>
+        </div>
+    </form>
+</body>
+</html>

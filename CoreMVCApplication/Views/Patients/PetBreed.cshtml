@@ -1,0 +1,137 @@
+﻿@model CoreMVCApplication.Models.PetBreed
+@{
+    ViewData["Title"] = "PetBreed";
+    Layout = "~/Views/Shared/_GlobalLawLayout.cshtml";
+}
+
+<form class="form-row" enctype="multipart/form-data">
+    <div class="col-md-12">
+        <div class="row">
+            <input type="hidden" id="id" asp-for="PetBreedId" />
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Breed Name</label>
+                    <input type="text" class="form-control" asp-for="PetBreedName" id="txtBreedName" placeholder="Enter Breed Name" />
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Status</label>
+                    <input type="checkbox" id="chkStatus" asp-for="Status" class="custom-checkbox" />Active
+                </div>
+            </div>
+            <br /><br />
+            <div class="col-md-12">
+                <input type="submit" value="@ViewBag.SubmitValue" class="btn btn-primary" asp-action="SavePetBreed" asp-controller="Patients" formmethod="post" id="btnSave" />
+            </div>
+            @if (ViewBag.Message != null)
+            {
+                <script type="text/javascript">
+                        window.onload = function () {
+                            alert("@ViewBag.Message");
+                        };
+                </script>
+            }
+        </div>
+    </div>
+    <br /><br />
+    <div class="col-md-12 main-table">
+        <h6>List Of Patient Breed</h6>
+        <hr />
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr style="background: #F5F5FA !important;">
+                    @*<th>Index</th>*@
+                    @*<th class="hide">ID</th>*@
+                    <th>Breed Name</th>
+                    <th>Status</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody class="tbodyData"></tbody>
+        </table>
+    </div>
+</form>
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script>
+    function ShowDataInTable() {
+        var item;
+        $.ajax({
+            url: "/Patients/ShowAllPetBreed",
+            data: JSON.stringify(item),
+            dataType: 'JSON',
+            type: 'GET',
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                var html = '';
+                var index = 1;
+                $.each(data, function (key, item) {
+                    html += '<tr>';
+                    // html += '<td>' + index + '</td>';
+                    //html += '<td>' + item.petBreedId + '</td>';
+                    html += '<td>' + item.petBreedName + '</td>';
+                    html += '<td>' + item.status + '</td>';
+                    html += '<td><a class="btn btn-primary btn-sm" href="#" onclick="return Editbyid(' + item.petBreedId + ')">Edit</a></td>';
+                    html += '<td><a class="btn btn-danger btn-sm" href="#" onclick="return DeletePetBreedbyId(' + item.petBreedId + ')">Delete</a></td>';
+                    html += '</tr>';
+                    index++;
+                });
+                $('.tbodyData').html(html);
+            }
+        });
+    }
+    function DeletePetBreedbyId(petBreedId) {
+        var checkstr = confirm('Are You Sure You Want To Delete This?');
+        var PetObj = JSON.stringify({ petid: petBreedId });
+        // var item;
+        if (checkstr == true) {
+            $.ajax({
+                url: "/Patients/DeletePetBreedById",
+                data: JSON.parse(PetObj),
+                dataType: 'JSON',
+                type: 'POST',
+                //contentType: 'application/json; charset=utf-8',
+                success: function (result) {
+                    if (result.msg == "Delete Successfull!!") {
+                        alert("Delete Success");
+                        ShowDataInTable();
+                    }
+                },
+                error: function (errormessage) {
+                    alert(errormessage.responseText);
+                }
+            });
+        }
+        else {
+            return false;
+        }
+    }
+    function Editbyid(petBreedId) {
+        // var checkstr = confirm('Are You Sure You Want To Delete This?');
+        var PetObj = JSON.stringify({ petid: petBreedId });
+        // var item;
+
+        $.ajax({
+            url: "/Patients/EditPetBreedById",
+            data: JSON.parse(PetObj),
+            dataType: 'JSON',
+            type: 'POST',
+            //contentType: 'application/json; charset=utf-8',
+            success: function (result) {
+                $('#id').val(result.petBreedId);
+                $('#txtBreedName').val(result.petBreedName);
+                $('#chkStatus').val(result.status);
+                $('#btnSave').val = "UPDATE";
+                ShowDataInTable();
+            },
+            error: function (errormessage) {
+                alert(errormessage.responseText);
+            }
+        });
+
+
+    }
+    ShowDataInTable();
+</script>

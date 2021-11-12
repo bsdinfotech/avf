@@ -1,0 +1,51 @@
+﻿@model CoreMVCApplication.Models.MST_Cma
+@{
+    ViewData["Title"] = "ExcelImport";
+    Layout = "~/Views/Shared/_GlobalLawLayout.cshtml";
+}
+
+<html>
+<head></head>
+<body>
+    <form enctype="multipart/form-data">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-6">
+                    <input type="file" id="fileUpload" name="fileUpload" />
+                </div>
+                <div class="col-md-6">
+                    <input type="submit" value="Upload" id="btnUpload" asp-action="Importexcel1" asp-controller="Patients"  formmethod="post" class="add_button"/>
+                </div>
+            </div>
+        </div>
+        @*<div class="col-md-12">
+            <table class="table" border="1">
+                <thead>
+                    <tr>
+                        <th>cma_name</th>
+                        <th>cma_shortname</th>
+                        <th>cma_parent</th>
+                        <th>cma_type</th>
+                        <th>cma_Status</th>
+                        <th>cma_category</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var list in ViewBag.list as List<MST_Cma>)
+                    {
+                        <tr>
+                            <td>@list.cma_name</td>
+                            <td>@list.cma_shortname</td>
+                            <td>@list.cma_parent</td>
+                            <td>@list.cma_type</td>
+                            <td>@list.cma_Status</td>
+                            <td>@list.cma_category</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>*@
+    </form>
+</body>
+</html>
+

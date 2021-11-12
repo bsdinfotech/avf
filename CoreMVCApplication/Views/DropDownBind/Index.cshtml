@@ -1,0 +1,95 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@*@addTagHelper*, Microsoft.AspNetCore.Mvc.TagHelpers
+@model SelectList
+<select id="ddlType" name="TypeMaster_id" asp-items="Model">
+    <option value="0">Please select</option>
+</select>*@
+@model CoreMVCApplication.Models.Short
+<form asp-action="Index" asp-controller="DropDownBind" method="post">
+    <div class="form-row">
+        <div class="col-6">
+            <select asp-for="type_Master" class="form-control required" id="Website">
+                <option value="">--Select TYpe Master--</option>
+                @if (ViewBag.Websitelist != null)
+                {
+                    foreach (var item in ViewBag.Websitelist as List<SelectListItem>)
+                    {
+                        <option value="@item.Value">@item.Text</option>
+                    }
+                }
+            </select>
+        </div>
+        @*<div class="col-6">
+            <select asp-for="Employment_type" class="form-control required" id="EmploymentType">
+                <option value="">--Select Employment Type--</option>
+                @if (ViewBag.Websitelist != null)
+                {
+                    foreach (var item in ViewBag.Employmenttype as List<SelectListItem>)
+                    {
+                        <option value="@item.Value">@item.Text</option>
+                    }
+                }
+            </select>
+        </div>
+        <div class="clearfix"></div><br />
+        <div class="col-6">
+            <select asp-for="bread_type" class="form-control required" id="BreadType">
+                <option value="">--Select Bread Type--</option>
+                @if (ViewBag.Websitelist != null)
+                {
+                    foreach (var item in ViewBag.breadtype as List<SelectListItem>)
+                    {
+                        <option value="@item.Value">@item.Text</option>
+                    }
+                }
+            </select>
+        </div>
+        <div class="col-6">
+            <select asp-for="prep_type" class="form-control required" id="PrepType">
+                <option value="">--Select prep Type--</option>
+                @if (ViewBag.Websitelist != null)
+                {
+                    foreach (var item in ViewBag.preptype as List<SelectListItem>)
+                    {
+                        <option value="@item.Value">@item.Text</option>
+                    }
+                }
+            </select>
+        </div>*@
+
+        <div class="col-6">
+            <input type="text" asp-for="short_name" maxlength="6" class="form-control" placeholder="Short Name" />
+        </div>
+        <div class="clearfix"></div><br />
+        <div class="col-6">
+            <input type="text" asp-for="Name" class="form-control" placeholder="Name" />
+        </div>
+        <div class="col-6">
+            <input type="checkbox" asp-for="status" class="custom-checkbox" /> Active
+        </div>
+    </div>
+    <input id="btncreate" type="submit" value="Submit" class="btn btn-primary  text-center" style="width:100%" />
+    <br />
+    <table id="showdata">
+        <tr>
+            <th>Type Master</th>
+            <th>Short Name</th>
+            <th>Name</th>
+        </tr>
+        @if(ViewBag.TableList!=null)
+        {
+            foreach(var list in ViewBag.showdata as List<SelectListItem>)
+                {
+                    
+                }
+        }
+
+    </table>
+
+    <h5 class="text-success">@ViewData["msg"]</h5>
+</form>

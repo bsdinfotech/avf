@@ -1,0 +1,21 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model CoreMVCApplication.Models.TypeMode
+<form asp-action="getType" asp-controller="TypeMaster" method="post">
+    <select>
+        <option selected disabled>--Select Type Master--</option>
+        @foreach (var item in Model.type)
+        {
+            <option>
+                @Html.DisplayFor(modelitem => item)
+            </option>
+        }
+    </select>
+
+    <select asp-for="TypeMaster_id" class="form-control"
+            asp-items="@(new SelectList(@ViewBag.MasterTypeList,"id","type" ))">
+    </select>
+</form>

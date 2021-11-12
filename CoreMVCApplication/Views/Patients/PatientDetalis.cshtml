@@ -1,0 +1,382 @@
+﻿@*@model Patient*@
+@model CoreMVCApplication.Models.Patient
+@{
+    ViewData["Title"] = "PatientDetalis";
+    Layout = "~/Views/Shared/_GlobalLawLayout.cshtml";
+}
+<html>
+<head>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        .form_wrapper .collapse.show {
+            display: none;
+        }
+
+        .form_wrapper .collapse {
+            display: block;
+        }
+
+        .row {
+            margin-left: -5px;
+            margin-right: -5px;
+        }
+
+        .col-md-6 {
+            float: left;
+            width: 50%;
+            padding: 5px;
+        }
+
+        /* Clearfix (clear floats) */
+        .row::after {
+            content: "";
+            clear: both;
+            display: table;
+        }
+
+        table {
+            border-collapse: collapse;
+            border-spacing: 0;
+            width: 100%;
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 16px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+
+<body>
+    <form enctype="multipart/form-data">
+        <div class="askforvetss">
+            <div class="dashbord" style=" margin-top:0px !important;">
+                <div class="breadcrum_wrapper">
+                    <ul class="breadcrum">
+                        <li>
+                            <a href="/Patients/Patient">Patient</a>
+                        </li>
+                        <li>
+                            <span class="current"><label asp-for="FullName" id="txt">@Model.FullName</label></span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="frame-heading only-data-grid">
+                    <div class="heading flex-grid">
+                        <div class="title back_button_box"><a href="javascript:void(0)" class="back_button"></a><label asp-for="FullName">@Model.FullName</label></div>
+                    </div>
+                </div>
+                <!--offer section area-->
+                <section class="offer-area section">
+                    <div class="heading-area">
+                        <div class="container">
+                            <div class="offer-tab-link">
+                                <ul class="nav nav-tabs">
+                                    <li><a class="active" href="#PatientDetalis" data-toggle="tab">Patient Details </a></li>
+                                    <li><a href="#MedicalRecords" data-toggle="tab">Medical Records</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="offer-tabs tab-content">
+                        <div class="offerslide tab-pane fade active show" id="PatientDetalis">
+                            <div class="offerItem active">
+                                <div class="offer-detail">
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <input type="hidden" id="PetParent_Id" asp-for="PetParent_Id" />
+                                            <div class="wrap-container">
+                                                <div class="form_wrapper">
+                                                    <div class="form-group">
+                                                        <ul class="form grid-3col">
+                                                            <li>
+                                                                <label>Contact info</label>
+                                                            </li>
+                                                            <li>
+
+                                                            </li>
+                                                            <li>
+                                                                <a href="/Patients/PetParent?petParent_Id=@Model.PetParent_Id" class="fa fa-edit"></a>Edit
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                    <ul class="form grid-col">
+                                                        <li>
+
+                                                            <label asp-for="FullName">Name</label>
+                                                            @Model.FullName
+                                                        </li>
+                                                        @*<li>
+
+                                            <label asp-for="Gender"></label>
+                                            @Model.Gender
+                                        </li>*@
+                                                    </ul>
+                                                    <ul>
+                                                        <li>
+                                                            <label asp-for="Mobile_no">Mobile Number</label>
+                                                            @Model.Mobile_no
+                                                        </li>
+                                                    </ul>
+                                                    <ul>
+                                                        <li>
+                                                            <label asp-for="Email">Email</label>
+                                                            @Model.Email
+                                                        </li>
+                                                    </ul>
+                                                    <ul>
+                                                        <li>
+                                                            <label asp-for="Notes">Notes</label>
+                                                            @Model.Notes
+                                                        </li>
+                                                    </ul>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="col-md-7">
+                                            <div class="wrap-container">
+                                                <div class="row">
+                                                    <div class="col-md-8" style="text-align:left">
+                                                        <div class="form-group">
+                                                            @using (Html.BeginForm())
+                                                            {
+                                                                <p>
+                                                                    <h6><label>@Model.FullName</label></h6>
+                                                                </p>
+                                                            }
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4" style="text-align:right">
+                                                        <div class="form-group">
+                                                            <button style=" width: 100%; background: #652B88; padding: 6px 7px;" type="submit" asp-action="Pet" asp-controller="Patients" formmethod="post" class="btn btn-primary">
+                                                                +Add Pet
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <br /><br />
+                                                <div class="col-md-12">
+                                                    @*<input type="hidden" asp-for="petParent_Id" id="hidPetId" />*@
+                                                    <table style="width:100%">
+                                                        <thead>
+                                                            @foreach (var item in ViewBag.Patient as List<Patient>)
+                                                            {
+                                                                var iPhotoUrl = "";
+                                                                if (item.Pet_Image != null)
+                                                                {
+                                                                    iPhotoUrl = "/Images/" + item.Pet_Image;
+                                                                }
+                                                                else { iPhotoUrl = "/image/dummy-pic.png"; }
+                                                                <tr>
+                                                                    <td hidden>
+                                                                        @item.Pet_id
+                                                                    </td>
+                                                                    <td>
+                                                                        <img class="float-left p-2" src="@iPhotoUrl" style="height:85px;width:85px" />
+                                                                    </td>
+                                                                    <td>
+                                                                        @item.PetName
+
+                                                                    </td>
+                                                                    <td>
+                                                                        @item.Pet_DOB
+                                                                    </td>
+                                                                    <td>
+                                                                        <h6><a class="fa fa-edit" href="/Patients/Pet?Pet_id=@item.Pet_id"></a></h6>
+                                                                    </td>
+                                                                    <td>
+                                                                        <a class="fa fa-chevron-down" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample" onclick="return Editbyid(@item.Pet_id)">
+                                                                        </a>
+                                                                    </td>
+                                                                </tr>
+                                                            }
+                                                        </thead>
+                                                    </table>
+                                                </div>
+                                                <div class="form_wrapper wd6" style="height:400px">
+                                                    <div id="collapseExample" aria-hidden="true" class="collapse show">
+                                                        <input type="hidden" asp-for="Pet_id" id="hidPetId" />
+                                                        <ul class="form grid-2col">
+                                                            <li>
+                                                                <label>Pet Photo</label>
+                                                                <img class="float-left p-2" src="" style="height:85px;width:85px" id="slpetPh" />
+                                                            </li>
+                                                            <li>
+                                                                <label>QR Code</label>
+                                                                @*<img class="float-left p-2" style="height:75px;width:75px" />*@
+                                                                <img src="" class="img-thumbnail"  style="height: 110px; width: 150px" id="ImgQR"/>
+                                                            </li>
+                                                            <li>
+                                                                <label asp-for="Pet_id">Patient ID</label>
+                                                                <span id="slpetid"></span>
+                                                            </li>
+                                                        </ul>
+                                                        <ul class="form grid-3col">
+                                                            <li>
+                                                                <label asp-for="PetGender">Gender</label>
+                                                                <span id="slgender"></span>
+                                                            </li>
+                                                            <li>
+                                                                <label asp-for="Colour">Color</label>
+                                                                <span id="slColour"></span>
+                                                            </li>
+                                                            <li>
+                                                                <label asp-for="Breed">Breed</label>
+                                                                <span id="slbreed"></span>
+                                                            </li>
+                                                        </ul>
+                                                        <ul class="form grid-3col">
+                                                            <li>
+                                                                <label asp-for="Pet_DOB">DOB</label>
+                                                                <span id="slDob"></span>
+                                                            </li>
+                                                            <li>
+                                                                <label asp-for="Pet_Weight" for="txtWeight">Weight</label>
+                                                                <span id="slWeight"></span>
+                                                            </li>
+                                                            <li>
+                                                                <label asp-for="AdoptedOn">Adopted On</label>
+                                                                <span id="slAdopted"></span>
+                                                            </li>
+                                                        </ul>
+                                                        <ul class="form grid-3col">
+                                                            <li>
+                                                                <label asp-for="MicrochipNo">Microchip No.</label>
+                                                                <span id="slmicrochipNo"></span>
+                                                            </li>
+                                                            <li>
+                                                                <label asp-for="DateOfChipping">Date of Chipping</label>
+                                                                <span id="slDateChipping"></span>
+                                                            </li>
+                                                            <li>
+                                                                <label asp-for="Spay_Meutered">Spay/Neutered</label>
+                                                                <span id="slspay"></span>
+                                                            </li>
+                                                        </ul>
+                                                        <ul class="form grid-3col">
+                                                            <li>
+                                                                <label asp-for="Loc_Chipping">Local of Chipping</label>
+                                                                <span id="sllocalChipping"></span>
+                                                            </li>
+                                                            <li>
+                                                                <label asp-for="Insurance">Insurance</label>
+                                                                <span id="slinsurance"></span>
+                                                            </li>
+                                                            <li>
+                                                                <label asp-for="PetNotes">Notes</label>
+                                                                <span id="slNotes"></span>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="offerslide tab-pane fade" id="MedicalRecords">
+                            <div class="offerItem active">
+                                <div class="offer-detail">
+                                    <div class="wrap-container only-saprate-table">
+                                        <div class="col-md-12">
+                                            <div class="row">
+                                                <div class="col-md-9">
+                                                    <h5>Appointment History</h5>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <button style=" width: 100%; background: #652B88; padding: 6px 7px;" type="submit" asp-action="PetAppointment" asp-controller="Patients" formmethod="post" class="btn btn-primary">
+                                                            +Add Appointment
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                @foreach (var item in ViewBag.Patient as List<Patient>)
+                                                {
+                                                    <div style="display:none">
+                                                        @item.Pet_id
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="heading-area">
+                                                            <div class="container">
+                                                                <div class="offer-tab-link">
+                                                                    <ul class="nav nav-tabs">
+                                                                        <li><a  href="#MedicalRecord" data-toggle="tab" onclick="return MedicalRecord(@item.Pet_id)">@item.PetName</a></li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                }
+                                            </div>
+                                            <hr />
+                                        </div>
+                                        <div id="MedicalRecord" class="offerslide tab-pane fade active show">
+                                            <div class="offerItem active">
+                                                <div class="offer-detail">
+                                                   <div>
+
+                                                   </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!--offer section area end-->  
+            </div>
+        </div>
+    </form>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script>
+        function Editbyid(pet_id) {
+            // var checkstr = confirm('Are You Sure You Want To Delete This?');
+            var PetObj = JSON.stringify({ pet_id: pet_id });
+            $.ajax({
+                url: "/Patients/PatientDetalisById",
+                data: JSON.parse(PetObj),
+                dataType: 'JSON',
+                type: 'POST',
+                success: function (result) {
+                    $('#hidPetId').html(result.pet_id);
+                    $('#slpetPh').attr('src', "/Images/" + result.pet_Image + "");
+                    $('#ImgQR').attr('src',  result.qr );
+                    $('#slpetid').html(result.pet_id);
+                    $('#slgender').html(result.petGender);
+                    $('#slColour').html(result.colour);
+                    $('#slbreed').html(result.breed);
+                    $('#slDob').html(result.pet_DOB);
+                    $('#slWeight').html(result.pet_Weight)
+                    $('#slAdopted').html(result.adoptedOn);
+                    $('#slmicrochipNo').html(result.microchipNo);
+                    $('#slDateChipping').html(result.dateOfChipping);
+                    $('#slspay').html(result.spay_Meutered);
+                    $('#sllocalChipping').html(result.loc_Chipping);
+                    $('#slinsurance').html(result.insurance);
+                    $('#slNotes').html(result.petNotes);
+                },
+                error: function () {
+                    alert("Data Not Founf !!");
+                }
+            });
+        }
+
+    </script>
+
+</body>
+</html>

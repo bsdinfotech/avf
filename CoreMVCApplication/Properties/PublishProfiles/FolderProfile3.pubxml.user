@@ -1,0 +1,210 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <_PublishTargetUrl>D:\Publish</_PublishTargetUrl>
+    <History>True|2021-11-11T12:08:30.5515101Z;True|2021-11-09T17:19:20.7890425+05:30;True|2021-11-02T10:49:10.6971208+05:30;True|2021-11-02T10:13:51.5346262+05:30;True|2021-11-02T09:50:22.3473439+05:30;True|2021-11-01T18:03:36.4081865+05:30;True|2021-10-26T14:19:53.5708571+05:30;True|2021-10-23T11:55:04.6361630+05:30;True|2021-10-18T15:46:06.0338763+05:30;True|2021-10-18T15:42:39.1376876+05:30;True|2021-10-18T14:53:59.9260157+05:30;True|2021-09-23T17:57:30.5457922+05:30;True|2021-09-23T17:24:08.2298890+05:30;True|2021-09-14T15:29:34.0532145+05:30;True|2021-09-14T14:13:03.6736716+05:30;True|2021-09-13T15:09:56.1495033+05:30;</History>
+  </PropertyGroup>
+  <ItemGroup>
+    <File Include="Controllers/Patients.cs">
+      <publishTime>10/18/2021 14:26:48</publishTime>
+    </File>
+    <File Include="Controllers/UserController.cs">
+      <publishTime>10/16/2021 10:26:28</publishTime>
+    </File>
+    <File Include="Models/AddInventory.cs">
+      <publishTime>09/15/2021 15:13:16</publishTime>
+    </File>
+    <File Include="Models/AdminUserMaster.cs">
+      <publishTime>10/04/2021 10:42:51</publishTime>
+    </File>
+    <File Include="Models/AdminUserProfile.cs">
+      <publishTime>08/24/2021 11:40:20</publishTime>
+    </File>
+    <File Include="Models/ApplicationUser.cs">
+      <publishTime>08/18/2021 14:43:44</publishTime>
+    </File>
+    <File Include="Models/Doctors.cs">
+      <publishTime>09/07/2021 10:24:38</publishTime>
+    </File>
+    <File Include="Models/ErrorViewModel.cs">
+      <publishTime>08/17/2021 11:42:42</publishTime>
+    </File>
+    <File Include="Models/FileUpload.cs">
+      <publishTime>09/17/2021 17:36:25</publishTime>
+    </File>
+    <File Include="Models/GoogleAuthentication.cs">
+      <publishTime>08/27/2021 10:30:51</publishTime>
+    </File>
+    <File Include="Models/Image.cs">
+      <publishTime>08/18/2021 11:27:25</publishTime>
+    </File>
+    <File Include="Models/ImagingRequest.cs">
+      <publishTime>09/24/2021 16:58:30</publishTime>
+    </File>
+    <File Include="Models/Incidents.cs">
+      <publishTime>09/09/2021 12:02:58</publishTime>
+    </File>
+    <File Include="Models/InventorDetails.cs">
+      <publishTime>08/28/2021 10:27:08</publishTime>
+    </File>
+    <File Include="Models/InventoryRecieved.cs">
+      <publishTime>09/09/2021 16:02:06</publishTime>
+    </File>
+    <File Include="Models/Labs.cs">
+      <publishTime>09/24/2021 16:25:22</publishTime>
+    </File>
+    <File Include="Models/Login.cs">
+      <publishTime>08/18/2021 11:24:49</publishTime>
+    </File>
+    <File Include="Models/MarketPlace.cs">
+      <publishTime>09/21/2021 16:33:56</publishTime>
+    </File>
+    <File Include="Models/Menu.cs">
+      <publishTime>08/25/2021 16:09:26</publishTime>
+    </File>
+    <File Include="Models/MenuList.cs">
+      <publishTime>08/28/2021 12:11:19</publishTime>
+    </File>
+    <File Include="Models/MenuMaster.cs">
+      <publishTime>08/25/2021 10:50:01</publishTime>
+    </File>
+    <File Include="Models/MST_Cma.cs">
+      <publishTime>09/18/2021 09:35:18</publishTime>
+    </File>
+    <File Include="Models/NewInvoice.cs">
+      <publishTime>10/11/2021 18:01:30</publishTime>
+    </File>
+    <File Include="Models/NewPharmacyRequest.cs">
+      <publishTime>09/22/2021 12:35:05</publishTime>
+    </File>
+    <File Include="Models/Patient.cs">
+      <publishTime>10/16/2021 17:21:13</publishTime>
+    </File>
+    <File Include="Models/PatientAppointment.cs">
+      <publishTime>10/18/2021 11:46:19</publishTime>
+    </File>
+    <File Include="Models/PetBreed.cs">
+      <publishTime>09/02/2021 10:51:20</publishTime>
+    </File>
+    <File Include="Models/PetDetails.cs">
+      <publishTime>10/16/2021 13:10:55</publishTime>
+    </File>
+    <File Include="Models/PetParent.cs">
+      <publishTime>09/14/2021 14:11:08</publishTime>
+    </File>
+    <File Include="Models/Pricing.cs">
+      <publishTime>09/15/2021 15:30:37</publishTime>
+    </File>
+    <File Include="Models/Report.cs">
+      <publishTime>10/04/2021 17:59:26</publishTime>
+    </File>
+    <File Include="Models/Short.cs">
+      <publishTime>08/20/2021 14:43:19</publishTime>
+    </File>
+    <File Include="Models/SignUp.cs">
+      <publishTime>10/13/2021 10:19:40</publishTime>
+    </File>
+    <File Include="Models/TypeMode.cs">
+      <publishTime>08/20/2021 14:31:30</publishTime>
+    </File>
+    <File Include="Models/User.cs">
+      <publishTime>10/04/2021 11:08:02</publishTime>
+    </File>
+    <File Include="Views/Patients/AddNewInventory.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Views/Patients/addpatient.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Views/Patients/Billing.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Views/Patients/Breed.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Views/Patients/Dashboard.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Views/Patients/Doctors.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Views/Patients/ExcelImport.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Views/Patients/ImagingRequest.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Views/Patients/Incidents.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Views/Patients/Inventory.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Views/Patients/InventoryRecievedItem.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Views/Patients/LabReport.cshtml">
+      <publishTime>04/10/2021 17:57:24</publishTime>
+    </File>
+    <File Include="Views/Patients/Labs.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Views/Patients/MarketPlace.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Views/Patients/MST_CMA.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Views/Patients/NewInvoice.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Views/Patients/Pagination_table.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Views/Patients/Patient.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Views/Patients/PatientDetalis.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Views/Patients/Pet.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Views/Patients/PetAppointment.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Views/Patients/PetBreed.cshtml">
+      <publishTime>09/10/2021 16:41:47</publishTime>
+    </File>
+    <File Include="Views/Patients/PetParent.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Views/Patients/Ph.cshtml">
+      <publishTime>08/09/2021 09:43:27</publishTime>
+    </File>
+    <File Include="Views/Patients/Pharmacy.cshtml">
+      <publishTime>09/10/2021 17:08:46</publishTime>
+    </File>
+    <File Include="Views/Patients/Pricing.cshtml">
+      <publishTime>09/10/2021 17:25:07</publishTime>
+    </File>
+    <File Include="Views/Patients/Setting.cshtml">
+      <publishTime>04/10/2021 11:08:49</publishTime>
+    </File>
+    <File Include="Views/User/SignIn.cshtml">
+      <publishTime>10/13/2021 10:29:01</publishTime>
+    </File>
+    <File Include="Views/User/SignUp.cshtml">
+      <publishTime>10/14/2021 16:09:31</publishTime>
+    </File>
+    <File Include="wwwroot/css/Patient.css">
+      <publishTime>10/18/2021 14:47:46</publishTime>
+    </File>
+    <File Include="wwwroot/css/Patient.scss">
+      <publishTime>10/13/2021 16:53:37</publishTime>
+    </File>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,285 @@
+﻿@using CoreMVCApplication.Models
+@model MenuMaster
+@{
+    Layout = "_GlobalLawLayout";
+}
+<html>
+<head>
+</head>
+<body>
+    <div>
+        <form class="form-row" enctype="multipart/form-data">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h6>Menu Master</h6>
+                        <hr />
+                    </div>
+                    <div>
+                        <input type="hidden" asp-for="id" id="id" />
+                        <input type="hidden" asp-for="ExistingImage" id="ExistingImage" />
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Name <span class="required">*</span></label>
+                            <input type="text" asp-for="Name" id="Name" class="form-control required" placeholder="Enter Name" />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Short Name<span class="required">*</span></label>
+                            <input type="text" asp-for="ShortName" id="ShortName" class="form-control required" placeholder="Enter Short Name" maxlength="6" />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>View</label>
+                            <div class="clearfix"></div>
+                            <input type="checkbox" asp-for="Views" class="custom-radio" id="Views" /> View &nbsp;&nbsp;
+                            <input type="checkbox" asp-for="Adds" class="custom-radio" id="Adds" />Add  &nbsp;&nbsp;
+                            <input type="checkbox" asp-for="Modify" class="custom-radio" id="Modify" /> Modify  &nbsp;&nbsp;
+                            <input type="checkbox" asp-for="inquire" class="custom-radio" id="inquire"/> Inquiry  &nbsp;&nbsp;
+                            <input type="checkbox" asp-for="deleted" class="custom-radio" id="deleted"/> Delete  &nbsp;&nbsp;
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Parent</label>
+                            <input type="checkbox" asp-for="Parent" onclick="enableTextPageName();" id="Parent" class="custom-radio" /> Parent
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Page Name<span class="required">*</span></label>
+                            <input type="text" asp-for="PageName" id="PageName" class="form-control" placeholder="Enter Page Name" />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Menu Parent</label>
+                            <select class="form-control required" asp-for="MenuParents" id="MenuParent">
+                                <option value="">--Select Parent--</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Menu Image</label>
+                            <input type="file" name="MenuImageFile" id="MenuImageFile" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Print  order<span class="required">*</span></label>
+                            <input type="text" asp-for="PrintOrder" id="PrintOrder" value="@ViewBag.PrintOrderValue" readonly="readonly" class="form-control" placeholder="Enter Print Order" />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Other</label>
+                            <input type="checkbox" id="other1chk" onclick="ShowHideText(this);" class="custom-checkbox" />Other1&nbsp;&nbsp;
+                            <input type="checkbox" id="other2chk" onclick="ShowHideOther2Text(this);" class="custom-checkbox" />Other2&nbsp;&nbsp;
+                            <input type="checkbox" id="other3chk" onclick="ShowHideOther3Text(this)" class="custom-checkbox" />Other3&nbsp;&nbsp;
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div id="dvtxtother1" style="display:none">
+                            <div class="form-group">
+                                <label>Other 1<span class="required"></span>*</label>
+                                <input type="text" class="form-control" id="txtother1"  asp-for="Other1" placeholder="Other1" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div id="dvtxtother2" style="display:none;">
+                            <div class="form-group">
+                                <label>Other 2</label>
+                                <input type="text" class="form-control" asp-for="Other2" id="txtother2" placeholder="Other2" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div id="dvtxtother3" style="display:none;">
+                            <div class="form-group">
+                                <label>Other 3</label>
+                                <input type="text" class="form-control" asp-for="Other3" id="txtother3" placeholder="Other3" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Status<span class="required">*</span></label>
+                            <input type="checkbox" asp-for="Status" id="chkstatus" class="custom-checkbox" />Active
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <input type="submit" value="@ViewBag.SubmitValue" asp-controller="Admin" asp-action="MenuMasterSaveUpdate" formmethod="post" class="btn-primary text-center" id="btnsave" />
+                    </div>
+                    <div class="col-md-8">
+                        <h6 class="text-success">@ViewData["msg"]</h6>
+                    </div>
+                </div>
+            </div>
+            <br /><br /><br /><br />
+            <div class="col-md-12 main-table">
+                <table id="ImgRequest" class="table">
+                    <thead>
+                        <tr style="background: #F5F5FA !important;">
+                            <th>Name</th>
+                            <th>Short Name</th>
+                            <th>Page Name</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody class="tbodyData"></tbody>
+                </table>
+            </div>
+        </form>
+    </div>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript" language="javascript">
+        function ShowDataInTable() {
+            var item;
+            $.ajax({
+                url: "/Admin/GetAllMenuList",
+                data: JSON.stringify(item),
+                dataType: 'JSON',
+                type: 'GET',
+                contentType: 'application/json; charset=utf-8',
+                success: function (data) {
+                    var html = '';
+                    var index = 1;
+                    $.each(data, function (key, item) {
+                        html += '<tr>';
+                        // html += '<td>' + index + '</td>';
+                        // html += '<td>' + item.id + '</td>';
+                        html += '<td>' + item.name + '</td>';
+                        html += '<td>' + item.shortName + '</td>';
+                        html += '<td>' + item.pageName + '</td>';
+                        html += '<td>' + item.status + '</td>';
+                        html += '<td><a class="btn btn-primary btn-sm" href="#" onclick="return EditMenuById(' + item.id + ')">Edit</a> <a class="btn btn-danger btn-sm" href="#" onclick="return DeleteMenuById(' + item.id + ')">Delete</a></td>';
+                        //  html += '<td><a class="btn btn-danger btn-sm" href="#" onclick="return DeleteImagingById(' + item.lab_Id + ')">Delete</a></td>';
+                        html += '</tr>';
+                        index++;
+                    });
+                    $('.tbodyData').html(html);
+                }
+            });
+        }
+        function DeleteMenuById(id) {
+            var checkstr = confirm('Are You Sure You Want To Delete This?');
+            var PetObj = JSON.stringify({ id: id });
+            // var item;
+            if (checkstr == true) {
+                $.ajax({
+                    url: "/Admin/DeleteMenuList",
+                    data: JSON.parse(PetObj),
+                    dataType: 'JSON',
+                    type: 'POST',
+                    //contentType: 'application/json; charset=utf-8',
+                    success: function (result) {
+                        if (result.msg == "Delete Successfull!!") {
+                            alert("Delete Success");
+                            ShowDataInTable();
+                        }
+                    },
+                    error: function (errormessage) {
+                        alert(errormessage.responseText);
+                    }
+                });
+            }
+            else {
+                return false;
+            }
+        }
+        function EditMenuById(id) {
+            // var checkstr = confirm('Are You Sure You Want To Delete This?');
+            var PetObj = JSON.stringify({ id: id });
+            // var item;
+            $.ajax({
+                url: "/Admin/EditMenuById",
+                data: JSON.parse(PetObj),
+                dataType: 'JSON',
+                type: 'POST',
+                //contentType: 'application/json; charset=utf-8',
+                success: function (result) {
+                    $('#btnsave').text = "UPDATE";
+                    $('#id').val(result.id);
+                    $('#ExistingImage').val(result.existingImage); 
+                    $('#Name').val(result.name);
+                    $('#ShortName').val(result.shortName);
+                    $('#Views').val(result.views);
+                    $('#Adds').val(result.adds);
+                    $('#Modify').val(result.modify);
+                    $('#inquire').val(result.inquire);
+                    $('#deleted').val(result.deleted);
+                    $('#Parent').val(result.parent);
+                    $('#PageName').val(result.pageName);
+                    $('#MenuParent').val(result.menuParents);
+                    $('#PrintOrder').val(result.printOrder);
+                    $('#txtother1').val(result.other1);
+                    $('#txtother2').val(result.other2);
+                    $('#txtother3').val(result.other3);
+                    $('#chkstatus').val(result.status);
+                    ShowDataInTable();
+                },
+                error: function (errormessage) {
+                    alert(errormessage.responseText);
+                }
+            });
+        }
+       
+        function enableTextPageName() {
+            if (document.getElementById("chkParent").checked == true) {
+                document.getElementById("txtPageName").disabled = false;
+                document.getElementById('txtPageName').value = "";
+            }
+            else {
+                document.getElementById("txtPageName").disabled = true;
+                document.getElementById('txtPageName').value = "#";
+            }
+        }
+
+        function ShowHideText(other1chk) {
+            var dvtxtother1 = document.getElementById("dvtxtother1");
+            dvtxtother1.style.display = other1chk.checked ? "block" : "none";
+        }
+        function ShowHideOther2Text(other2chk) {
+            var dvtxtother2 = document.getElementById("dvtxtother2");
+            dvtxtother2.style.display = other2chk.checked ? "block" : "none";
+        }
+        function ShowHideOther3Text(other3chk) {
+            var dvtxtother3 = document.getElementById("dvtxtother3");
+            dvtxtother3.style.display = other3chk.checked ? "block" : "none";
+        }
+
+        function Validation() {
+            var name, shortname, pagename, printorder, status;
+            name = document.getElementById("txtname").value;
+            shortname = document.getElementById("txtShortname").value;
+            pagename = document.getElementById("txtPageName").value;
+            printorder = document.getElementById("txtPrintOrder").value;
+            //status = document.getElementById("chkstatus").value;
+            if (name == '') {
+                alert("Enter Name!!");
+                return false;
+            }
+            if (shortname == '') {
+                alert("Enter Short name!!");
+                return false;
+            }
+            if (pagename == '') {
+                alert("Enter Page name!!");
+                return false;
+            }
+            if (printorder == '') {
+                alert("Enter Print order!!");
+                return false;
+            }
+            return true;
+        }
+        ShowDataInTable();
+    </script>
+</body>
+</html>

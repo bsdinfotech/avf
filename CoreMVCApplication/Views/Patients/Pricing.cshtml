@@ -1,0 +1,500 @@
+﻿
+@{
+    ViewData["Title"] = "Pricing";
+    Layout = "~/Views/Shared/_GlobalLawLayout.cshtml";
+}
+<html>
+<head>
+</head>
+<body>
+    <div class="PetAppointment">
+        <form>
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-10">
+                        <h5>Pricing</h5>
+                    </div>
+                    <div class="col-md-2">
+                        <button type="button" class="btn" style="background: #652B88; width: 100%;color:white; padding: 6px 7px;" data-toggle="modal" data-target="#pricingModal">+Add New Item</button>
+                    </div>
+                </div>
+            </div>
+            <br />
+            <div class="clearfix"></div>
+            <section class="offer-area section">
+                <div class="heading-area">
+                    <div class="container">
+                        <div class="offer-tab-link">
+                            <ul class="nav nav-tabs">
+                                <li><a class="active" href="#AllItem" data-toggle="tab">All Item</a></li>
+                                <li><a href="#ImagingPricing" data-toggle="tab">Imaging Pricing</a></li>
+                                <li><a href="#LabPricing" data-toggle="tab">Lab Pricing</a></li>
+                                <li><a href="#ProcedurePricing" data-toggle="tab">Procedure Pricing</a></li>
+                                <li><a href="#WordPricing" data-toggle="tab">Word Pricing</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="offer-tabs tab-content">
+                    <div class="offerslide tab-pane fade active show" id="AllItem">
+                        <div class="offerItem active">
+                            <div class="offer-detail" style="width:100% !important">
+                                <div class="row">
+                                    <div class="col-md-12 main-table">
+                                        <table class="table" style="width:100%">
+                                            <thead>
+                                                <tr style="background: #F5F5FA !important;">
+                                                    @*<th>Index</th>*@
+                                                    <th>Item Name</th>
+                                                    <th>Category</th>
+                                                    <th>Price</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="AllItemtbodyData"></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="offerslide tab-pane fade" id="ImagingPricing">
+                        <div class="offerItem active">
+                            <div class="offer-detail">
+                                <div class="row">
+                                    <div class="col-md-12 main-table">
+                                        <table class="table" style="width:100%">
+                                            <thead>
+                                                <tr style="background: #F5F5FA !important;">
+                                                    @*<th>Index</th>*@
+                                                    <th>Item Name</th>
+                                                    <th>Category</th>
+                                                    <th>Price</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="ImgPricetbodyData"></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="offerslide tab-pane fade" id="LabPricing">
+                        <div class="offerItem active">
+                            <div class="offer-detail">
+                                <div class="row">
+                                    <div class="col-md-12 main-table">
+                                        <table class="table" style="width:100%">
+                                            <thead>
+                                                <tr style="background: #F5F5FA !important;">
+                                                    @*<th>Index</th>*@
+                                                    <th>Item Name</th>
+                                                    <th>Category</th>
+                                                    <th>Price</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="LabPricetbodyData"></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="offerslide tab-pane fade" id="ProcedurePricing">
+                        <div class="offerItem active">
+                            <div class="offer-detail">
+                                <div class="row">
+                                    <div class="col-md-12 main-table">
+                                        <table class="table" style="width:100%">
+                                            <thead>
+                                                <tr style="background: #F5F5FA !important;">
+                                                    @*<th>Index</th>*@
+                                                    <th>Item Name</th>
+                                                    <th>Category</th>
+                                                    <th>Price</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="ProcPricetbodyData"></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="offerslide tab-pane fade" id="WordPricing">
+                        <div class="offerItem active">
+                            <div class="offer-detail">
+                                <div class="row">
+                                    <div class="col-md-12 main-table">
+                                        <table class="table" style="width:100%">
+                                            <thead>
+                                                <tr style="background: #F5F5FA !important;">
+                                                    @*<th>Index</th>*@
+                                                    <th>Item Name</th>
+                                                    <th>Category</th>
+                                                    <th>Price</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="WordtbodyData"></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+
+            
+
+      
+            <div class="modal fade" id="pricingModal" tabindex="-1" aria-labelledby="pricingModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="pricingModalLabel">Add New Item</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <input type="hidden" id="id" />
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Item Name</label>
+                                            <input type="text" id="txtItemName" class="inputText" required placeholder="Item Name" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Category</label>
+                                            <select id="ddlPriceCategory" required>
+                                                <option value="">--Select Category--</option>
+                                                @if (ViewBag.PriceCategory != null)
+                                                {
+                                                    foreach (var item in ViewBag.PriceCategory as List<SelectListItem>)
+                                                    {
+                                                        <option value="@item.Value">@item.Text</option>
+                                                    }
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Price</label>
+                                            <input type="text" id="txtPrice" required placeholder="Price" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+
+                                    </div>
+                                    <div class="col-md-2">
+                                        <input type="button" value="Cancel" style="padding: 6px 11px; color: black; font-size: 14px; width: 100%; height: 34px; text-align: center; border: 1px solid #D8D8DC; border-radius: 8px; background-color: #efefef;" class="btn" id="btnCancel" />
+                                    </div>
+                                    <div class="col-md-4">
+                                        <button type="button" class="btn" style=" background: #652B88; border-radius: 7px; border: none; padding: 9px; padding: 6px 15px; color: white; font-size: 14px; width: -webkit-fill-available; margin-bottom: 20px;" id="btnAdd" onclick="return ItemPriceAdd();">+Add Item</button>
+                                        @*<input type="button" value="+Add Item" class="btn-primary btn" id="btnAdd" onclick="ItemPriceAdd()"/>*@
+                                    </div>
+                                    @*@if (ViewBag.Message != null)
+                                {
+                                    <script type="text/javascript">
+                                         window.onload = function () {
+                                                alert("@ViewBag.Message");
+                                            };
+                                    </script>
+                                }*@
+                                </div>
+                            </div>
+                        </div>
+                        @*<div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>*@
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script>
+        function ItemPriceAdd() {
+            var msg = validate();
+           // if (msg != "") {
+           //     alert(msg);
+           // }
+           //// alert(msg);
+            if (msg == "") {
+                id = $('#id').val();
+                ItemName = $('#txtItemName').val();
+                PriceCategory = $('#ddlPriceCategory').val();
+                Price = $('#txtPrice').val();
+                $.ajax({
+                    url: "/Patients/SaveUpdatePricing",
+                    type: 'POST',
+                    data: { id: id, ItemName: ItemName, PriceCategory: PriceCategory, Price: Price },
+                    dataType: 'JSON',
+                    //data: JSON.stringify(obj),
+                    success: function (result) {
+                        if (result.msg == "Success") {
+                            if ($('#btnAdd').val == "Update") {
+                                alert("Price Update Successs !!");
+                            }
+                            else { alert("Price added successfully."); }
+                            PricingClear();
+                        }
+                        else {
+                            alert("Price not added.");
+                            PricingClear();
+                        }
+                    },
+                    error: function () {
+                        alert(errormessage.responseText);
+                    }
+                });
+            }
+            else {
+                alert(msg);
+            }
+            
+        }
+        function PricingClear() {
+            $('#txtItemName').val("");
+            $('#ddlPriceCategory').val("");
+            $('#txtPrice').val("");
+        }
+        function ShowDataInTable() {
+            var item;
+            $.ajax({
+                url: "/Patients/GetAllDataofPricing",
+                data: JSON.stringify(item),
+                dataType: 'JSON',
+                type: 'GET',
+                contentType: 'application/json; charset=utf-8',
+                success: function (data) {
+                    var html = '';
+                    var index = 1;
+                    $.each(data, function (key, item) {
+                        html += '<tr>';
+                        // html += '<td>' + index + '</td>';
+                      //  html += '<td>' + item.pricing_Id + '</td>';
+                        html += '<td>' + item.itemName + '</td>';
+                        html += '<td>' + item.category + '</td>';
+                        html += '<td>' + item.price + '</td>';
+                        html += '<td><a class="btn btn-sm" href="#" onclick="return EditPricingById(' + item.pricing_Id + ')" data-toggle="modal" data-target="#pricingModal" ><i class="fa fa-edit"></i></a> <a class="btn btn-sm" href="#" onclick="return DeletePricingById(' + item.pricing_Id + ')"><i class="fa fa-trash-o"></i></a></td>';
+                       // html += '<td><a class="btn btn-danger btn-sm" href="#" onclick="return DeletePharmacybyId(' + item.pricing_Id + ')">Delete</a></td>';
+                        html += '</tr>';
+                        index++;
+                    });
+                    $('.AllItemtbodyData').html(html);
+                }
+            });
+        }
+        function EditPricingById(pricing_Id) {
+            // var checkstr = confirm('Are You Sure You Want To Delete This?');
+            var PetObj = JSON.stringify({ pricing_Id: pricing_Id });
+            // var item;
+
+            $.ajax({
+                url: "/Patients/EditPricingById",
+                data: JSON.parse(PetObj),
+                dataType: 'JSON',
+                type: 'POST',
+                //contentType: 'application/json; charset=utf-8',
+                success: function (result) {
+                    //$('#btnSave').text = "UPDATE";
+                    $('#id').val(result.pricing_Id);
+                    $('#txtItemName').val(result.itemName);
+                    $('#ddlPriceCategory').val(result.category);
+                    $('#txtPrice').val(result.price);
+                    $('#btnAdd').val("Update");
+                    ShowDataInTable();
+                },
+                error: function (errormessage) {
+                    alert(errormessage.responseText);
+                }
+            });
+        }
+        function DeletePricingById(pricing_Id) {
+            var checkstr = confirm('Are You Sure You Want To Delete This?');
+            var PetObj = JSON.stringify({ pricing_Id: pricing_Id });
+            // var item;
+            if (checkstr == true) {
+                $.ajax({
+                    url: "/Patients/DeletePricingById",
+                    data: JSON.parse(PetObj),
+                    dataType: 'JSON',
+                    type: 'POST',
+                    //contentType: 'application/json; charset=utf-8',
+                    success: function (result) {
+                        if (result.msg == "Delete Successfull!!") {
+                            alert("Delete Success");
+                            ShowDataInTable();
+                        }
+                    },
+                    error: function (errormessage) {
+                        alert(errormessage.responseText);
+                    }
+                });
+            }
+            else {
+                return false;
+            }
+        }
+        //function Validation() {
+        //    var msg = "",
+        //    if ($('#txtItemName').val() == '') { msg = "Item Name can not left Blank !! " };
+        //    if ($('#ddlPriceCategory').val() == '') { msg = "Category can not left Blank !! " };
+        //    if ($('#txtPrice').val() == '') { msg = "Price can not left Blank !! " };
+        //    if (msg != "") {
+        //        alert(msg);
+        //        return false;
+        //    }
+           
+        //}
+        function validate() {
+            if ($('#txtItemName').val().trim() == "") {
+                return("Item Name can not left Blank !!");
+                //return false;
+                //isValid = false;
+            }
+            if ($('#ddlPriceCategory').val().trim() == "") {
+                return("Category can not left Blank !!");
+                //return false;
+            }
+            if ($('#txtPrice').val().trim() == "") {
+                return("Price can not left Blank !!");
+                //return false;
+            }
+            return "";
+        }
+        //document.getElementById("txtItemName").focus();
+      ///  document.getElementById("txtPrice").focus();
+        function ShowImgingPriceData() {
+            var item;
+            $.ajax({
+                url: "/Patients/ImagingPriceDataShow",
+                data: JSON.stringify(item),
+                dataType: 'JSON',
+                type: 'GET',
+                contentType: 'application/json; charset=utf-8',
+                success: function (data) {
+                    var html = '';
+                    var index = 1;
+                    $.each(data, function (key, item) {
+                        html += '<tr>';
+                        // html += '<td>' + index + '</td>';
+                        //  html += '<td>' + item.pricing_Id + '</td>';
+                        html += '<td>' + item.itemName + '</td>';
+                        html += '<td>' + item.category + '</td>';
+                        html += '<td>' + item.price + '</td>';
+                        html += '<td><a class="btn btn-sm" href="#" onclick="return EditPricingById(' + item.pricing_Id + ')" data-toggle="modal" data-target="#pricingModal" ><i class="fa fa-edit"></i></a> <a class="btn  btn-sm" href="#" onclick="return DeletePricingById(' + item.pricing_Id + ')"><i class="fa fa-trash-o"></i></a></td>';
+                        // html += '<td><a class="btn btn-danger btn-sm" href="#" onclick="return DeletePharmacybyId(' + item.pricing_Id + ')">Delete</a></td>';
+                        html += '</tr>';
+                        index++;
+                    });
+                    $('.ImgPricetbodyData').html(html);
+                }
+            });
+        }
+        function LabPriceDataShow() {
+            var item;
+            $.ajax({
+                url: "/Patients/LabPriceDataShow",
+                data: JSON.stringify(item),
+                dataType: 'JSON',
+                type: 'GET',
+                contentType: 'application/json; charset=utf-8',
+                success: function (data) {
+                    var html = '';
+                    var index = 1;
+                    $.each(data, function (key, item) {
+                        html += '<tr>';
+                        // html += '<td>' + index + '</td>';
+                        //  html += '<td>' + item.pricing_Id + '</td>';
+                        html += '<td>' + item.itemName + '</td>';
+                        html += '<td>' + item.category + '</td>';
+                        html += '<td>' + item.price + '</td>';
+                        html += '<td><a class="btn  btn-sm" href="#" onclick="return EditPricingById(' + item.pricing_Id + ')" data-toggle="modal" data-target="#pricingModal" ><i class="fa fa-edit"></i></a> <a class="btn btn-sm" href="#" onclick="return DeletePricingById(' + item.pricing_Id + ')"><i class="fa fa-trash-o"></i></a></td>';
+                        // html += '<td><a class="btn btn-danger btn-sm" href="#" onclick="return DeletePharmacybyId(' + item.pricing_Id + ')">Delete</a></td>';
+                        html += '</tr>';
+                        index++;
+                    });
+                    $('.LabPricetbodyData').html(html);
+                }
+            });
+        }
+        function ShowProcedurePriceData() {
+            var item;
+            $.ajax({
+                url: "/Patients/ProcedurePriceDataShow",
+                data: JSON.stringify(item),
+                dataType: 'JSON',
+                type: 'GET',
+                contentType: 'application/json; charset=utf-8',
+                success: function (data) {
+                    var html = '';
+                    var index = 1;
+                    $.each(data, function (key, item) {
+                        html += '<tr>';
+                        // html += '<td>' + index + '</td>';
+                        //  html += '<td>' + item.pricing_Id + '</td>';
+                        html += '<td>' + item.itemName + '</td>';
+                        html += '<td>' + item.category + '</td>';
+                        html += '<td>' + item.price + '</td>';
+                        html += '<td><a class="btn  btn-sm" href="#" onclick="return EditPricingById(' + item.pricing_Id + ')" data-toggle="modal" data-target="#pricingModal" ><i class="fa fa-edit"></i></a> <a class="btn btn-sm" href="#" onclick="return DeletePricingById(' + item.pricing_Id + ')"><i class="fa fa-trash-o"></i></a></td>';
+                       /* html += '<td><a class="btn btn-primary btn-sm" href="#" onclick="return EditPricingById(' + item.pricing_Id + ')" data-toggle="modal" data-target="#pricingModal" >Edit</a> <a class="btn btn-danger btn-sm" href="#" onclick="return DeletePricingById(' + item.pricing_Id + ')">Delete</a></td>';*/
+                        // html += '<td><a class="btn btn-danger btn-sm" href="#" onclick="return DeletePharmacybyId(' + item.pricing_Id + ')">Delete</a></td>';
+                        html += '</tr>';
+                        index++;
+                    });
+                    $('.ProcPricetbodyData').html(html);
+                }
+            });
+        }
+        function ShowWordPriceData() {
+            var item;
+            $.ajax({
+                url: "/Patients/WordPriceDataShow",
+                data: JSON.stringify(item),
+                dataType: 'JSON',
+                type: 'GET',
+                contentType: 'application/json; charset=utf-8',
+                success: function (data) {
+                    var html = '';
+                    var index = 1;
+                    $.each(data, function (key, item) {
+                        html += '<tr>';
+                        // html += '<td>' + index + '</td>';
+                        //  html += '<td>' + item.pricing_Id + '</td>';
+                        html += '<td>' + item.itemName + '</td>';
+                        html += '<td>' + item.category + '</td>';
+                        html += '<td>' + item.price + '</td>';
+                        html += '<td><a class="btn  btn-sm" href="#" onclick="return EditPricingById(' + item.pricing_Id + ')" data-toggle="modal" data-target="#pricingModal" ><i class="fa fa-edit"></i></a> <a class="btn btn-sm" href="#" onclick="return DeletePricingById(' + item.pricing_Id + ')"><i class="fa fa-trash-o"></i></a></td>';
+                       /* html += '<td><a class="btn btn-primary btn-sm" href="#" onclick="return EditPricingById(' + item.pricing_Id + ')" data-toggle="modal" data-target="#pricingModal" >Edit</a> <a class="btn btn-danger btn-sm" href="#" onclick="return DeletePricingById(' + item.pricing_Id + ')">Delete</a></td>';*/
+                        // html += '<td><a class="btn btn-danger btn-sm" href="#" onclick="return DeletePharmacybyId(' + item.pricing_Id + ')">Delete</a></td>';
+                        html += '</tr>';
+                        index++;
+                    });
+                    $('.WordtbodyData').html(html);
+                }
+            });
+        }
+        ShowDataInTable();
+        ShowImgingPriceData();
+        LabPriceDataShow();
+        ShowProcedurePriceData();
+        ShowWordPriceData();
+    </script>
+</body>
+</html>
+
+

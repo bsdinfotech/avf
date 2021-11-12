@@ -1,0 +1,444 @@
+﻿@model CoreMVCApplication.Models.PetDetails
+@{
+    ViewData["Title"] = "Pet";
+    Layout = "~/Views/Shared/_GlobalLawLayout.cshtml";
+}
+<html>
+<head>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css" />
+    <style>
+        .inputText {
+            height: 56px;
+            border: 1px solid #D8D8DC;
+            border-radius: 8px;
+            display: flex;
+            -webkit-box-align: center;
+            padding: 0px 15px;
+            width: 100%;
+            outline: none;
+        }
+
+        .text-area {
+            border: 1px solid #D8D8DC;
+            border-radius: 8px;
+            resize: none;
+            width: 100%;
+            height: 80px;
+            padding: 15px;
+            font-family: inherit;
+            font-size: inherit;
+            line-height: inherit;
+            outline: none;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <form class="form-row" enctype="multipart/form-data" style=" margin-top: 0px !important; padding: 17px;">
+            <div class="col-md-12">
+                <div class="breadcrum_wrapper">
+                    <ul class="breadcrum" style=" padding: 0px;">
+                        <li>
+                            <a href="/Patients/Patient">Patients</a>
+                        </li>
+                        <li>
+                            <span class="current">Add New Pet</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="frame-heading only-data-grid">
+                    <div class="heading flex-grid">
+                        <div class="title back_button_box"><a href="/Patients/Patient" class="back_button"></a>Add New Pet</div>
+                    </div>
+                </div>
+            </div>
+            <div class=" form_wrapper wd6">
+                <div class="">
+                    <div class=" row wrap-container only-saprate-table" style=" padding-left: 0px; padding-right: 0px; margin: 0px;">
+                        <input type="hidden" asp-for="Pet_id" id="hidPetId" />
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Pet Parent Name <span class="span-star">*</span></label>
+                                <select class="form-control inputText required" asp-for="PetParent" id="ddlparent">
+                                    <option value="">--Select Pet Parent--</option>
+                                    @if (ViewBag.petParentName != null)
+                                    {
+                                        foreach (var item in ViewBag.petParentName as List<SelectListItem>)
+                                        {
+                                            <option value="@item.Value">@item.Text</option>
+                                        }
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Pet's Name <span class="span-star">*</span></label>
+                                <input type="text" class="form-control inputText" asp-for="PetName" id="txtPetName" placeholder="Pet's Name" />
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Pet's Type <span class="span-star">*</span></label>
+                                <select class="form-control inputText required" asp-for="PetType" id="ddlpettype">
+                                    <option value="">--Select Pet's Type--</option>
+                                    @if (ViewBag.PetTypeList != null)
+                                    {
+                                        foreach (var item in ViewBag.PetTypeList as List<SelectListItem>)
+                                        {
+                                            <option value="@item.Value">@item.Text</option>
+                                        }
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Breed <span class="span-star">*</span></label>
+                                <select asp-for="Breed" id="ddlPetBreed">
+                                    <option value="">--Select Breed--</option>
+                                    @*@if (ViewBag.PetBreedList != null)
+                    {
+                        foreach (var item in ViewBag.PetBreedList as List<SelectListItem>)
+                        {
+                            <option value="@item.Value">@item.Text</option>
+                        }
+                    }*@
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Pet Gender <span class="span-star">*</span></label>
+                                <select id="ddlGender" asp-for="PetGender">
+                                    <option value="">--Select Pet Gender--</option>
+                                    @if (ViewBag.Gender != null)
+                                    {
+                                        foreach (var item in ViewBag.Gender as List<SelectListItem>)
+                                        {
+                                            <option value="@item.Value">@item.Text</option>
+                                        }
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Date of Birth <span class="span-star">*</span></label>
+                                <input type="date" id="txtDob" asp-for="Pet_DOB" typeof="calendar" class="inputText form-control" placeholder="Select Date" />
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Weight <span class="span-star">*</span></label>
+                                <input type="text" id="txtWeight" asp-for="Pet_Weight" class="inputText form-control" placeholder="Weight" />
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Colour <span class="span-star">*</span></label>
+                                <select class="form-control inputText required" asp-for="Colour" id="ddlColour">
+                                    <option value="">--Select Colour--</option>
+                                    @if (ViewBag.PetColourList != null)
+                                    {
+                                        foreach (var item in ViewBag.PetColourList as List<SelectListItem>)
+                                        {
+                                            <option value="@item.Value">@item.Text</option>
+                                        }
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Adopted On</label>
+                                <input type="date" class="form-control inputText" asp-for="AdoptedOn" id="txtAdopted" />
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Microchip No.</label>
+                                <input type="text" class="form-control inputText" asp-for="MicrochipNo" placeholder="Microchip No" id="txtMicrochipNo" />
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Date Of Chipping</label>
+                                <input type="date" class="form-control inputText" asp-for="DateOfChipping" id="txtDateChipping" />
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Spay / Meutered</label>
+                                <input type="text" placeholder="Spay / Meutered" id="txtSpay" asp-for="Spay_Meutered" />
+                                <div class="error"></div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Location of Chipping </label>
+                                <input type="text" placeholder="Location of Chipping" id="txtLocChipping" asp-for="Loc_Chipping" />
+                                <div class="error"></div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Insurance <span class="span-star">*</span></label>
+                                <input type="text" placeholder="Insurance" id="txtInsurance" asp-for="Insurance" />
+                                <div class="error"></div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Notes</label>
+                                <input type="text" id="txtNotes" class="inputText form-control" asp-for="Notes" style="height:70px" placeholder="Any Notes" />
+                            </div>
+                        </div>
+                        <div class="col-md-2" style="margin-top:15px">
+                            <div class="form-inline">
+                                <label>Status</label>
+                                <input type="checkbox" style=" width: auto;" id="chkStatus" asp-for="Status" class="custom-checkbox" checked />Active
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <label>Pet Image <span class="span-star">*</span></label>
+                                    <input type="file" class="form-control" id="PetImage" name="PetImage" />
+                                </div>
+                                <div class="col-md-4">
+                                    <img id="img" src="~/image/dummy-pic.png" alt="your image" width="75" height="80" />
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <br />
+
+                        <div class="modal fade" id="message" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        @ViewBag.Message
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary">Save changes</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="wrap-container nobg btnright formbutton" style=" width: 100%; margin: 13px;">
+                <input type="reset" value="Cancel" class="cancel_button">
+                <input type="submit" value="+ Add Patient" class="add_button" id="btnSave" asp-action="Pet" asp-controller="Patients" formmethod="post" onclick="return Validation();">
+            </div>
+            <div style="display:none">
+                <div class="col-md-12">
+                    <table id="table" class=" main-table table table-bordered table-striped">
+                        <thead>
+                            <tr style=" background: #F5F5FA !important;">
+                                @*<th>Index</th>*@
+                                <th style="display:none">ID</th>
+                                <th>Name</th>
+                                <th>Bread</th>
+                                <th>Type</th>
+                                <th>Gender</th>
+                                <th>Date Of Birth</th>
+                                <th>Weight</th>
+                                <th>Status</th>
+                                <th>Edit</th>
+                                <th>Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody class="tbodyData"></tbody>
+                    </table>
+                </div>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
+@*<script type="text/javascript" src="~/js/DataTable.js"></script>*@
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+
+@*<script type="text/javascript" src="http://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>*@
+
+@*<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>*@
+
+<script type="text/javascript" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+
+<script>
+    function ShowDataInTable() {
+        var item;
+        $.ajax({
+            url: "/Patients/ShowAllPetRecord",
+            data: JSON.stringify(item),
+            dataType: 'JSON',
+            type: 'POST',
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                var html = '';
+                var index = 1;
+                $.each(data, function (key, item) {
+                    html += '<tr>';
+                    // html += '<td>' + index + '</td>';
+                    html += '<td style="display:none">' + item.pet_id + '</td>';
+                    html += '<td>' + item.petName + '</td>';
+                    html += '<td>' + item.breed + '</td>';
+                    html += '<td>' + item.petType + '</td>';
+                    html += '<td>' + item.petGender + '</td>';
+                    html += '<td>' + item.pet_DOB + '</td>';
+                    html += '<td>' + item.pet_Weight + '</td>';
+                    html += '<td>' + item.status + '</td>';
+                    html += '<td><a class="btn btn-sm" href="#" onclick="return Editbyid(' + item.pet_id + ')"><i class="fa fa-edit"></i></a></td>';
+                    html += '<td><a class="btn btn-sm" href="#" onclick="return DeletePetDetailsbyId(' + item.pet_id + ')"><i class="fa fa-trash-o"></i></a></td>';
+                    html += '</tr>';
+                    index++;
+                });
+                $('.tbodyData').html(html);
+            }
+        });
+    }
+    function DeletePetDetailsbyId(pet_id) {
+        var checkstr = confirm('Are You Sure You Want To Delete This?');
+        var PetObj = JSON.stringify({ petid: pet_id });
+        // var item;
+        if (checkstr == true) {
+            $.ajax({
+                url: "/Patients/DeletePetRecordById",
+                data: JSON.parse(PetObj),
+                dataType: 'JSON',
+                type: 'POST',
+                //contentType: 'application/json; charset=utf-8',
+                success: function (result) {
+                    if (result.msg == "Delete Successfull!!") {
+                        alert("Delete Success");
+                        ShowDataInTable();
+                    }
+                },
+                error: function (errormessage) {
+                    alert(errormessage.responseText);
+                }
+            });
+        }
+        else {
+            return false;
+        }
+
+    }
+
+    function Editbyid(pet_id) {
+        // var checkstr = confirm('Are You Sure You Want To Delete This?');
+        var PetObj = JSON.stringify({ petid: pet_id });
+        // var item;
+
+        $.ajax({
+            url: "/Patients/EditPetRecordById",
+            data: JSON.parse(PetObj),
+            dataType: 'JSON',
+            type: 'POST',
+            //contentType: 'application/json; charset=utf-8',
+            success: function (result) {
+                $('#hidPetId').val(result.pet_id);
+                $('#ddlparent').val(result.petParent);
+                $('#txtPetName').val(result.petName);
+                $('#ddlPetBreed').val(result.breed);
+                $('#ddlpettype').val(result.petType);
+                $('#txtDob').val(result.pet_DOB);
+                $('#txtWeight').val(result.pet_Weight);
+                $('#ddlColour').val(result.colour);
+                $('#txtAdopted').val(result.adoptedOn);
+                $('#txtMicrochipNo').val(result.microchipNo);
+                $('#txtDateChipping').val(result.dateofchipping);
+                $('#txtNotes').val(result.notes);
+                $('#chkStatus').val(result.status);
+                $('#btnSave').val = "UPDATE";
+                ShowDataInTable();
+            },
+            error: function () {
+                alert("Data Not Founf !!");
+            }
+        });
+
+
+    }
+
+    function Validation() {
+        var msg = "";
+        if ($('#ddlparent').val() == "") { msg = "Pet Parent Name can not left Blank !! \n"; }
+        if ($('#txtPetName').val() == "") { msg += "Pet's Name can not left Blank !! \n"; }
+        if ($('#txtWeight').val() == "") { msg += "Weight can not left Blank !! \n"; }
+        if ($('#txtInsurance').val() == "") { msg += "Insurance can not left Blank !! \n"; }
+        if ($('#ddlpettype').val() == "") { msg += "Pet type can not left blank !! \n"; }
+        if ($('#ddlPetBreed').val() == "") { msg += "Pet breed can not left blank !! \n"; }
+        if ($('#ddlGender').val() == "") { msg += "Pet gender can not left blank !! \n"; }
+        if ($('#PetImage').val() == "") { msg += "select Image File"; }
+        if (msg != "") { alert(msg); return false; }
+    }
+    $("#ddlpettype").change(function () {
+        GetBreed();
+    });
+    function GetBreed() {
+        var selected_val = $('#ddlpettype').find(":selected").attr('value');
+        $("#ddlpettype").prop("disabled", false);
+        $.ajax({  //ajax call
+            type: "GET",      //method == GET
+            url: "/Patients/GetPetBreed", //url to be called
+            data: "id=" + selected_val, //data to be send
+            success: function (json, result) {
+                $("#ddlPetBreed").empty();
+                json = json || {};
+                $("#ddlPetBreed").append('<option value="0">Select Pet Breed</option>');
+                for (var i = 0; i < json.length; i++) {
+                    $("#ddlPetBreed").append('<option value="' + json[i].breedId + '">' + json[i].breed + '</option>');
+                }
+                // GetPatientData();
+                $("#ddlPetBreed").prop("disabled", false);
+            },
+            error: function () {
+                alert("Data Not Found");
+            }
+        });
+    }
+
+    $(document).ready(function () {
+        $('#table').DataTable();
+    });
+    function showmodal(id, msg) {
+        $("#" + id).modal('show');
+    }
+
+
+
+    if ('@ViewBag.Message'!= '') {
+        showmodal('message', '@ViewBag.Message');
+    }
+    ShowDataInTable();
+</script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#ddlpettype").select2();
+        $("#ddlPetBreed").select2();
+         $("#ddlPetName").select2();
+    });
+    PetImage.onchange = evt => {
+        const [file] = PetImage.files
+        if (file) {
+            img.src = URL.createObjectURL(file)
+        }
+    }
+</script>

@@ -1,0 +1,14 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<form>
+    @foreach (var items in ViewData["imgurl"] as List<Image>)
+    {
+        var iPhotoUrl = "/Images/" + items.image;
+        <img class="float-left p-2" src="@iPhotoUrl" style="height:200px;width:200px" />
+
+    }
+</form>

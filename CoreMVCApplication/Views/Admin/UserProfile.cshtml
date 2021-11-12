@@ -1,0 +1,154 @@
+﻿@model CoreMVCApplication.Models.AdminUserProfile
+@{
+    ViewData["Title"] = "UserProfile";
+    Layout = "~/Views/Shared/_GlobalLawLayout.cshtml";
+}
+<html>
+<head>
+</head>
+<body>
+
+    <div>
+        <h6>User Profile</h6>
+        <form class="form-row" enctype="multipart/form-data">
+            <div class="col-md-12">
+                <div class="row">
+                    <div>
+                        <input type="hidden" asp-for="id" id="id" />
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Name</label>
+                            <input type="text" asp-for="Name" class="form-control" id="Name" placeholder="Profile Name" />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Short name</label>
+                            <input type="text" asp-for="ShortName" class="form-control" id="ShortName" placeholder="Enter Short Name" maxlength="6" />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-inline">
+                            <label>Status</label>&nbsp;&nbsp;
+                            <input type="checkbox" asp-for="Status" id="Status" class="form-check-input" /> Active
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <input type="submit" value="@ViewBag.SubmitValue" id="btnSave" class="btn btn-primary" asp-action="UserProfileSaveUpdate" asp-controller="Admin" formmethod="post" />
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <h6 class="text-success">@ViewData["msg"]</h6>
+                    </div>
+                </div>
+            </div>
+            <br /><br /><br />
+            <div class="col-md-12 main-table">
+                <table id="ImgRequest" class="table">
+                    <thead>
+                        <tr style="background: #F5F5FA !important;">
+                            <th>Name</th>
+                            <th>Short Name</th>
+                            <th>Status</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody class="tbodyData"></tbody>
+                </table>
+            </div>
+        </form>
+    </div>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script>
+        function ShowDataInTable() {
+            var item;
+            $.ajax({
+                url: "/Admin/GetuserProfileList",
+                data: JSON.stringify(item),
+                dataType: 'JSON',
+                type: 'GET',
+                contentType: 'application/json; charset=utf-8',
+                success: function (data) {
+                    var html = '';
+                    var index = 1;
+                    $.each(data, function (key, item) {
+                        html += '<tr>';
+                        // html += '<td>' + index + '</td>';
+                        // html += '<td>' + item.id + '</td>';
+                        html += '<td>' + item.name + '</td>';
+                        html += '<td>' + item.shortName + '</td>';
+                        html += '<td>' + item.status + '</td>';
+                        html += '<td><a class="btn btn-primary btn-sm" href="#" onclick="return EditUserProfileById(' + item.id + ')">Edit</td>';
+                        html += '<td></a> <a class="btn btn-danger btn-sm" href="#" onclick="return DeleteUserProfile(' + item.id + ')">Delete</a></td>';
+                        html += '</tr>';
+                        index++;
+                    });
+                    $('.tbodyData').html(html);
+                }
+            });
+        }
+        function DeleteUserProfile(id) {
+            var checkstr = confirm('Are You Sure You Want To Delete This?');
+            var PetObj = JSON.stringify({ id: id });
+            // var item;
+            if (checkstr == true) {
+                $.ajax({
+                    url: "/Admin/DeleteUserProfile",
+                    data: JSON.parse(PetObj),
+                    dataType: 'JSON',
+                    type: 'POST',
+                    //contentType: 'application/json; charset=utf-8',
+                    success: function (result) {
+                        if (result.msg == "Delete Successfull!!") {
+                            alert("Delete Success");
+                            ShowDataInTable();
+                        }
+                    },
+                    error: function (errormessage) {
+                        alert(errormessage.responseText);
+                    }
+                });
+            }
+            else {
+                return false;
+            }
+        }
+        function EditUserProfileById(id) {
+            // var checkstr = confirm('Are You Sure You Want To Delete This?');
+            var PetObj = JSON.stringify({ id: id });
+            // var item;
+            $.ajax({
+                url: "/Admin/GetUserProfileData",
+                data: JSON.parse(PetObj),
+                dataType: 'JSON',
+                type: 'POST',
+                //contentType: 'application/json; charset=utf-8',
+                success: function (result) {
+                    $('#btnsave').text = "UPDATE";
+                    $('#id').val(result.id);
+                    $('#ExistingImage').val(result.existingImage);
+                    $('#Firstname').val(result.firstname);
+                    $('#LastName').val(result.lastName);
+                    $('#Designation').val(result.designation);
+                    $('#Place_of_Posting').val(result.place_of_Posting);
+                    $('#Mobile_No').val(result.mobile_No);
+                    $('#Telephone_No').val(result.telephone_No);
+                    $('#Email').val(result.email);
+                    $('#profiletype').val(result.profiletype);
+                    $('#username').val(result.username);
+                    $('#password').val(result.password);
+                    $('#Status').val(result.status);
+                    ShowDataInTable();
+                },
+                error: function (errormessage) {
+                    alert(errormessage.responseText);
+                }
+            });
+        }
+        ShowDataInTable();
+    </script>
+</body>
+</html>

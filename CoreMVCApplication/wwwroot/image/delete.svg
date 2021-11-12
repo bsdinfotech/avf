@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="12" height="16.5" viewBox="0 0 12 16.5">
+  <g id="Group_62" data-name="Group 62" transform="translate(-499 -1433)">
+    <g id="Group_61" data-name="Group 61" transform="translate(499 1432.25)">
+      <path id="Path_102" data-name="Path 102" d="M4.5,2.25A.75.75,0,0,0,3.75,3v.75h4.5V3a.75.75,0,0,0-.75-.75Zm5.25,1.5V3A2.25,2.25,0,0,0,7.5.75h-3A2.25,2.25,0,0,0,2.25,3v.75H.75A.75.75,0,0,0,0,4.5V15a2.25,2.25,0,0,0,2.25,2.25h7.5A2.25,2.25,0,0,0,12,15V4.5a.75.75,0,0,0-.75-.75ZM1.5,5.25V15a.75.75,0,0,0,.75.75h7.5A.75.75,0,0,0,10.5,15V5.25Z" fill="#f93030" fill-rule="evenodd"/>
+      <path id="Path_103" data-name="Path 103" d="M4.5,7.5a.75.75,0,0,1,.75.75v4.5a.75.75,0,0,1-1.5,0V8.25A.75.75,0,0,1,4.5,7.5Z" fill="#f93030" fill-rule="evenodd"/>
+      <path id="Path_104" data-name="Path 104" d="M7.5,7.5a.75.75,0,0,1,.75.75v4.5a.75.75,0,0,1-1.5,0V8.25A.75.75,0,0,1,7.5,7.5Z" fill="#f93030" fill-rule="evenodd"/>
+    </g>
+  </g>
+</svg>

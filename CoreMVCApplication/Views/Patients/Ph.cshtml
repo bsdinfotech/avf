@@ -1,0 +1,284 @@
+﻿
+@{
+    ViewData["Title"] = "Ph";
+    Layout = "~/Views/Shared/_GlobalLawLayout.cshtml";
+}
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=yes, minimum-scale=1">
+    <title>Patient</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/dataTables.bootstrap.css">
+    <link rel="stylesheet" href="css/dataTables.responsive.css">
+
+</head>
+<body>
+    <div class="askforvets">
+        @*<nav>
+            <header>
+                <div class="asklogo"><img src="images/askvets-logo.png" /> </div>
+            </header>
+            <ul class="left-navigation">
+
+                <li>
+                    <a href="index.html">
+                        <i class="icons dashbord-ico"></i>Dashboard
+                    </a>
+                </li>
+                <li>
+                    <a href="schedule_appointment.html" class=" ddp">
+                        <i class="icons schedule"></i>Scheduling
+                    </a>
+                    <ul class="ddp-menu">
+                        <li><a href="javascript:void(0)">Patients</a></li>
+                        <li><a href="javascript:void(0)">Returning Patients</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="patient.html">
+                        <i class="icons patients"></i>Patients
+                    </a>
+                </li>
+                <li>
+                    <a href="doctor.html">
+                        <i class="icons doctor"></i>Doctors
+                    </a>
+                </li>
+                <li>
+                    <a href="pharmacy.html" class="active">
+                        <i class="icons pharmacy"></i>Pharmacy
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)">
+                        <i class="icons inventory"></i>Inventory
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)">
+                        <i class="icons incident"></i>Incidents
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)">
+                        <i class="icons imaging"></i>Imaging
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)">
+                        <i class="icons labs"></i>Labs
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)">
+                        <i class="icons marketplace"></i>Marketplace
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)">
+                        <i class="icons billing"></i>Billing
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)">
+                        <i class="icons setting"></i>Settings
+                    </a>
+                </li>
+            </ul>
+        </nav>*@
+        <main>
+            @*<div class="top_header">
+                <div class="col-left-l6 ">
+                    <div class="ham_menu">
+                        <span></span><span></span><span></span>
+                        <div class="mmoverlay"></div>
+                    </div>
+                    <div class="search-box">
+                        <input type="text" placeholder="Search patients, appointments" />
+                    </div>
+                </div>
+                <div class="col-left-l3 login-details">
+                    <div class="login-info">
+                        <div class="notification">
+                            <div class="notification-icon"></div>
+                            <div class="popup-window"></div>
+                        </div>
+                        <div class="user">
+                            <div class="profile-pic">
+                                <img src="images/dummy-pic.png" />
+                            </div>
+                            <div class="profile-text">
+                                <span>Sanjay Sharma</span>
+                                <a href="javascript:void(0)" class="user-info"></a>
+                                <div class="popup-window mx-100"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>*@
+            <div class="dashbord">
+                <!-- Dashboard -->
+                <div class="frame-heading only-data-grid">
+                    <div class="heading flex-grid">
+                        <div class="title">Pharmacy </div>
+                        <div class="link">
+                            <div class="f-input"> <input type="text" placeholder="Re-Issue Pharmacy" /></div>
+
+                            <div class="f-input "> <input type="text" placeholder="Dispense Pharmacy" /></div>
+                            <a href="javascript:void(0)" class="addbutton modelLink " data-id="appointment">New Request</a>
+                        </div>
+                    </div>
+                    <table id="patient" class="datatable table table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Prescription Date</th>
+                                <th>Patient Name</th>
+                                <th>Appointment Type</th>
+                                <th>Pharmacy</th>
+                                <th>Quantity (Pcs.)</th>
+                                <th class="sortingnone"> </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="gradeX">
+                                <td>22-05-2021</td>
+                                <td> Fluffy </td>
+                                <td>TELEMEDICINE</td>
+                                <td>Anthrax-D23</td>
+                                <td class="center">500</td>
+
+                                <td>
+                                    <div class="actionbtn">
+                                        <a href="javascript:void(0)" class="update fm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                                        <a href="javascript:void(0)" data-id="delete_patient" class="delete fm modelLink"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="gradeX">
+                                <td>22-05-2021</td>
+                                <td> Fluffy </td>
+                                <td>TELEMEDICINE</td>
+                                <td>Anthrax-D23</td>
+                                <td class="center">25</td>
+
+                                <td>
+                                    <div class="actionbtn">
+                                        <a href="javascript:void(0)" class="update fm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                                        <a href="javascript:void(0)" data-id="delete_patient" class="delete fm modelLink"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="gradeX">
+                                <td>22-05-2021</td>
+                                <td> Fluffy </td>
+                                <td>TELEMEDICINE</td>
+                                <td>Anthrax-D23</td>
+                                <td class="center">80</td>
+
+                                <td>
+                                    <div class="actionbtn">
+                                        <a href="javascript:void(0)" class="update fm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                                        <a href="javascript:void(0)" data-id="delete_patient" class="delete fm modelLink"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="gradeX">
+                                <td>22-05-2021</td>
+                                <td> Fluffy </td>
+                                <td>TELEMEDICINE</td>
+                                <td>Anthrax-D23</td>
+                                <td class="center">30</td>
+
+                                <td>
+                                    <div class="actionbtn">
+                                        <a href="javascript:void(0)" class="update fm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                                        <a href="javascript:void(0)" data-id="delete_patient" class="delete fm modelLink"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+
+                                    </div>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+                <!-- End Dashboard -->
+            </div>
+        </main>
+        <div id="popupBox" class="overlay box-model"> </div>
+    </div>
+
+    <script src="js/jquery-3.6.0.min.js"></script>
+
+    <script src="js/jquery.dataTables.min.js"></script>
+    <script src="js/dataTables.bootstrap.js"></script>
+    <script src="js/dataTables.responsive.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script src="js/custom.js"></script>
+
+
+    <script>$(function () {
+var chart;
+$(document).ready(function() {
+    // $.getJSON("data.php", function(json) {
+
+        chart = new Highcharts.Chart({
+            chart: {
+                renderTo: 'container',
+                type: 'line',
+                marginRight: 130,
+                marginBottom: 25
+            },
+            title: {
+                text: 'Disease',
+                x: -20 //center
+            },
+            subtitle: {
+                text: '',
+                x: -20
+            },
+            xAxis: {
+                categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+            },
+            yAxis: {
+                title: {
+                    text: 'Patient Count'
+                },
+                plotLines: [{
+                    value: 0,
+                    width: 1,
+                    color: '#808080'
+                }]
+            },
+            tooltip: {
+                formatter: function() {
+                        return '<b>'+ this.series.name +'</b><br/>'+
+                        this.x +': '+ this.y;
+                }
+            },
+            legend: {
+                layout: 'vertical',
+                align: 'right',
+                verticalAlign: 'top',
+                x: -10,
+                y: 100,
+                borderWidth: 0
+            },
+            series: [{
+                name: 'Jane',
+                data: [1, 0, 4]
+            }, {
+                name: 'John',
+                data: [5, 7, 3]
+            }]
+        });
+//  });
+
+});
+});</script>
+</body>
+</html>

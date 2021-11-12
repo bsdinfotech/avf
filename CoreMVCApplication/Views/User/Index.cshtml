@@ -1,0 +1,19 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<form asp-action="UploadImage" method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        <input type="file" name="user_image" id="user_image" />
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Upload" class="btn btn-default" />
+    </div>
+</form>

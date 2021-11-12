@@ -1,0 +1,243 @@
+﻿@model CoreMVCApplication.Models.SignUp
+@{
+    Layout = null;
+}
+
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>askforvets-Login</title>
+    <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/site.css" />
+    <link href="/css/Patient.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/css/dataTables.bootstrap.css">
+    <link rel="stylesheet" href="/css/dataTables.responsive.css">
+
+    <style>
+        .or {
+            position: relative;
+        }
+
+        body {
+            background: #FFFFFF !important;
+        }
+
+        .or p {
+            left: 50%;
+            position: absolute;
+            top: -13px;
+            background: white;
+        }
+
+        section.login {
+            background-image: url(/image/login.jpg);
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: right;
+        }
+
+        .login form {
+            padding: 35px 50px 0px;
+        }
+
+            .login form h5 {
+                font-family: Campton;
+                font-style: normal;
+                font-weight: 600;
+                font-size: 24px;
+                line-height: 33px;
+                color: #11142D;
+            }
+
+        .faeye {
+            margin-top: -8px;
+            margin-left: 435px;
+            right: 32px;
+            cursor: pointer;
+            position: absolute;
+            top: 52%;
+        }
+
+        #frmCheckPassword {
+            border-top: #F0F0F0 2px solid;
+            background: #808080;
+            padding: 10px;
+        }
+
+        .demoInputBox {
+            padding: 7px;
+            border: #F0F0F0 1px solid;
+            border-radius: 4px;
+        }
+
+        #password-strength-status {
+            padding: 5px 10px;
+            color: #FFFFFF;
+            border-radius: 4px;
+            margin-top: 5px;
+            cursor: pointer;
+        }
+
+        .medium-password {
+            background-color: #b7d60a;
+            border: #BBB418 1px solid;
+        }
+
+        .weak-password {
+            background-color: #ce1d14;
+            border: #AA4502 1px solid;
+        }
+
+        .strong-password {
+            background-color: #12CC1A;
+            border: #0FA015 1px solid;
+        }
+
+        .login-text {
+            font-style: normal;
+            font-weight: normal;
+            font-size: 16px;
+            line-height: 20px;
+            color: #808191;
+        }
+
+        ::placeholder {
+            font-weight: normal;
+            font-size: 16px !important;
+            line-height: 20px !important;
+            /* identical to box height, or 125% */
+
+            color: #808191 !important;
+        }
+    </style>
+</head>
+<body style="margin-bottom:0px;">
+    <section class="login">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <img style="padding: 25px 30px 0px;width: 18%;" src="~/image/askvets-logo.png" />
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6">
+                    <form method="post" action="/">
+                        <div class="form">
+                            <h5>Sign Up</h5>
+                            <p class="login-text">Start using askforvets for your vet clinic management.</p>
+                            <br>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <input style=" padding: 24px 16px 24px 16px;" type="text" class="form-control" id="txtName" placeholder="Your Name" asp-for="FullName">
+                                    <span asp-validation-for="FullName" style="color:red;"></span>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <input style=" padding: 24px 16px 24px 16px;" type="email" class="form-control" id="txtEmail" placeholder="Your email" onkeyup="check_Email()" asp-for="Email">
+                                    <label style="display:none;color:red;" id="lblEmailerror"></label>
+                                    <span asp-validation-for="Email" style="color:red;"></span>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <input style=" padding: 24px 16px 24px 16px;height: calc(1.5em + .75rem + 2px) !important;" type="password" asp-for="Password" class="form-control" placeholder="Password" id="txtPassword" />
+                                    <i class="fa fa-eye faeye" id="togglePassword" onclick="cupassword()"></i>
+                                    <span asp-validation-for="Password" style="color:red;"></span>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <input style=" padding: 24px 16px 24px 16px;height: calc(1.5em + .75rem + 2px) !important;" type="password" asp-for="RePassword" class="form-control" placeholder="Re-enter Password" id="txtPassword" />
+                                    <i class="fa fa-eye faeye" id="togglePassword" onclick="cupassword()"></i>
+                                    <span asp-validation-for="RePassword" style="color:red;"></span>
+                                </div>
+                            </div>
+                            <br>
+                            @if (ViewBag.Message != null)
+                            {
+                                <script type="text/javascript">
+                           window.onload = function () {
+                               alert("@ViewBag.Message");
+                           };
+                                </script>
+                            }
+
+                            @if (ViewBag.ErrorMsg != null)
+                            {
+                                <script type="text/javascript">
+                           window.onload = function () {
+                               alert("@ViewBag.ErrorMsg");
+                           };
+                                </script>
+                            }
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <input style="padding: 12px 16px 12px 16px;width: 100%;background: #652B88;color:white;" id="btnSignUp" type="submit" asp-action="SignUp" asp-controller="User" value="Sign Up" class="btn   text-center" />
+                                </div>
+                            </div>
+                            <div class="or">
+                                <hr />
+                                <p>or</p>
+                            </div>
+                            <button type="submit" style="padding: 12px 16px 12px 16px;width: 100%;border: 1px solid #E4E4E4;margin-bottom: 5px;" class="btn text-center" asp-area="" asp-action="GoogleLogin" asp-controller="User">
+                                <a asp-area="" asp-action="GoogleLogin" asp-controller="User" style="color:black;text-decoration:none" class="login-text">
+                                    <img style="width: 5%; margin-right: 12px;" src="~/image/google.jpg" />Sign In With Google
+                                </a>
+                            </button>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <span class="login-text">Already have an account ?</span>
+                                    <a asp-area="" asp-controller="User" asp-action="SignIn" style="color: #E75C25;       font-weight: 500;">Sign In</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <input name="__RequestVerificationToken" type="hidden" value="CfDJ8GcvlTjwKyFLtGuLR9Zj2uNG19x5jPZs_ZkkTqtBpAKnPaH_2onIKWl3zF_JVw2tKcAKckOWsnw95hijsYiMxhp7_cZYFlMO-D-55lTLkU_6pEIxVRadjtUCjUMgyvjoNSzUtw6BIt2Qk8NZL0Z_xqc">
+                    </form>
+                </div>
+                <div class="col-md-6">
+
+                </div>
+            </div>
+        </div>
+    </section>
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script>
+        function check_Email() {
+            var valid = true;
+            var EmailFormate = /^([a-zA-Z0-9_.+-])+\@@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+            if (!$('#txtEmail').val().match(EmailFormate)) {
+                $("#lblEmailerror").text("enter correct email...!").show();
+                valid = false;
+            }
+            else {
+                $("#lblEmailerror").text("enter correct email...!").hide();
+                $("#lblEmailerror").hide();
+            }
+            return valid;
+        }
+
+        function cupassword() {
+            const togglePassword = document.querySelector('#togglePassword');
+            const password = document.querySelector('#txtPassword');
+            togglePassword.addEventListener('click', function (e) {
+                // toggle the type attribute
+                const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+                password.setAttribute('type', type);
+                // toggle the eye slash icon
+                this.classList.toggle('fa-eye-slash');
+            });
+        }
+    </script>
+</body>
+</html>

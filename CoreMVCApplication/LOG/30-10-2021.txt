@@ -1,0 +1,6 @@
+30-10-2021 10:24:07 - Final transaction Detail ===> Status-,Message-,  Query  ===> ,Total Fetch Data ===>  - ,Fetch Data List ===>  -  -  Select query - PetAppointment.cshtml -  - AppFunction Name ===>'GetPetFromParentId'
+30-10-2021 10:24:07 - Final transaction Detail ===> Status-,Message-,  Query  ===> ,Total Fetch Data ===>  - ,Fetch Data List ===>  -  -  Select query - PetAppointment.cshtml -  - AppFunction Name ===>'GetPetPatientData'
+30-10-2021 10:24:09 - Final transaction Detail ===> Status-,Message-,  Query  ===> ,Total Fetch Data ===>  - ,Fetch Data List ===>  -  -  Select query - PetAppointment.cshtml -  - AppFunction Name ===>'GetPetPatientData'
+30-10-2021 10:24:31 - Final transaction Detail ===> Status-,Message-Appointment added successFully.,  Query  ===> Successfull,Total Fetch Data ===>  - ,Fetch Data List ===>  -  -  Select query - PetAppointment.cshtml -  - AppFunction Name ===>'SaveNewAppointment'
+30-10-2021 17:23:05 - Final transaction Detail ===> Status-,Message-,  Query  ===> ,Total Fetch Data ===>  - ,Fetch Data List ===>  -  -  Select query - PetAppointment.cshtml -  - AppFunction Name ===>'GetPetFromParentId'
+30-10-2021 17:23:05 - Final transaction Detail ===> Status-,Message-,  Query  ===> ,Total Fetch Data ===>  - ,Fetch Data List ===>  -  -  Select query - PetAppointment.cshtml -  - AppFunction Name ===>'GetPetPatientData'

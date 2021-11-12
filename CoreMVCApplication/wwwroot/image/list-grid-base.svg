@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="79" height="40" viewBox="0 0 79 40">
+  <g id="Group_58" data-name="Group 58" transform="translate(-76.5 -1463.5)">
+    <g id="Group_57" data-name="Group 57" transform="translate(76.5 1463.5)">
+      <path id="Path_85" data-name="Path 85" d="M.5,8A7.5,7.5,0,0,1,8,.5H71A7.5,7.5,0,0,1,78.5,8V32A7.5,7.5,0,0,1,71,39.5H8A7.5,7.5,0,0,1,.5,32Z" fill="none" stroke="#d8d8dc" stroke-width="1"/>
+      <path id="Path_86" data-name="Path 86" d="M14.167,14.167a.833.833,0,0,0-.833.833V26.667a.833.833,0,0,0,.833.833H25.833a.833.833,0,0,0,.833-.833V15a.833.833,0,0,0-.833-.833Zm-2.5.833a2.5,2.5,0,0,1,2.5-2.5H25.833a2.5,2.5,0,0,1,2.5,2.5V26.667a2.5,2.5,0,0,1-2.5,2.5H14.167a2.5,2.5,0,0,1-2.5-2.5Z" fill="#aeaeb2" fill-rule="evenodd"/>
+      <path id="Path_87" data-name="Path 87" d="M23.333,10.833a.833.833,0,0,1,.833.833V15A.833.833,0,1,1,22.5,15V11.667A.833.833,0,0,1,23.333,10.833Z" fill="#aeaeb2" fill-rule="evenodd"/>
+      <path id="Path_88" data-name="Path 88" d="M16.667,10.833a.833.833,0,0,1,.833.833V15a.833.833,0,1,1-1.667,0V11.667A.833.833,0,0,1,16.667,10.833Z" fill="#aeaeb2" fill-rule="evenodd"/>
+      <path id="Path_89" data-name="Path 89" d="M11.667,18.333A.833.833,0,0,1,12.5,17.5h15a.833.833,0,1,1,0,1.667h-15A.833.833,0,0,1,11.667,18.333Z" fill="#aeaeb2" fill-rule="evenodd"/>
+    </g>
+    <path id="Path_94" data-name="Path 94" d="M14.25,14a1.026,1.026,0,0,1,1.05-1H28.95a1,1,0,1,1,0,2H15.3A1.026,1.026,0,0,1,14.25,14Z" transform="translate(116.5 1464.5)" fill="#aeaeb2" fill-rule="evenodd"/>
+    <path id="Path_95" data-name="Path 95" d="M14.25,20a1.026,1.026,0,0,1,1.05-1H28.95a1,1,0,1,1,0,2H15.3A1.026,1.026,0,0,1,14.25,20Z" transform="translate(116.5 1464.5)" fill="#aeaeb2" fill-rule="evenodd"/>
+    <path id="Path_96" data-name="Path 96" d="M14.25,26a1.026,1.026,0,0,1,1.05-1H28.95a1,1,0,1,1,0,2H15.3A1.026,1.026,0,0,1,14.25,26Z" transform="translate(116.5 1464.5)" fill="#aeaeb2" fill-rule="evenodd"/>
+    <path id="Path_97" data-name="Path 97" d="M9,14a1.026,1.026,0,0,1,1.05-1h.01a1,1,0,1,1,0,2h-.01A1.026,1.026,0,0,1,9,14Z" transform="translate(116.5 1464.5)" fill="#aeaeb2" fill-rule="evenodd"/>
+    <path id="Path_98" data-name="Path 98" d="M9,20a1.026,1.026,0,0,1,1.05-1h.01a1,1,0,1,1,0,2h-.01A1.026,1.026,0,0,1,9,20Z" transform="translate(116.5 1464.5)" fill="#aeaeb2" fill-rule="evenodd"/>
+    <path id="Path_99" data-name="Path 99" d="M9,26a1.026,1.026,0,0,1,1.05-1h.01a1,1,0,1,1,0,2h-.01A1.026,1.026,0,0,1,9,26Z" transform="translate(116.5 1464.5)" fill="#aeaeb2" fill-rule="evenodd"/>
+  </g>
+</svg>

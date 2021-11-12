@@ -1,0 +1,174 @@
+﻿
+@{
+    ViewData["Title"] = "Billing";
+    Layout = "~/Views/Shared/_GlobalLawLayout.cshtml";
+}
+
+<html>
+<head>
+    <style>
+        body {
+            font-family: Arial;
+        }
+
+        /* Style the tab */
+        .tab {
+            overflow: hidden;
+            border-bottom: 1px solid #ccc;
+            background-color: #f1f1f100;
+        }
+
+            /* Style the buttons inside the tab */
+            .tab button {
+                background-color: inherit;
+                float: left;
+                border: none;
+                outline: none;
+                cursor: pointer;
+                padding: 14px 16px;
+                transition: 0.3s;
+                font-size: 17px;
+            }
+
+                /* Change background color of buttons on hover */
+                .tab button:hover {
+                    background-color: #ddd;
+                }
+
+                /* Create an active/current tablink class */
+                .tab button.active {
+                    background-color: #ccc0;
+                    border-bottom: 3px solid;
+                }
+
+        /* Style the tab content */
+        .tabcontent {
+            display: none;
+            border-top: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="PetAppointment">
+        <form enctype="multipart/form-data">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-8">
+                        <h5>Invoices</h5>
+                    </div>
+                    <div class="col-md-2">
+                        <button type="button" style=" width: 100%; border: 1px solid #D8D8DC; padding: 6px 7px;"  class="btn ">+Add Deposite</button>
+                    </div>
+                    <div class="col-md-2">
+                        <button type="submit" style="background: #652B88; width: 100%;color:white; padding: 6px 7px;"  class="btn " asp-action="NewInvoice" asp-controller="Patients">+New Invoice</button>
+                    </div>
+                </div>
+            </div>
+            <br />
+            <div class="clearfix"></div>
+            <div class="tab">
+                <button type="button" style="color: #652B88;" class="tablinks" onclick="openInvoice(event, 'AllInvoice')" id="defaultOpen">All Invoice</button>
+                <button type="button" style="color: #652B88;" class="tablinks" onclick="openInvoice(event, 'Billed')">Billed</button>
+                <button type="button" style="color: #652B88;" class="tablinks" onclick="openInvoice(event, 'Drafts')">Drafts</button>
+                <button type="button" style="color: #652B88;" class="tablinks" onclick="openInvoice(event, 'Paid')">Paid</button>
+            </div>
+            <br />
+            <div id="AllInvoice" class="tabcontent">
+                <div class="col-md-12 main-table">
+                    <table class="table" style="width:100%">
+                        <thead>
+                            <tr style="background: #F5F5FA !important;">
+                                @*<th>Index</th>*@
+                                <th>Invoice No.</th>
+                                <th>Bill Date</th>
+                                <th>Status</th>
+                                <th>Patient</th>
+                                <th>Total</th>
+                                <th>Balance Due</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody class="InvoicetbodyData"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="Billed" class="tabcontent">
+                <div class="col-md-12 main-table">
+                    <table class="table" style="width:100%">
+                        <thead>
+                            <tr style="background: #F5F5FA !important;">
+                                @*<th>Index</th>*@
+                                <th>Invoice No.</th>
+                                <th>Bill Date</th>
+                                <th>Status</th>
+                                <th>Patient</th>
+                                <th>Total</th>
+                                <th>Balance Due</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody class="BilledtbodyData"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="Drafts" class="tabcontent">
+                <div class="col-md-12 main-table">
+                    <table class="table" style="width:100%">
+                        <thead>
+                            <tr style="background: #F5F5FA !important;">
+                                @*<th>Index</th>*@
+                                <th>Invoice No.</th>
+                                <th>Bill Date</th>
+                                <th>Status</th>
+                                <th>Patient</th>
+                                <th>Total</th>
+                                <th>Balance Due</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody class="DraftstbodyData"></tbody>
+                    </table>
+                </div>
+            </div>
+            <div id="Paid" class="tabcontent">
+                <div class="col-md-12 main-table">
+                    <table class="table" style="width:100%">
+                        <thead>
+                            <tr style="background: #F5F5FA !important;">
+                                @*<th>Index</th>*@
+                                <th>Invoice No.</th>
+                                <th>Bill Date</th>
+                                <th>Status</th>
+                                <th>Patient</th>
+                                <th>Total</th>
+                                <th>Balance Due</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody class="PaidtbodyData"></tbody>
+                    </table>
+                </div>
+            </div>
+        </form>
+        </div>
+        <script>
+            function openInvoice(evt, Invoices) {
+                var i, tabcontent, tablinks;
+                tabcontent = document.getElementsByClassName("tabcontent");
+                for (i = 0; i < tabcontent.length; i++) {
+                    tabcontent[i].style.display = "none";
+                }
+                tablinks = document.getElementsByClassName("tablinks");
+                for (i = 0; i < tablinks.length; i++) {
+                    tablinks[i].className = tablinks[i].className.replace(" active", "");
+                }
+                document.getElementById(Invoices).style.display = "block";
+                evt.currentTarget.className += " active";
+            }
+            document.getElementById("defaultOpen").click();
+        </script>
+</body>
+</html>
+

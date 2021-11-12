@@ -1,0 +1,235 @@
+﻿@model CoreMVCApplication.Models.Incidents
+@{
+    ViewData["Title"] = "Incident";
+    Layout = "~/Views/Shared/_GlobalLawLayout.cshtml";
+}
+
+<html>
+<head>
+    <style>
+       .form-group select {
+            height: 56px;
+            font-weight: normal;
+            font-size: 16px !important;
+            border: 1px solid #D8D8DC;
+            border-radius: 8px;
+            display: flex;
+            -webkit-box-align: center;
+            padding: 0px 15px;
+            width: 100%;
+            outline: none;
+            color: #808080;
+        }
+    </style>
+</head>
+<body>
+    <div class="PetAppointment">
+        <form class="form-row" enctype="multipart/form-data">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-10">
+                        <h5>Incidents</h5>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <button type="button" class="btn" style="background: #652B88; padding: 6px 7px; width: 100%; font-size: 13px;color:white;" data-toggle="modal" data-target="#NewIncident">
+                                +New Incidents
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br /><br />
+            <div class="col-md-12 main-table">
+                <table class="table" style="width:100%">
+                    <thead>
+                        <tr style="background: #F5F5FA !important;">
+                            @*<th>Index</th>*@
+                            @*<th>ID</th>*@
+                            <th>Date of Incidents</th>
+                            <th>Time of Incidents</th>
+                            <th>Case Type</th>
+                            <th>Incident Reported To</th>
+                            <th>Patient Impacted</th>
+                            <th>Notes</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody class="tbodyData"></tbody>
+                </table>
+            </div>
+            <div class="modal fade" id="NewIncident" tabindex="-1" aria-labelledby="NewIncidentLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="NewIncidentLabel">New Incident</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <input type="hidden" id="NewIncidentId" asp-for="Incident_id" />
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Date of Incident</label>
+                                            <input type="date" id="txtIncidentDate" required asp-for="DateofIncident" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Time Of Incident</label>
+                                            <input type="text" id="txtIncidentTime" required placeholder="HH-MM" asp-for="TimeOfIncident" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>Case Type</label>
+                                            <select id="ddlCaseType" asp-for="CaseType">
+                                                <option value="">Select Case Type</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>Incident Reported To</label>
+                                            <input type="text" id="txtIncidentReport" required placeholder="Name" asp-for="IncidentReportedTo" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>Patient Impocted</label>
+                                            <input type="text" id="txtPatientImp" placeholder="Patient Name" asp-for="PatientImpocted" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>Notes</label>
+                                            <textarea rows="3" id="txtIncidentNotes" placeholder="Notes" asp-for="Notes"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 offset-8">
+                                        <input type="reset" style="padding: 6px 11px; color: black; font-size: 14px; width: 100%; height: 34px; text-align: center; background-color: #efefef; " value="Cancel" class="btn" id="btnClear" />
+                                    </div>
+                                    <div class="col-md-2">
+                                        <input type="submit" value="@ViewBag.SubmitValue" style=" background: #652B88; border-radius: 7px; border: none; padding: 9px; padding: 6px 15px; color: white; font-size: 14px; width: -webkit-fill-available; margin-bottom: 20px;" class="btn" id="btnSave" asp-action="SaveIncident" asp-controller="Patients" formmethod="post" onclick="return Validation();" />
+                                    </div>
+
+                                    @if (ViewBag.Message != null)
+                                    {
+                                        <script type="text/javascript">
+                                            window.onload = function () {
+                                                alert("@ViewBag.Message");
+                                            };
+                                        </script>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                        @*<div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">Save changes</button>
+                            </div>*@
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <script type="text/javascript" src="~/js/DataTable.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript" language="javascript">
+        function ShowDataInTable() {
+            var item;
+            $.ajax({
+                url: "/Patients/ShowIncidentDetails",
+                data: JSON.stringify(item),
+                dataType: 'JSON',
+                type: 'GET',
+                contentType: 'application/json; charset=utf-8',
+                success: function (data) {
+                    var html = '';
+                    var index = 1;
+                    $.each(data, function (key, item) {
+                        html += '<tr>';
+                        // html += '<td>' + index + '</td>';
+                        //html += '<td>' + item.incident_id + '</td>';
+                        html += '<td>' + item.dateofIncident + '</td>';
+                        html += '<td>' + item.timeOfIncident + '</td>';
+                        html += '<td>' + item.caseType + '</td>';
+                        html += '<td>' + item.incidentReportedTo + '</td>';
+                        html += '<td>' + item.patientImpocted + '</td>';
+                        html += '<td>' + item.notes + '</td>';
+                        html += '<td><a class="btn  btn-sm" href="#" onclick="return Editbyid(' + item.incident_id + ')" data-toggle="modal" data-target="#NewIncident" ><i class="fa fa-edit"></i></a></td>';
+                        html += '<td><a class="btn  btn-sm" href="#" onclick="return DeleteIncidentbyId(' + item.incident_id + ')"><i class="fa fa-trash-o"></i></a></td>';
+                        html += '</tr>';
+                        index++;
+                    });
+                    $('.tbodyData').html(html);
+                }
+            });
+        }
+        function DeleteIncidentbyId(incident_id) {
+            var checkstr = confirm('Are You Sure You Want To Delete This?');
+            var PetObj = JSON.stringify({ Incident_id: incident_id });
+            // var item;
+            if (checkstr == true) {
+                $.ajax({
+                    url: "/Patients/DeleteIncidentById",
+                    data: JSON.parse(PetObj),
+                    dataType: 'JSON',
+                    type: 'POST',
+                    //contentType: 'application/json; charset=utf-8',
+                    success: function (result) {
+                        if (result.msg == "Delete Successfull!!") {
+                            alert("Delete Success");
+                            ShowDataInTable();
+                        }
+                    },
+                    error: function (errormessage) {
+                        alert(errormessage.responseText);
+                    }
+                });
+            }
+            else {
+                return false;
+            }
+        }
+        function Editbyid(incident_id) {
+            // var checkstr = confirm('Are You Sure You Want To Delete This?');
+            var PetObj = JSON.stringify({ Incident_id: incident_id });
+            // var item;
+            $.ajax({
+                url: "/Patients/EditIncidentById",
+                data: JSON.parse(PetObj),
+                dataType: 'JSON',
+                type: 'POST',
+                //contentType: 'application/json; charset=utf-8',
+                success: function (result) {
+                    $('#btnSave').text = "UPDATE";
+                    $('#NewIncidentId').val(result.incident_id);
+                    $('#txtIncidentDate').val(result.dateofIncident);
+                    $('#txtIncidentTime').val(result.timeOfIncident);
+                    $('#ddlCaseType').val(result.caseType);
+                    $('#txtIncidentReport').val(result.incidentReportedTo);
+                    $('#txtPatientImp').val(result.patientImpocted);
+                    $('#txtIncidentNotes').val(result.notes);
+                    ShowDataInTable();
+                },
+                error: function (errormessage) {
+                    alert(errormessage.responseText);
+                }
+            });
+        }
+        function Validation() {
+            var msg = "";
+            if ($('#txtIncidentDate').val() == "") { msg = "Date of Incident can not left Blank !! \n"; }
+            if ($('#txtIncidentTime').val() == "") { msg += "Time Of Incident can not left Blank !! \n"; }
+            if ($('#txtIncidentReport').val() == "") { msg += "Incident Report can not left Blank !! \n"; }
+            if (msg != "") { alert(msg); return false; }
+        }
+        ShowDataInTable();
+    </script>
+</body>
+</html>

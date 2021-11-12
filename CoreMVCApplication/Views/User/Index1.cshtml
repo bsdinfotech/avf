@@ -1,0 +1,39 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<div>
+    <table class="table">
+        <tr>
+            <th>Issuer</th>
+            <th>OriginalIssuer</th>
+            <th>Type</th>
+            <th>Value</th>
+
+        </tr>
+        @foreach (var item in ViewBag.ListGoogleData as List<GoogleAuthentication>)
+        {
+            <tr>
+                <td>
+                    @item.Issuer
+                </td>
+                <td>
+                    @item.OriginalIssuer
+                </td>
+                <td>
+                    @item.Type
+                </td>
+                <td>
+                    @item.Value
+                </td>
+                @*<td>
+                        @Html.ActionLink("Edit", "GetUserProfileData", new { id = item.id })
+                    </td>
+                    <td>
+                        @Html.ActionLink("Delete", "DeleteUserProfile", new { id = item.id })
+                    </td>*@
+            </tr>
+        }
+    </table>
+</div>

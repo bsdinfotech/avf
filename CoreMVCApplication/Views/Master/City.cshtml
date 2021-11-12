@@ -1,0 +1,57 @@
+﻿@{
+    ViewData["Title"] = "City";
+    Layout = "~/Views/Shared/_GlobalLawLayout.cshtml";
+}
+
+<html>
+<head>
+</head>
+<body>
+    <div>
+        <form enctype="multipart/form-data">
+            <div class="col-md-12">
+                <div class="row">
+                    <input type="hidden" id="id" />
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>City Code</label>
+                            <input type="text" id="txtCityCode" readonly placeholder="City Code" />
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>City Name</label>
+                            <input type="text" id="txtCityName" placeholder="City Name" />
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>State Name</label>
+                            <select id="ddlState">
+                                <option>Select State</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <input type="submit" class="btn btn-primary" value="Submit" />
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div class="col-md-12 main-table">
+            <table class="table" id="data-table" style="width:100%">
+                <thead>
+                    <tr style="background: #F5F5FA !important;">
+                        <th>City Code</th>
+                        <th>City Name</th>
+                        <th>State Name</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody class="tbody"></tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
+

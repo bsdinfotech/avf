@@ -1,0 +1,75 @@
+﻿<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] </title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container">
+                <a class="navbar-brand" asp-area="" asp-controller="" asp-action="">CoreMVCApplication</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="top_header">
+                    <div class="col-left-l6 ">
+                        <div class="ham_menu">
+                            <span></span><span></span><span></span>
+                            <div class="mmoverlay"></div>
+                        </div>
+                        <div class="search-box">
+                            <input type="text" placeholder="Search patients, appointments" />
+                        </div>
+                    </div>
+                    <div class="col-left-l3 login-details">
+                        <div class="login-info">
+                            <div class="notification">
+                                <div class="notification-icon"></div>
+                                <div class="popup-window"></div>
+                            </div>
+                            <div class="user">
+                                <div class="profile-pic">
+                                    <img src="images/dummy-pic.png" />
+                                </div>
+                                <div class="profile-text">
+                                    <span>Sanjay Sharma</span>
+                                    <a href="javascript:void(0)" class="user-info"></a>
+                                    <div class="popup-window mx-100"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="row">
+        <div class="col">
+            <div class="header" tabindex="-1">
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <main role="main" class="pb-5" style="margin-left:70px;">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2021 - CoreMVCApplication - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+</body>
+</html>

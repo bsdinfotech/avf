@@ -1,0 +1,48 @@
+﻿@{
+    ViewData["Title"] = "Country";
+    Layout = "~/Views/Shared/_GlobalLawLayout.cshtml";
+}
+
+<html>
+<head>
+</head>
+<body>
+    <div>
+        <form enctype="multipart/form-data">
+            <div class="col-md-12">
+                <div class="row">
+                    <input type="hidden" id="id" />
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>Country Code</label>
+                            <input type="text" id="txtCountryCode" placeholder="Country Code" readonly />
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>Country Name</label>
+                            <input type="text" id="txtCountryName" placeholder="Country Name" />
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <input type="submit" class="btn btn-primary" value="Submit" />
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div class="col-md-12 main-table">
+            <table class="table" id="data-table" style="width:100%">
+                <thead>
+                    <tr style="background: #F5F5FA !important;">
+                        <th>Country Code</th>
+                        <th>Country Name</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody class="tbody"></tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
+

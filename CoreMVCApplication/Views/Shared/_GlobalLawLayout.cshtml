@@ -1,0 +1,233 @@
+﻿@using Microsoft.AspNetCore.Http;
+@inject IHttpContextAccessor HttpContextAccessor
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    @*<title>@ViewData["Title"]</title>*@
+    <title>AskforVets</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    @*<link href="~/css/StyleSheet.css" rel="stylesheet" />*@
+    <link href="~/css/Patient.css" rel="stylesheet" />
+    @*<link rel="stylesheet" href="~/css/bootstrap.min.css">*@
+    <link rel="stylesheet" href="~/css/dataTables.bootstrap.css">
+    @*<link rel="stylesheet" href="~/css/dataTables.responsive.css">*@
+
+    <script src="~/js/jquery-3.6.0.min.js"></script>
+    <script src="~/js/jquery.dataTables.min.js"></script>
+    <script src="~/js/dataTables.bootstrap.js"></script>
+    <script src="~/js/dataTables.responsive.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script src="~/js/custom.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+
+
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+
+    @*<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>*@
+    @*<link href="~/css/select2.min.css" rel="stylesheet" />*@
+
+    <style>
+        ul.dropdown-menu.show {
+            height: auto;
+            border: none;
+            float: none !important;
+            top: -11px !important;
+            background: transparent;
+            position: initial !important;
+            transform: none !important;
+        }
+
+        ProfileImg {
+            width: 50px;
+            height: 50px;
+            border-radius: 1px;
+        }
+
+        ul.dropdown-menu.main-icon-drop {
+            position: absolute !important;
+            top: 41px !important;
+            background: white !important;
+            text-align: center;
+            min-width: auto !important;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <nav id="mySidebar" class="sidebar">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+        <ul class="left-navigation" id="nav">
+            <li class="asklogo"><img width="100%" src="~/image/askvets-logo.png" /></li>
+            
+            @*<li class="nav-item">
+            <a asp-area="" asp-controller="Admin" asp-action="UserMaster">USER MASTER</a>
+        </li>
+        <li class="nav-item">
+            <a asp-area="" asp-controller="Admin" asp-action="UserProfile">USER PROFILE</a>
+        </li>
+        <li class="nav-item">
+            <a asp-area="" asp-controller="Admin" asp-action="UserRight">USER RIGHT</a>
+        </li>
+        <li class="nav-item">
+            <a asp-area="" asp-controller="Admin" asp-action="MenuMaster">MENU MASTER</a>
+        </li>*@
+            @*<li class="nav-item">
+            <a class="" asp-area="" asp-controller="Home" asp-action="Index">USER PANEL</a>
+        </li>*@
+            <li class="nav-item nav-main">
+                <a  asp-area="" asp-controller="Patients" asp-action="Dashboard">  <i class="icons dashbord-ico"></i> Dashboard </a>
+            </li>
+            <li class="nav-item ">
+                <a asp-area="" asp-controller="Patients" asp-action="PetAppointment">  <i class="icons schedule"></i> Scheduling</a>
+            </li>
+
+            <li class="nav-item dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="dropdownMenuButton"><i class="icons patients"></i> Patients <i class="fa fa-plus" style="float: right; padding: 6px; "></i></a>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="position:initial !important;">
+                    <li class="nav-item">
+                        <a asp-area="" asp-controller="Patients" asp-action="Patient">Patients</a>
+                    </li>
+                    @*<li class="nav-item">
+                        <a asp-area="" asp-controller="Patients" asp-action="PetParent">Add Pet Parent</a>
+                    </li>*@
+                    <li class="nav-item">
+                        <a asp-area="" asp-controller="Patients" asp-action="Pet">Add Pet</a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="nav-item">
+                <a asp-area="" asp-controller="Patients" asp-action="Doctors"><i class="icons doctors"></i> Doctors</a>
+            </li>
+            <li class="nav-item">
+                <a asp-area="" asp-controller="Patients" asp-action="Pharmacy"><i class="icons pharmacy"></i> Pharmacy</a>
+            </li>
+            <li class="nav-item">
+                <a asp-area="" asp-controller="Patients" asp-action="Inventory"><i class="icons inventory"></i> Inventory</a>
+            </li>
+            <li class="nav-item">
+                <a asp-area="" asp-controller="Patients" asp-action="Incidents"><i class="icons incidents"></i> Incidents</a>
+            </li>
+
+            <li class="nav-item">
+                <a asp-area="" asp-controller="Patients" asp-action="ImagingComingSoon"><i class="icons imaging"></i> Imaging <p style="color:red">Coming soon</p></a>
+                @*<ul class="">
+                <li><a href="#">Requests</a></li>
+                <li><a href="#">Completed</a></li>
+            </ul>*@
+            </li>
+            <li>
+                <a asp-area="" asp-controller="Patients" asp-action="LabComingSoon"><i class="icons labs"></i> Labs <p style="color:red">Coming soon</p></a>
+            </li>
+            <li>
+                <a asp-area="" asp-controller="Patients" asp-action="MarketPlace"><i class="icons marketplace"></i> Marketplace <p style="color:red">Coming soon</p></a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="dropdownMenubillingButton"><i class="icons billing"></i> Billing  <i class="fa fa-plus" style="float: right; padding: 6px; "></i></a>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenubillingButton" style="position:initial !important;">
+                    <li class="nav-item">
+                        <a asp-area="" asp-controller="Patients" asp-action="Billing"> Billing</a>
+                    </li>
+                    <li class="nav-item">
+                        <a asp-area="" asp-controller="Patients" asp-action="Pricing">Pricing</a>
+                    </li>
+                </ul>
+            </li>
+            @*<li>
+                <a asp-area="" asp-controller="Patients" asp-action="Billing"><i class="icons billing"></i> Billing</a>
+            </li>*@
+            <li>
+                <a asp-area="" asp-controller="Patients" asp-action="Setting"><i class="icons setting"></i> Setting</a>
+            </li>
+            @*<li class="nav-item">
+            <a asp-area="" asp-controller="User" asp-action="SignIn">LOGIN</a>
+        </li>*@
+        </ul>
+    </nav>
+    <header>
+        <div class="top_header">
+            <div class="col-left-l6 ">
+                <div id="main" class="ham_menu">
+                    <button class="openbtn" onclick="openNav()">☰</button>
+                </div>
+                <div class="search-box">
+                    <i class="fa fa-search"></i><input type="text" placeholder="Search patients, appointments" />
+                </div>
+                <div class="login-details">
+                    <div class="login-info">
+                        <div class="notification">
+                            <div class="notification-icon"></div>
+                            <div class="popup-window"></div>
+                        </div>
+                        <div class="user">
+                            <div class="profile-pic">
+                                <img src="~/image/dummy-pic.png" style="border-radius:50%"  />
+                            </div>
+                            <div class="profile-text dropdown">
+                                <span>@HttpContextAccessor.HttpContext.Session.GetString("firstname")</span>
+                                <a href="javascript:void(0)" class="user-info" id="menu1" data-toggle="dropdown"></a>
+                                <div class="popup-window mx-100"></div>
+
+                                <span class="caret"></span>
+                                <ul class="dropdown-menu main-icon-drop" style="left:0 !important;max-width:auto" role="menu" aria-labelledby="menu1">
+                                    <li role="presentation">
+                                        <a asp-area="" asp-controller="Patients" asp-action="Setting" style="color:black">Setting</a>
+                                    </li>
+                                    <li role="presentation"><a asp-area="" asp-controller="User" id="logout" asp-action="SignIn" style="color:black">Logout</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        @*<div class="user">
+            <div class="profile-pic">
+                <img src="~/image/dummy-pic.png" />
+            </div>
+            <div class="profile-text">
+                <span>Sanjay Sharma</span>
+                <a href="javascript:void(0)" class="user-info"></a>
+                <div class="popup-window mx-100"></div>
+            </div>
+        </div>*@
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </header>
+    <div class="all-data">
+        <main role="main" class="pb-5">
+            @RenderBody()
+        </main>
+    </div>
+    @*<footer class="border-top footer text-muted">
+            <div class="container">
+                &copy; 2021 - CoreMVCApplication - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            </div>
+        </footer>*@
+
+    
+    <script>
+        function openNav() {
+            document.getElementById("mySidebar").style.width = "100%";
+            document.getElementById("mySidebar").style.left = "0px";
+        }
+
+        function closeNav() {
+            document.getElementById("mySidebar").style.width = "0";
+            document.getElementById("mySidebar").style.left = "-117px";
+            document.getElementById("main").style.marginLeft = "0";
+        }
+        //$('#nav li').click(function () {
+        //    $(this).find('a').addClass('nav ul a.active').siblings().removeClass("nav ul a.active");
+        //    //$(this).siblings('li').find('a').removeClass('nav ul a.active');
+        //})
+    </script>
+</body>
+</html>

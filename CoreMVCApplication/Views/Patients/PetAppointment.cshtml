@@ -1,0 +1,854 @@
+﻿@model CoreMVCApplication.Models.PatientAppointment
+@{
+    ViewData["Title"] = "Scheduling-Appointment";
+    Layout = "~/Views/Shared/_GlobalLawLayout.cshtml";
+}
+<html>
+<head>
+    <link href="~/css/TypeAssistDropDown.min.css" rel="stylesheet" />
+    <style>
+        .inputText {
+            border: 1px solid #D8D8DC;
+            border-radius: 8px;
+            display: flex;
+            -webkit-box-align: center;
+            padding: 0px 15px;
+            width: 100%;
+            outline: none;
+            font-size: 14px;
+        }
+
+        select {
+            border: 1px solid #D8D8DC;
+            border-radius: 8px;
+            display: flex;
+            -webkit-box-align: center;
+            padding: 0px 15px;
+            width: 100%;
+            height: calc(1.5em + .75rem + 0px);
+            outline: none;
+        }
+
+        input[type="date"] {
+            border-radius: 8px;
+            display: flex;
+            -webkit-box-align: center;
+            padding: 0px 5px;
+            width: 100%;
+            outline: none;
+            height: calc(1.5em + .75rem + 2px);
+            font-size: 14px;
+        }
+
+        .text-area {
+            border: 1px solid #D8D8DC;
+            border-radius: 8px;
+            resize: none;
+            width: 100%;
+            height: 80px;
+            padding: 15px;
+            font-family: inherit;
+            font-size: inherit;
+            line-height: inherit;
+            outline: none;
+        }
+
+        .button-data {
+            border: 1px solid #D8D8DC;
+            box-sizing: border-box;
+            border-radius: 8px;
+            height: calc(1.5em + .75rem + 0px);
+            padding: 0px;
+            float: left;
+            width: 100%;
+        }
+
+            .button-data .li:focus {
+                border: 1px solid #652B88;
+                color: #652B88;
+                border-radius: 8px;
+                outline: none;
+            }
+
+            .button-data .li {
+                float: left;
+                width: 50%;
+                text-align: center;
+                cursor: pointer;
+                padding: 5px;
+                border: none;
+                background: transparent;
+            }
+
+        ::placeholder {
+            font-weight: normal;
+            font-size: 16px !important;
+            line-height: 20px !important;
+            /* identical to box height, or 125% */
+
+            color: #808080 !important;
+        }
+
+        .modal-body .form-group select {
+            height: 56px;
+            font-weight: normal;
+            font-size: 16px !important;
+            border: 1px solid #D8D8DC;
+            border-radius: 8px;
+            display: flex;
+            -webkit-box-align: center;
+            padding: 0px 15px;
+            width: 100%;
+            outline: none;
+            color: #808080;
+        }
+
+        .modal-body .form-group input[type="date"] {
+            height: 56px;
+            border: 1px solid #D8D8DC;
+            border-radius: 8px;
+            display: flex;
+            -webkit-box-align: center;
+            padding: 0px 15px;
+            width: 100%;
+            outline: none;
+        }
+
+        {
+            height: 56px;
+            font-weight: normal;
+            font-size: 16px !important;
+            border: 1px solid #D8D8DC;
+            border-radius: 8px;
+            display: flex;
+            -webkit-box-align: center;
+            padding: 0px 15px;
+            width: 100%;
+            outline: none;
+            color: #808080;
+        }
+        .form-groupa {
+            width: 30%;
+            float: left;
+            margin-right: 15px;
+        }
+        #flagCheckout {
+            padding: 10px 0px 10px 0px !important;
+            width: 11%;
+        }
+        #flagCheckIn {
+            padding: 10px 0px 10px 0px !important;
+            width: 11%;
+        }
+
+        .select2-container--default .select2-selection--single {
+            background-color: #fff !important;
+            height: 56px !important;
+            font-weight: normal !important;
+            font-size: 16px !important;
+            border: 1px solid #D8D8DC !important;
+            border-radius: 8px !important;
+            -webkit-box-align: center !important;
+            padding: 15px 15px !important;
+            width: 100% !important;
+            outline: none !important;
+            color: #808080 !important;
+        }
+        .select2-container {
+            box-sizing: border-box;
+            display: inline-block;
+            margin: 0;
+            position: relative;
+            vertical-align: middle;
+            width: 100% !important;
+        }
+        .select2-container--default .select2-selection--single .select2-selection__arrow {
+            height: 26px;
+            position: absolute;
+            top: 15px !important;
+            right: 1px;
+            width: 20px;
+        }
+        .select2-search--dropdown .select2-search__field {
+            padding: 4px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+    <div class="PetAppointment">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-2">
+                        <h5>Appointments</h5>
+                    </div>
+                    <div class="col-lg-1">
+                        <ul class="button-data">
+                            <li><button class="li"><i class="fa fa-calendar-o"></i></button></li>
+                            <li><button class="li"><i class="fa fa-bars"></i></button></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-2">
+                        <input type="date" class="inputText" id="sch-app-datepicker" value="" />
+                    </div>
+                    <div class="col-md-5">
+                        <div class="form-groupa">
+                            <select class="form-control inputText required" id="ddlPetType1">
+                                <option value="">Pet Type</option>
+                                @if (ViewBag.PetTypeList != null)
+                                {
+                                    foreach (var item in ViewBag.PetTypeList as List<SelectListItem>)
+                                    {
+                                        <option value="@item.Value">@item.Text</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                        <div class="form-groupa">
+                            <select class="form-control inputText required" id="ddlPetBreed">
+                                <option value="">Pet Breed</option>
+                                @*@if (ViewBag.PetBreedList != null)
+                                    {
+                                        foreach (var item in ViewBag.PetBreedList as List<SelectListItem>)
+                                        {
+                                            <option value="@item.Value">@item.Text</option>
+                                        }
+                                    }*@
+                            </select>
+                        </div>
+
+                        <div class="form-groupa">
+                            <select class="form-control inputText required" id="ddlAllStatus">
+                                <option value="">All Status</option>
+                                @if (ViewBag.AppointmentStatus != null)
+                                {
+                                    foreach (var item in ViewBag.AppointmentStatus as List<SelectListItem>)
+                                    {
+                                        <option value="@item.Value">@item.Text</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <!-- Button trigger modal -->
+                            <button style=" background: #652B88; width: 100%; padding: 8px 3px; box-shadow: none; border: none;" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                                + New Appointment
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <form class="form-row" enctype="multipart/form-data">
+            <div class="col-md-12 main-table">
+                <table class="table" id="data-table" style="width:100%">
+                    <thead>
+                        <tr style="background: #F5F5FA !important;">
+                            @*<th>Index</th>*@
+                            @*<th class="hide">ID</th>*@
+                            <th>Pet Parent Name</th>
+                            <th>Pet Name</th>
+                            <th>Breed</th>
+                            <th>Pet Type</th>
+                            <th>Appointment Status</th>
+                            <th>Appointment Date</th>
+                            <th>Appointment Type</th>
+                            <th>Time</th>
+                            <th style="display:none"></th>
+                            <th></th>
+                            <th></th>
+                            @*<th style="display:none" id="flagCheckout"></th>*@
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody class="tbodyData"></tbody>
+                </table>
+            </div>
+
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">New Appointment</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <input type="hidden" id="id" asp-for="Appointment_id" />
+                                    <div class="col-md-12" id="divpetparentname">
+                                        <div class="form-group">
+                                            <label>Pet Parent Name</label>
+                                            <select id="ddlPetParent" asp-for="PetParent_Id" style="width:100%;">
+                                                @*<option value="">Select Pet Parent Id</option>*@
+                                                @*@if (ViewBag.petParentName != null)
+                                                    {
+                                                        foreach (var item in ViewBag.petParentName as List<SelectListItem>)
+                                                        {
+                                                            <option value="@item.Value">@item.Text</option>
+                                                        }
+                                                    }*@
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Pet's Name</label>
+                                            <select id="ddlPetName" asp-for="PetName" style="width:100%;">
+                                                <option value="">Select Pet Name</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Pet's Type</label>
+                                            <input type="hidden" id="hidPetTypeId" asp-for="PetType" />
+                                             <input type="text" id="txtPetType" readonly placeholder="Pet Type" asp-for="PetTypeName" />
+                                            @*<select id="ddlpettype" disabled>
+                                                <option value="">--Select Pet's Type--</option>
+                                                @if (ViewBag.PetTypeList != null)
+                                                {
+                                                    foreach (var item in ViewBag.PetTypeList as List<SelectListItem>)
+                                                    {
+                                                        <option value="@item.Value">@item.Text</option>
+                                                    }
+                                                }
+                                            </select>*@
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Breed</label>
+                                            <input type="hidden" id="hidbreedId" asp-for="BreadId" />
+                                            <input type="text" id="txtBreed" readonly asp-for="Breed" placeholder="Breed" />
+                                            @*<select id="ddlBreed" asp-for="Breed">
+                                                <option value="">Select Pet Breed</option>
+                                                @if (ViewBag.PetBreedList != null)
+                                                    {
+                                                        foreach (var item in ViewBag.PetBreedList as List<SelectListItem>)
+                                                        {
+                                                            <option value="@item.Value">@item.Text</option>
+                                                        }
+                                                    }
+                                            </select>*@
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Pet's Parent Name</label>
+                                            <input type="text" id="txtPetParentName" asp-for="PetS_ParentName" class="form-control inputText" placeholder="Pet's Parent Name" readonly />
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label> Status</label>
+                                            <select class="inputText required" asp-for="Appointment_status" id="ddlappStatus">
+                                                <option value="">--Select Status--</option>
+                                                @if (ViewBag.AppointmentStatus != null)
+                                                {
+                                                    foreach (var item in ViewBag.AppointmentStatus as List<SelectListItem>)
+                                                    {
+                                                        <option value="@item.Value">@item.Text</option>
+                                                    }
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Appointment Date</label>
+                                            @*<input type="text" id="AppointmentDate" asp-for="Appointment_Date" class="inputText" data-provide="datepicker" />*@
+                                            <input type="date" id="AppointmentDate" asp-for="Appointment_Date" value="" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Appointment Type</label>
+                                            <select class="inputText required" asp-for="Appointment_Type" id="ddlappType">
+                                                <option value="">--Select Appointment Type--</option>
+                                                @if (ViewBag.AppointmentType != null)
+                                                {
+                                                    foreach (var item in ViewBag.AppointmentType as List<SelectListItem>)
+                                                    {
+                                                        <option value="@item.Value">@item.Text</option>
+                                                    }
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Doctor Name</label>
+                                            <select asp-for="doctorId" id="ddlDoctor">
+                                                <option value="">--Select Doctor--</option>
+                                                @if (ViewBag.DoctorName != null)
+                                                {
+                                                    foreach (var item in ViewBag.DoctorName as List<SelectListItem>)
+                                                    {
+                                                        <option value="@item.Value">@item.Text</option>
+                                                    }
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Time</label>
+                                            <select class="form-control inputText required" asp-for="Appointment_Time" id="ddlTime">
+                                                <option value="">--Select Time--</option>
+                                                @if (ViewBag.AppointmentTime != null)
+                                                {
+                                                    foreach (var item in ViewBag.AppointmentTime as List<SelectListItem>)
+                                                    {
+                                                        <option value="@item.Value">@item.Text</option>
+                                                    }
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    @*<div class="col-md-3">
+                                            <div class="form-group">
+                                                <label>Duration</label>
+                                                <select class="form-control required inputText" asp-for="Appointment_Duration" id="ddlDuration">
+                                                    <option value="">Select Duration</option>
+                                                </select>
+                                            </div>
+                                        </div>*@
+                                    @*<div class="col-md-2" style="margin-top:15px">
+                                            <div class="form-inline">
+                                                <label>Status</label>&nbsp;&nbsp;
+                                                <input type="checkbox" id="chkStatus" asp-for="Status" class="custom-checkbox" />Active
+                                            </div>
+                                        </div>*@
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>Notes</label>
+                                            @*<input type="text" id="txtNotes" asp-for="Appointment_Notes" class="form-control" style="height:70px" placeholder="Any Notes" />*@
+                                            <textarea type="text" row="2" asp-for="Appointment_Notes" class="form-control text-area" id="txtNotes" placeholder="Any notes"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <div class="main-save-price" style="float: right; background: #F5F5FA; padding: 10px 25px; margin-bottom: 20px; border-radius: 5px;">
+                                                <label style="font-size: 14px; color: #6C6C70; font-weight: normal; line-height: 0;">Total Fee : <span style="font-size: 18px; color: black; font-weight: 500; ">INR</span></label>
+                                                @*<span style=" color: black; font-weight: 500; font-size: 18px; " id="lblDr_Fees" asp-for="doctor_Fees"></span>*@
+                                                <label style=" color: black; font-weight: 500; font-size: 18px; " id="lblDr_Fees" asp-for="doctor_Fees"></label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-2 offset-7">
+                                        <input type="button" style="padding: 6px 11px; color: black; font-size: 14px; width: 100%; height: 34px; text-align: center; border: 1px solid #D8D8DC; border-radius: 8px; background-color: #efefef;" value="Cancel" id="btnClear" />
+
+                                    </div>
+                                    <div class="col-md-3">
+                                        <input type="submit" value="+ Create" style=" background: #652B88; border-radius: 7px;border:none; padding: 9px; padding: 6px 15px; color: white; font-size: 14px; width: -webkit-fill-available; margin-bottom: 20px;" asp-action="SaveNewAppointment" asp-controller="Patients" formmethod="post" id="btnSave" onclick="return Validation();" />
+
+                                    </div>
+                                    @if (ViewBag.Message != null)
+                                    {
+                                        <script type="text/javascript">
+                                                 window.onload = function () {
+                                                        alert("@ViewBag.Message");
+                                                    };
+                                        </script>
+                                    }
+                                    <br />
+                                </div>
+                            </div>
+                        </div>
+                        @*<div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">Save changes</button>
+                            </div>*@
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript">
+        $("#ddlpettype1").change(function () {
+            GetBreed1();
+        });
+        function GetBreed1() {
+            var selected_val = $('#ddlpettype1').find(":selected").attr('value');
+            $("#ddlpettype1").prop("disabled", false);
+            $.ajax({  //ajax call
+                type: "GET",      //method == GET
+                url: "/Patients/GetPetBreed", //url to be called
+                data: "id=" + selected_val, //data to be send
+                success: function (json, result) {
+                    $("#ddlPetBreed").empty();
+                    json = json || {};
+                    $("#ddlPetBreed").append('<option value="0">Select Pet Breed</option>');
+                    for (var i = 0; i < json.length; i++) {
+                        $("#ddlPetBreed").append('<option value="' + json[i].breedId + '">' + json[i].breed + '</option>');
+                    }
+                    $("#ddlPetBreed").prop("disabled", false);
+                },
+                error: function () {
+                    alert("Data Not Found");
+                }
+            });
+        }
+        $(document).ready(function () {
+            $('#lblDr_Fees').html('');
+        });
+        $("#ddlPetParent").change(function () {
+            GetPetData();
+        });
+        $("#ddlPetName").change(function () {
+            GetPatientData();
+        });
+        $('#ddlPetBreed').change(function () {
+            ShowDataInTable();
+        });
+        $('#ddlAllStatus').change(function () {
+            ShowDataInTable();
+        });
+        $('#sch-app-datepicker').change(function () {
+            ShowDataInTable();
+        })
+        function GetPetData() {
+            var selected_val = $('#ddlPetParent').find(":selected").attr('value');
+            $("#ddlPetName").prop("disabled", true);
+            $.ajax({  //ajax call
+                type: "GET",      //method == GET
+                url: "/Patients/GetPetFromParentId", //url to be called
+                data: "id=" + selected_val, //data to be send
+                success: function (json, result) {
+                    $("#ddlPetName").empty();
+                    json = json || {};
+                    for (var i = 0; i < json.length; i++) {
+                        $("#ddlPetName").append('<option value="' + json[i].petId + '">' + json[i].petName + '</option>');
+                    }
+                    GetPatientData();
+                    $("#ddlPetName").prop("disabled", false);
+                },
+                error: function () {
+                    alert("Data Not Found");
+                }
+            });
+        }
+        function GetPatientData() {
+            var selected_val = $('#ddlPetName').find(":selected").attr('value');
+            $.ajax({  //ajax call
+                type: "GET",      //method == GET
+                url: "/Patients/GetPetPatientData", //url to be called
+                data: "id=" + selected_val, //data to be send
+                success: function (result) {
+                    $('#txtPetParentName').val(result.petS_ParentName); 
+                /*$('#ddlpettype').val(result.petType);*/
+                    $('#txtPetType').val(result.petTypeName);
+                    $('#txtBreed').val(result.breed);
+                    $('#hidbreedId').val(result.breadId);
+                    $('#hidPetTypeId').val(result.petType);
+                    //$('#ddlBreed option[value='+result.breadId+']').attr('selected', 'selected');
+                   
+                },
+                error: function () {
+                    alert("Data Not Found");
+                }
+            });
+        }
+        function ShowDataInTable() {
+            var selected_val = $('#ddlPetBreed').find(":selected").attr('value');
+            var ddlStatus_val = $('#ddlAllStatus').find(":selected").attr('value');
+            var date = $('#sch-app-datepicker').val();
+            var item;
+            $.ajax({
+                url: "/Patients/AllAppointmentRecord",
+                data: { Breedid: selected_val, ddlStatus_val: ddlStatus_val, date: date },
+                dataType: 'JSON',
+                type: 'GET',
+                contentType: 'application/json; charset=utf-8',
+                success: function (data) {
+                    var html = '';
+                    var index = 1;
+                    $.each(data, function (key, item) {
+                        html += '<tr>';
+                        // html += '<td>' + index + '</td>';
+                        //html += '<td>' + item.appointment_id + '</td>';
+                        html += '<td>' + item.petS_ParentName + '</td>';
+                        html += '<td>' + item.petName + '</td>';
+                        html += '<td>' + item.breed + '</td>';
+                        html += '<td>' + item.petType + '</td>';
+                        html += '<td>' + item.appointment_status + '</td>';
+                        html += '<td>' + item.appointment_Date + '</td>';
+                        html += '<td>' + item.appointment_Type + '</td>';
+                        html += '<td>' + item.appointment_Time + '</td>';
+                        html += '<td style="display:none;"><span class="CheckIn">'+ item.flagCheckIn +'</span></td>';
+                        html += '<td><a class="btn btn-sm" href="#" data-toggle="modal" data-target="#exampleModal" onclick="return Editbyid(' + item.appointment_id + ')"><i class="fa fa-edit"></i></a></td>';
+                        html += '<td id="flagCheckIn"><a class="btn-main-icon"  href="/Patients/patientCheck_In?Appointment_id=' + item.appointment_id + '"><i class="fa fa-sign-in"></i><label>Check In</label></a></td>';
+                        html += '<td id="flagCheckout"><a class="btn-main-icon-out"   href="/Patients/NewInvoice?Appointment_id=' + item.appointment_id + '"><i class="fa fa-sign-out"></i><label>Check Out</label></a></td>';
+                        html += '<td><a class="btn btn-sm" href="#" onclick="return DeleteAppointmentbyId(' + item.appointment_id + ')"><i class="fa fa-trash-o"></i></a></td>';
+                        html += '</tr>';
+                        index++;
+                    });
+                    $('.tbodyData').html(html);
+                    $("#data-table tbody tr").each(function () {
+                        var row = $(this);
+                        row.find('#flagCheckout').hide();
+                        CheckIn = row.find('span.CheckIn').text();
+                        if (CheckIn == '1') {
+                            row.find('#flagCheckIn').hide();
+                            row.find('#flagCheckout').show();
+                        }
+                        else {
+                            row.find('#flagCheckIn').show();
+                            row.find('#flagCheckout').hide();
+                        }
+                    });
+                }
+            });
+        }
+        function DeleteAppointmentbyId(Appointment_id) {
+            var checkstr = confirm('Are You Sure You Want To Delete This?');
+            var PetObj = JSON.stringify({ ApId: Appointment_id });
+            // var item;
+            if (checkstr == true) {
+                $.ajax({
+                    url: "/Patients/DeleteAppointmentById",
+                    data: JSON.parse(PetObj),
+                    dataType: 'JSON',
+                    type: 'POST',
+                    //contentType: 'application/json; charset=utf-8',
+                    success: function (result) {
+                        if (result.msg == "Delete Successfull!!") {
+                            alert("Delete Success");
+                            ShowDataInTable();
+                        }
+                    },
+                    error: function (errormessage) {
+                        alert(errormessage.responseText);
+                    }
+                });
+            }
+            else {
+                return false;
+            }
+
+        }
+        function Editbyid(appointment_id) {
+            var PetObj = JSON.stringify({ ApId: appointment_id });
+            $.ajax({
+                url: "/Patients/EditAppointmentById",
+                data: JSON.parse(PetObj),
+                dataType: 'JSON',
+                type: 'POST',
+                success: function (result) {
+                    // result = json.parse(result);
+                    $('#id').val(result.appointment_id);
+                    //var PetParentId = result.petParent_Id;
+                    //PopulatePetParentId(PetParentId);
+                    //$("#ddlPetParent").val(PetParentId).attr("selected", "true");
+                    $('#ddlPetParent').val(result.petParent_Id);
+                    $('#ddlBreed').val(result.breed);
+                    $('#txtPetParentName').val(result.petS_ParentName);
+                    $('#ddlpettype').val(result.petType);
+                    $('#ddlappStatus').val(result.appointment_status);
+                    $('#AppointmentDate').val(result.appointment_Date);
+                    $('#ddlappType').val(result.appointment_Type);
+                    $('#ddlTime').val(result.appointment_Time);
+                    // $('#ddlDuration').val(result.appointment_Duration);
+                    $('#txtNotes').val(result.appointment_Notes);
+                    $('#chkStatus').val(result.status);
+                    $('#btnSave').val = "Update";
+                    EditPetName(result.petParent_Id);
+                    $('#ddlPetName  option[value=' + result.petName + ']').attr('selected', 'selected');
+                    $('#ddlDoctor  option[value=' + result.doctorId + ']').attr('selected', 'selected');
+                    $('#lblDr_Fees').html(result.doctor_Fees);
+                    // $('#ddlPetName').val(result.petName).attr("selected", "true");
+                    //$('#ddlPetName').val(result.petName).attr("selected", "true");
+                    //  EditPetName();
+                    // $('#ddlPetName').val(result[0].petName);
+                    //$('#ddlPetName').val(result.petName);
+                    //$('#ddlDoctor').val(result.doctorId);
+                    ShowDataInTable();
+                    GetPetData();
+                    $('#divpetparentname').hide();
+                },
+
+                error: function () {
+                    alert("Data Not Found");
+                }
+            });
+
+        }
+        function Validation() {
+            var msg = "";
+            if ($('#ddlPetParent').val() == '') { msg = "Pet Parent Id Can not left Blank !!\n"; }
+            //if ($('#ddlPetName').val() == '') { msg += "Pet Name can not left Blank !!\n "; }
+            if ($('#ddlBreed').val() == '') { msg += "Breed can not left Blank !! \n"; }
+            if ($('#txtPetParentName').val() == '') { msg += "Pet Parent Name can not left Blank !! \n"; }
+            if ($('#ddlpettype').val() == '') { msg += "Pet Type can not left Blank !! \n" };
+            //if ($('#ddlappStatus').val() == '') { msg += "Appointment Status can not left Blank !! \n"; }
+            //if ($('#AppointmentDate').val() == '') { msg += "Appointment Date can not left Blank !! \n";}
+            //if ($('#ddlappType').val() == '') { msg += "Appointment Type can not left Blank !! \n"; }
+            //if ($('#ddlTime').val() == '') { msg += "Time can not left Blank !! \n"; }
+            //if ($('#ddlDuration').val() == '') { msg += "Duration can not left Blank !! \n "; }
+            //if ($('#txtNotes').val() == '') { msg = "Notes can not left Blank !! " };
+            //if ($('#chkStatus').val() == '') { msg = "Status can not left Blank !! " };
+            if (msg != "") { alert(msg); return false; }
+        }
+        function PopulatePetParentId() {
+            $.ajax({
+                type: "GET",
+                url: "/Patients/PopulatePetParentName",
+                datatype: "Json",
+                data: {},
+                // async: false,
+                success: function (data) {
+                    $('#ddlPetParent').html('<option value="0">Select Pet Parent Id</option>');
+                    var PetParentId = '';
+                    for (var i = 0; i < data.length; i++) {
+                        PetParentId += '<option value="' + data[i].value + '">' + data[i].text + '</option>';
+                    }
+                    $('#ddlPetParent').append(PetParentId);
+                }
+            });
+        }
+        function EditPetName(petParent_Id) {
+            var PetObj = JSON.stringify({ petParent_Id: petParent_Id });
+            $.ajax({
+                type: "GET",
+                url: "/Patients/EditPetName",
+                datatype: "Json",
+                data: JSON.parse(PetObj),
+                // async: false,
+                success: function (result) {
+                    $('#ddlPetName').html('<option value="0">Select Pet Name</option>');
+                    PetName = '';
+                    for (var i = 0; i < result.length; i++) {
+                        PetName += '<option value="' + result[i].value + '">' + result[i].text + '</option>';
+                    }
+                    $('#ddlPetName').append(PetName);
+                    // $('#ddlPetName').val().attr("selected", "true");
+                }
+            });
+        }
+        $("#ddlpettype").change(function () {
+            GetBreed();
+        });
+        function GetBreed() {
+            var selected_val = $('#ddlpettype').find(":selected").attr('value');
+            $("#ddlpettype").prop("disabled", false);
+            $.ajax({  //ajax call
+                type: "GET",      //method == GET
+                url: "/Patients/GetPetBreed", //url to be called
+                data: "id=" + selected_val, //data to be send
+                success: function (json, result) {
+                    $("#ddlBreed").empty();
+                    json = json || {};
+                    $("#ddlBreed").append('<option value="0">Select Pet Breed</option>');
+                    for (var i = 0; i < json.length; i++) {
+                        $("#ddlBreed").append('<option value="' + json[i].breedId + '">' + json[i].breed + '</option>');
+                    }
+                    
+                    $("#ddlBreed").prop("disabled", false);
+                },
+                error: function () {
+                    alert("Data Not Found");
+                }
+            });
+        }
+        $("#ddlDoctor").change(function () {
+            GetDr_Fees();
+        });
+        function GetDr_Fees() {
+            var selected_val = $('#ddlDoctor').find(":selected").attr('value');
+            //$("#ddlpettype").prop("disabled", false);
+            $.ajax({  //ajax call
+                type: "GET",      //method == GET
+                url: "/Patients/GetDr_Fees", //url to be called
+                data: "id=" + selected_val, //data to be send
+                success: function (result) {
+                    $('#lblDr_Fees').html(result.doctor_Fees);
+                },
+                error: function () {
+                    alert("Data Not Found");
+                }
+            });
+        }
+        function cancel() {
+            $('#exampleModal').hide();
+        }
+        $(document).ready(function () {
+            var now = new Date();
+            var day = ("0" + now.getDate()).slice(-2);
+            var month = ("0" + (now.getMonth() + 1)).slice(-2);
+            var today = now.getFullYear() + "-" + (month) + "-" + (day);
+            $('#sch-app-datepicker').val(today);
+        });
+        //function PopulateddlPetName() {
+        //    $.ajax({
+        //        type: "GET",
+        //        url: "/Patients/PopulatePetName",
+        //        datatype: "Json",
+        //        data: {},
+        //        // async: false,
+        //        success: function (data) {
+        //            $('#ddlPetName').html('<option value="0">Select Pet Name</option>');
+        //            var PetName = '';
+        //            for (var i = 0; i < data.length; i++) {
+        //                PetName += '<option value="' + data[i].value + '">' + data[i].text + '</option>';
+        //            }
+        //            $('#ddlPetName').append(PetName);
+        //        }
+        //    });
+        //}
+        ShowDataInTable();
+        PopulatePetParentId();
+        //   PopulateddlPetName();
+    </script>
+
+    @*<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.1/js/bootstrap-datepicker.min.js"></script>*@
+    <script type="text/javascript">
+        //debugger;
+        //$(document).ready(function () {
+        //    $("#AppointmentDate").datepicker({
+        //        dateFormat: "dd/mm/yy",
+        //        minDate: -3,
+        //        maxDate: "+0M +0D"
+
+        //    });
+        //});
+        var date = new Date();
+        date.setDate(date.getDate());
+
+        $('#AppointmentDate1').datepicker({
+            dateFormat: "dd-mm-yyyy",
+            startDate: date
+
+        });
+    </script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#ddlPetParent").select2({
+                dropdownParent: $("#exampleModal")
+            });
+            $("#ddlPetName").select2({
+                dropdownParent: $("#exampleModal")
+            });
+           // $("#ddlPetParent").select2();
+           // $("#ddlPetName").select2();
+        });
+
+    </script>
+</body>
+</html>
+

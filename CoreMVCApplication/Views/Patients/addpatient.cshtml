@@ -1,0 +1,421 @@
+﻿@model CoreMVCApplication.Models.Patient
+@{
+    ViewData["Title"] = "Add Patient";
+    Layout = "~/Views/Shared/_GlobalLawLayout.cshtml";
+}
+<html>
+<head>
+    @*<link href="~/css/style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/dataTables.bootstrap.css">
+    <link rel="stylesheet" href="~/css/dataTables.responsive.css">*@
+    <link href="~/css/Patient.css" rel="stylesheet" />
+
+</head>
+<body>
+    <div>
+        <form class="form-rows" enctype="multipart/form-data">
+            <div class="askforvetss">
+                <div class="dashbord" style=" margin-top: 0px !important; padding: 17px;">
+                    <!-- Dashboard -->
+                    <div class="breadcrum_wrapper">
+                        <ul class="breadcrum" style=" padding: 0px;">
+                            <li>
+                                <a href="/Patients/Patient">Patients</a>
+                            </li>
+                            <li>
+                                <span class="current">Add New Patient</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="frame-heading only-data-grid">
+                        <div class="heading flex-grid">
+                            <div class="title back_button_box"><a href="/Patients/Patient" class="back_button"></a>Add New Patient</div>
+                        </div>
+                    </div>
+                    <div class="wrap-container only-saprate-table">
+                        <div class="heading flex-grid">
+                            <div class="title up_title ">
+                                <i class="fa fa-user" style="padding-right: 10px; color: white; text-shadow: 0 0 2px #000000, 0 0 3px #000000;"></i>
+                                Pet Parent
+                            </div>
+                        </div>
+                        <div class="form_wrapper wd6">
+                            <ul class="form grid-2col">
+                                <li>
+                                    <input type="hidden" id="parentId" asp-for="PetParent_Id" />
+                                    <label>Full Name <span class="span-star">*</span></label>
+                                    <input type="text" placeholder="Name" asp-for="FullName" onkeypress="return onlyAlphabetKey(event)" id="txtFullName" />
+                                    <div class="error"></div>
+                                </li>
+                                <li>
+                                    <label>Gender <span class="span-star">*</span></label>
+                                    <select id="ddlGender" asp-for="Gender">
+                                        <option value="">--Select Parent Gender--</option>
+                                        @if (ViewBag.Gender != null)
+                                        {
+                                            foreach (var item in ViewBag.Gender as List<SelectListItem>)
+                                            {
+                                                <option value="@item.Value">@item.Text</option>
+                                            }
+                                        }
+                                    </select>
+
+                                    @*<div class="animate_radio_checkbox">
+                                            <div class="rdio rdio-primary radio-inline">
+                                                <input type="radio" id="male" name="gender" checked>
+                                                <label for="male">Male</label>
+                                            </div>
+                                            <div class="rdio rdio-primary radio-inline">
+                                                <input type="radio" id="female" name="gender">
+                                                <label for="female">Female</label>
+                                            </div>
+                                        </div>*@
+                                </li>
+                                <li>
+                                    <label>Mobile Number <span class="span-star">*</span></label>
+                                    <input type="text" placeholder="Mobile Number" id="txtMobileNo" maxlength="10" asp-for="Mobile_no" />
+                                    <div class="error"></div>
+                                    <label style="display:none;color:red;" id="lblMobileNoerror"></label>
+
+                                </li>
+                                <li>
+                                    <label>Email <span class="span-star"></span></label>
+                                    <input type="text" placeholder="Email" id="txtEmail" asp-for="Email" onkeyup="check_Email()" />
+                                    <div class="error"></div>
+                                    <label style="display:none;color:red;" id="lblEmailerror"></label>
+                                </li>
+                            </ul>
+                            <ul class="form grid-1col">
+                                <li>
+                                    <label>Address <span class="span-star">*</span></label>
+                                    <input type="text" placeholder="Address" id="txtAddress"  asp-for="Address" />
+                                    <div class="error"></div>
+                                </li>
+                            </ul>
+                            <ul class="form grid-3col">
+                                <li>
+                                    <label>City <span class="span-star">*</span></label>
+                                    <input type="text" placeholder="City" id="txtCity" asp-for="city" />
+                                    <div class="error"></div>
+                                </li>
+                                <li>
+                                    <label>Area <span class="span-star">*</span></label>
+                                    <input type="text" placeholder="Area" id="txtArea" asp-for="area" />
+                                    <div class="error"></div>
+                                </li>
+                                <li>
+                                    <label>Pin Code <span class="span-star">*</span></label>
+                                    <input type="text" placeholder="Pin Code" id="txtPinCode" asp-for="pincode" onkeypress="return OnlyNumberKey(event)" />
+                                    <div class="error"></div>
+                                </li>
+                            </ul>
+                            <ul class="form grid-1col">
+                                <li>
+                                    <label>Notes</label>
+                                    <textarea type="text" row="2" onkeypress="return onlyAlphabetKey(event)" placeholder="Any notes" id="txtParentNotes" asp-for="Notes"></textarea>
+                                    <div class="error"></div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="wrap-container">
+                        <div class="heading flex-grid">
+                            <div class="title up_title"><span class="icons dogicon"></span>Pet</div>
+                        </div>
+                        <div class="form_wrapper wd6">
+                            <input type="hidden" id="petid" asp-for="Pet_id" />
+                            @*<label>@Model.Pet_id</label>*@
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label>Pet Photo <span class="span-star">*</span></label>
+                            </div>
+                            <div class="col-lg-9 col-xs-12">
+                                <ul class="form grid-2col">
+                                    <li>
+
+                                        <div class="upload_img">
+                                            <div class="update_img dummypic">
+                                                @*<img id="img" src="~/image/dummy-pic.png" alt="your image" width="75" height="80"  />*@
+                                                <img id="img" src="~/Images/@Model.Pet_Image" alt="your image" width="75" height="80" />
+                                            </div>
+                                            <div align="left" class="imagediv">
+                                                @*<span class="visibleimg"></span>
+                            <span class="showonhover">Upload</span>*@
+                                                <input id="selectfile" type="file" name="PetImage" />
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-lg-3 col-xs-12" style="padding-top:0px;">
+                                <label>Patient ID</label>
+                                <input style=" background: #d8d8dc36;" type="text" value="@Model.Pet_id" readonly />
+                            </div>
+                        </div>
+                            
+                            <ul class="form grid-2col">
+                                @*<li>
+                                        <label>Patient ID</label>
+                                        <input type="text" placeholder="Name"  disabled />
+                                        <div class="error"></div>
+                                    </li>*@
+                                <li>
+                                    <label>Pet’s Name <span class="span-star">*</span></label>
+                                    <input type="text" placeholder="Pet’s Name" id="txtPetName" onkeypress="return onlyAlphabetKey(event)" asp-for="PetName" />
+                                    <div class="error"></div>
+                                </li>
+                            </ul>
+                            <ul class="form grid-3col">
+                                <li>
+                                    <label>Pet’s Type <span class="span-star">*</span></label>
+                                    <select asp-for="PetType" id="ddlpetType">
+                                        <option value="">Select Pet’s Type</option>
+                                        @if (ViewBag.PetTypeList != null)
+                                        {
+                                            foreach (var item in ViewBag.PetTypeList as List<SelectListItem>)
+                                            {
+                                                <option value="@item.Value">@item.Text</option>
+                                            }
+                                        }
+                                    </select>
+                                    <div class="error"></div>
+                                </li>
+                                <li>
+                                    <label>Breed <span class="span-star">*</span></label>
+                                    <select asp-for="Breed" id="ddlbreed">
+                                        <option value="">Select Pet Breed</option>
+                                        @if (ViewBag.PetBreedList != null)
+                                            {
+                                                foreach (var item in ViewBag.PetBreedList as List<SelectListItem>)
+                                                {
+                                                    <option value="@item.Value">@item.Text</option>
+                                                }
+                                            }
+                                    </select>
+                                    <div class="error"></div>
+                                </li>
+                                <li>
+                                    <label>Pet’s Gender</label>
+                                    <select id="ddlPetGender" asp-for="PetGender">
+                                        <option value="">--Select Pet Gender--</option>
+                                        @if (ViewBag.Gender != null)
+                                        {
+                                            foreach (var item in ViewBag.Gender as List<SelectListItem>)
+                                            {
+                                                <option value="@item.Value">@item.Text</option>
+                                            }
+                                        }
+                                    </select>
+                                    @*<input type="text" placeholder="Email" id="petGender" value="" asp-for="PetGender" />
+                                        <div class="error"></div>*@
+                                </li>
+                            </ul>
+                            <ul class="form grid-3col">
+                                <li>
+                                    <label>Date of birth</label>
+                                    <input type="date" id="txtPetDob" typeof="calendar" class="inputText form-control" asp-for="Pet_DOB" />
+                                    <div class="error"></div>
+                                </li>
+
+                                <li>
+                                    <label>Weight</label>
+                                    <input type="text" placeholder="Weight" id="txtWeight" asp-for="Pet_Weight" />
+                                    <div class="error"></div>
+                                </li>
+                                <li>
+                                    <label>Colour</label>
+                                    <select asp-for="Colour" id="ddlpetColour">
+                                        <option value="">Select Colour</option>
+                                        @if (ViewBag.PetColourList != null)
+                                        {
+                                            foreach (var item in ViewBag.PetColourList as List<SelectListItem>)
+                                            {
+                                                <option value="@item.Value">@item.Text</option>
+                                            }
+                                        }
+                                    </select>
+                                    <div class="error"></div>
+                                </li>
+                            </ul>
+                            <ul class="form grid-3col">
+                                <li>
+                                    <label>Adopted On</label>
+                                    <input type="date" class="form-control inputText" id="txtAdopted" asp-for="AdoptedOn" />
+                                    <div class="error"></div>
+                                </li>
+
+                                <li>
+                                    <label>Microchip No.</label>
+                                    <input type="text" placeholder="Microchip No." id="txtMicrochipNo" value="" asp-for="MicrochipNo" />
+                                    <div class="error"></div>
+                                </li>
+                                <li>
+                                    <label>Date Of Chipping</label>
+                                    <input type="date" class="form-control inputText" id="txtdateofchipping" asp-for="DateOfChipping" />
+                                    <div class="error"></div>
+                                </li>
+                            </ul>
+                            <ul class="form grid-3col">
+                                <li>
+                                    <label>Spay / Neutered</label>
+                                    <input type="text" placeholder="Spay / Neutered" id="txtSpay" value="" asp-for="Spay_Meutered" />
+                                    <div class="error"></div>
+                                </li>
+
+                                <li>
+                                    <label>Location of Chipping </label>
+                                    <input type="text" placeholder="Location of Chipping" id="txtLocchipping" value="" asp-for="Loc_Chipping" />
+                                    <div class="error"></div>
+                                </li>
+                                <li>
+                                    <label>Insurance</label>
+                                    <input type="text" placeholder="Insurance" id="txtIncurance" value="" asp-for="Insurance" />
+                                    <div class="error"></div>
+                                </li>
+                            </ul>
+                            <ul class="form grid-1col">
+                                <li>
+                                    <label>Notes</label>
+                                    <textarea type="text" row="2" placeholder="Any notes" onkeypress="return onlyAlphabetKey(event)" id="txtPetNotes" asp-for="PetNotes"></textarea>
+                                    <div class="error"></div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="wrap-container nobg btnright formbutton">
+                        <input type="reset" value="Cancel" class="cancel_button" />
+                        <input type="submit" value="+ Add Patient" class="add_button" asp-action="SavePatient" asp-controller="Patients" formmethod="post" onclick="return Validation();" />
+                        @*<a href="javascript:void(0)" class="cancel_button">Cancel</a>
+                            <button type="submit" asp-action="SavePatient" asp-controller="Patients" formmethod="post"><a class="add_button" >New Patient</a></button>*@
+                    </div>
+                    @if (ViewBag.Message != null)
+                    {
+                        <script type="text/javascript">
+                           window.onload = function () {
+                               alert("@ViewBag.Message");
+                           };
+                        </script>
+                    }
+                    @if (ViewBag.Message != null)
+                    {
+                        <script type="text/javascript">
+                           window.onload = function () {
+                               alert("@ViewBag.ErrorMsg");
+                           };
+                        </script>
+                    }
+                    <!-- End Dashboard -->
+                </div>
+            </div>
+        </form>
+    </div>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#ddlbreed").select2();
+        });
+        function check_MobileNo() {
+            var valid = true;
+            var phone = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
+            if (!$('#txtMobileNo').val().match(phone)) {
+                $("#lblMobileNoerror").text("Enter correct mobile number...!").show();
+                valid = false;
+            }
+            else {
+                $("#lblMobileNoerror").text("Enter correct mobile number...!").hide();
+                $("#lblMobileNoerror").hide();
+            }
+            return valid;
+        }
+        $('#txtMobileNo').keypress(function (e) {
+            var charCode = (e.which) ? e.which : event.keyCode
+            if (String.fromCharCode(charCode).match(/[^0-9]/g))
+                return false;
+        });
+        function check_Email() {
+            var valid = true;
+            var EmailFormate = /^([a-zA-Z0-9_.+-])+\@@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+            if (!$('#txtEmail').val().match(EmailFormate)) {
+                $("#lblEmailerror").text("Enter correct email...!").show();
+                valid = false;
+            }
+            else {
+                $("#lblEmailerror").text("Enter correct email...!").hide();
+                $("#lblEmailerror").hide();
+            }
+            return valid;
+        }
+        function Validation() {
+            var msg = "";
+            if ($('#txtFullName').val() == "") { msg = "Full Name can not left Blank !! \n"; }
+            if ($('#txtMobileNo').val() == "") { msg += "Mobile Number can not left Blank !! \n"; }
+            if ($('#txtEmail').val() == "") { msg += "Email can not left Blank !! \n"; }
+            if ($('#txtAddress').val() == "") { msg += "Address can not left Blank !! \n"; }
+            if ($('#txtPetName').val() == "") { msg += "Pet Name can not left Blank !! \n"; }
+            if ($('#petGender').val() == "") { msg += "Pet Gender can not left Blank !! \n"; }
+            if ($('#txtWeight').val() == "") { msg += "Weight can not left Blank !! \n"; }
+            if ($('#ddlGender').val() == "") { msg += "Gender can not left Blank !!\n"; }
+            if ($('#txtCity').val() == "") { msg += "City can not left Blank !! \n"; }
+            if ($('#txtArea').val() == "") { msg += "Area can not left Blank !! \n"; }
+            if ($('#txtPinCode').val() == "") { msg += "Pin code can not left Blank !! \n"; }
+            if ($('#selectfile').val() == "") { msg += "Pet Image can not left blank !!\n"; }
+            if ($('#txtPetName').val() == "") { msg += "Pet Name can not left Blank !!\n"; }
+            if ($('#ddlpetType').val() == "") { msg += "Select Pet Type !! \n"; }
+            if ($('#ddlbreed').val() == "") { msg += "Select Breed !! \n"; }
+
+            if (msg != "") { alert(msg); return false; }
+        }
+        function onlyAlphabetKey(e) {
+            var charCode = (e.which) ? e.which : event.keyCode
+            if (String.fromCharCode(charCode).match(/[^A-Z to a-z]/g))
+                return false;
+        }
+        function OnlyNumberKey(e) {
+            var charCode = (e.which) ? e.which : event.keyCode
+            if (String.fromCharCode(charCode).match(/[^0-9]/g))
+                return false;
+        }
+        $("#ddlpetType").change(function () {
+            GetBreed();
+        });
+        function GetBreed() {
+            var selected_val = $('#ddlpetType').find(":selected").attr('value');
+            $("#ddlpetType").prop("disabled", false);
+            $.ajax({  //ajax call
+                type: "GET",      //method == GET
+                url: "/Patients/GetPetBreed", //url to be called
+                data: "id=" + selected_val, //data to be send
+                success: function (json, result) {
+                    $("#ddlbreed").empty();
+                    json = json || {};
+                    $("#ddlbreed").append('<option value="0">Select Pet Breed</option>');
+                    for (var i = 0; i < json.length; i++) {
+                        $("#ddlbreed").append('<option value="' + json[i].breedId + '">' + json[i].breed + '</option>');
+                    }
+                    // GetPatientData();
+                    $("#ddlbreed").prop("disabled", false);
+                },
+                error: function () {
+                    alert("Data Not Found");
+                }
+            });
+        }
+        selectfile.onchange = evt => {
+            const [file] = selectfile.files
+            if (file) {
+                img.src = URL.createObjectURL(file)
+            }
+        }
+    </script>
+ 
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#ddlbreed").select2();
+            $("#ddlpetType").select2();
+        });
+    </script>
+</body>
+</html>
+

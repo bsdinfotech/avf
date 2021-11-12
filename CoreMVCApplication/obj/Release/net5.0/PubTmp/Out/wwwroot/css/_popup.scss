@@ -1,0 +1,87 @@
+.overlay { position: fixed; top: 0; bottom: 0; left: 0; right: 0; background: rgba(0, 0, 0, 0.7); transition: opacity 500ms; visibility: hidden; opacity: 0;     z-index: 100;}
+.overlay.target { visibility: visible; opacity: 1; overflow: auto;}
+.popup {
+  margin: 70px auto; padding: 20px; background: #fff; border-radius: 5px; width: 50%; position: relative;
+  &.sort{width: 34%;}
+  &.sort45{width: 45%;}
+  .heading{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    h2{    
+      margin: 0px 0 20px 0;
+      font-size: 24px;
+      color: #253858;
+    }
+  }
+}
+.popup .flexgrid{display: flex; justify-content: space-between;}
+
+.popup .close,.popup a {
+  text-decoration: underline;
+  &.btncolor{ font-size: 30px; text-decoration: none; color: #253858; line-height: 20px; display: block; width: 30px; height: 30px; margin: 0px 0 0 auto; }
+.fa{margin-right: 10px;    font-family: 'FontAwesome';}
+}
+.popup .close:hover {
+  color:#333;
+}
+.popup .content {
+  max-height: 30%;
+  overflow: auto;
+  min-height: 220px;
+  display: table;
+  width: 100%;
+  
+  .close-icon{
+    width: 70px;
+    height: 70px;
+    background: url(../images/menu-icon.svg) no-repeat 0 0;
+    background-position: -2px -1160px;
+    margin: 0px auto 10px;
+  }
+  .right-icon{
+    width: 70px;
+    height: 70px;
+    background: url(../images/menu-icon.svg) no-repeat 0 0;
+    background-position: -2px -1258px;
+    margin: 0px auto 10px;
+  }
+  .action{
+    display: table;
+    float: right;
+    margin-top: 20px;
+    &.extra-margin{margin-top:50px;
+      a{padding:10px 35px}
+    }
+    .no{
+      @include button(#2C2C2E,#fff,#D8D8DC); display: inline-block; margin-right: 15px; cursor: pointer;
+    }
+    .yes{
+      @include button(#fff,#652B88,#652B88);cursor: pointer;
+    }
+  }
+ 
+}
+
+.textwrapper_container{
+  position: relative;
+  &.center{
+    text-align: center;
+    .data-appr{
+        font-size: 20px;
+        text-transform: capitalize;
+        text-align: center;
+        margin-top: 20px;
+        .text{
+          display: block;
+          line-height: 24px;
+          font-size: 14px;
+          margin: 12px auto;
+          width: 85%;
+          a{color:$orange; transition: all 0.5s ease-in;text-decoration:none;
+            &:hover{text-decoration: underline;}
+          }
+        }
+    }
+  }
+}

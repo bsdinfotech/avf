@@ -1,0 +1,346 @@
+﻿@model CoreMVCApplication.Models.Labs 
+@{
+    ViewData["Title"] = "Lab";
+    Layout = "~/Views/Shared/_GlobalLawLayout.cshtml";
+}
+<html>
+<head></head>
+<body>
+    <div class="PetAppointment">
+        <form enctype="multipart/form-data">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-10">
+                        <h5>Lab Requests</h5>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <button type="button" style="background: #652B88; width: 100%;color:white; padding: 6px 7px;" class="btn" data-toggle="modal" data-target="#LabModal">
+                                +New Lab Request
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 main-table">
+                <table id="ImgRequest" class="table">
+                    <thead>
+                        <tr style="background: #F5F5FA !important;">
+                            <th>Date Requested</th>
+                            <th>Pet Parent Name</th>
+                            <th>Pet Name</th>
+                            <th>Requested By</th>
+                            <th>Lab Type</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody class="tbodyData"></tbody>
+                </table>
+            </div>
+            <div class="modal fade" id="LabModal" tabindex="-1" aria-labelledby="LabModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="LabModalLabel">New Lab Request</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form_wrapper wd6">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <input type="hidden" id="LabId" asp-for="Lab_Id" />
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label>Pet Parent Id</label>
+                                                <select id="ddlPetParent" asp-for="PetParent_Id">
+                                                    @*<option value="">Select Pet Parent Id</option>*@
+                                                    @if (ViewBag.petParentName != null)
+                                                    {
+                                                        foreach (var item in ViewBag.petParentName as List<SelectListItem>)
+                                                        {
+                                                            <option value="@item.Value">@item.Text</option>
+                                                        }
+                                                    }
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label>Pet's Name</label>
+                                                <select id="ddlPetName" asp-for="PetName">
+                                                    <option value="">Select Pet Name</option>
+                                                    @*@if (ViewBag.Pet != null)
+                                                        {
+                                                            foreach (var item in ViewBag.Pet as List<SelectListItem>)
+                                                            {
+                                                                <option value="@item.Value">@item.Text</option>
+                                                            }
+                                                        }*@
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label>Appointment Type</label>
+                                                <input type="hidden" asp-for="Appointment_type" id="hidAppointmenttype" />
+                                                <input type="text" readonly asp-for="Appointment_type_Name" placeholder="Appointment Type" id="txtAppType" />
+                                                @*<select id="ddlAppointmentType" asp-for="Appointment_type" disabled>
+                                                    <option value="">Select Appointment Name</option>
+                                                    @if (ViewBag.AppointmentType != null)
+                                                    {
+                                                        foreach (var item in ViewBag.AppointmentType as List<SelectListItem>)
+                                                        {
+                                                            <option value="@item.Value">@item.Text</option>
+                                                        }
+                                                    }
+                                                </select>*@
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label>Lab Type</label>
+                                                <select id="ddlLabType" asp-for="LabType">
+                                                    <option value="">Select Lab Type</option>
+                                                    @if (ViewBag.LabType != null)
+                                                    {
+                                                        foreach (var item in ViewBag.LabType as List<SelectListItem>)
+                                                        {
+                                                            <option value="@item.Value">@item.Text</option>
+                                                        }
+                                                    }
+                                                </select>
+                                                @*<input type="text" id="txtLabType" asp-for="LabType" placeholder="Lab Type" />*@
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label>Notes</label>
+                                                <textarea id="txtLabNotes" rows="3" asp-for="Lab_Notes" placeholder="Lab Notes"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2 offset-6">
+                                            <button type="button" style="padding: 6px 11px; color: black; font-size: 14px; width: 100%; height: 34px; text-align: center; border: 1px solid #D8D8DC; border-radius: 8px; background-color: #efefef; " class="btn btn-light" id="btnClear">Cancel</button>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <button type="submit" style="background: #652B88; border-radius: 7px; border: none; padding: 9px; padding: 6px 15px; color: white; font-size: 14px; width: -webkit-fill-available; margin-bottom: 20px;" class="btn btn-primary" id="btnSave" asp-action="SaveAndUpdateLabs" asp-controller="Patients" formmethod="post" onclick="return Validation();">Create Request</button>
+                                        </div>
+                                        @if (ViewBag.Message != null)
+                                        {
+                                            <script type="text/javascript">
+                                            window.onload = function () {
+                                                alert("@ViewBag.Message");
+                                            };
+                                            </script>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @*<div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">Save changes</button>
+                            </div>*@
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript">
+        $("#ddlPetParent").change(function () {
+            GetPetData();
+        });
+        $("#ddlPetName").change(function () {
+            GetAppointmentType();
+        });
+        function GetAppointmentType() {
+            var selected_val = $('#ddlPetName').find(":selected").attr('value');
+            $.ajax({  //ajax call
+                type: "GET",      //method == GET
+                url: "/Patients/GetAppointmentType", //url to be called
+                data: "id=" + selected_val, //data to be send
+                success: function (result) {
+                    //$('#ddlAppointmentType').val(result.appointment_type);
+                    $('#hidAppointmenttype').val(result.appointment_type);
+                    $('#txtAppType').val(result.appointment_type_name);
+                },
+                error: function () {
+                    alert("Data Not Found !!");
+                }
+            });
+        }
+        function GetPetData() {
+            var selected_val = $('#ddlPetParent').find(":selected").attr('value');
+            $("#ddlPetName").prop("disabled", true);
+            $.ajax({  //ajax call
+                type: "GET",      //method == GET
+                url: "/Patients/GetPetFromParentId", //url to be called
+                data: "id=" + selected_val, //data to be send
+                success: function (json, result) {
+                    $("#ddlPetName").empty();
+                    json = json || {};
+                    for (var i = 0; i < json.length; i++) {
+                        $("#ddlPetName").append('<option value="' + json[i].petId + '">' + json[i].petName + '</option>');
+                    }
+                    GetAppointmentType();
+                    $("#ddlPetName").prop("disabled", false);
+                },
+                error: function () {
+                    alert("Data Not Found");
+                }
+            });
+        }
+        function PopulatePetParentId() {
+            $.ajax({
+                type: "GET",
+                url: "/Patients/PopulatePetParentName",
+                datatype: "Json",
+                data: {},
+                // async: false,
+                success: function (data) {
+                    $('#ddlPetParent').html('<option value="0">Select Pet Parent Id</option>');
+                    var PetParentId = '';
+                    for (var i = 0; i < data.length; i++) {
+                        PetParentId += '<option value="' + data[i].value + '">' + data[i].text + '</option>';
+                    }
+                    $('#ddlPetParent').append(PetParentId);
+                }
+            });
+        }
+        function ShowDataInTable() {
+            var item;
+            $.ajax({
+                url: "/Patients/ShowLabData",
+                data: JSON.stringify(item),
+                dataType: 'JSON',
+                type: 'GET',
+                contentType: 'application/json; charset=utf-8',
+                success: function (data) {
+                    var html = '';
+                    var index = 1;
+                    $.each(data, function (key, item) {
+                        html += '<tr>';
+                        // html += '<td>' + index + '</td>';
+                        // html += '<td>' + item.lab_Id + '</td>';
+                        html += '<td>' + item.dateRequested + '</td>';
+                        html += '<td>' + item.petParent_Name + '</td>';
+                        html += '<td>' + item.petName + '</td>';
+                        html += '<td>' + "" + '</td>';
+                        html += '<td>' + item.labType + '</td>';
+                        html += '<td><a class="btn btn-sm" href="#" onclick="return EditLabDataById(' + item.lab_Id + ')" data-toggle="modal" data-target="#LabModal" ><i class="fa fa-edit"></i></a></td>';
+                        html += '<td><a class="btn  btn-sm" href="#" onclick="return DeleteLabDataById(' + item.lab_Id + ')"><i class="fa fa-trash-o"></i></a></td>'
+                        //  html += '<td><a class="btn btn-danger btn-sm" href="#" onclick="return DeleteImagingById(' + item.lab_Id + ')">Delete</a></td>';
+                        html += '<td><a class="btn btn-sm" href="/Patients/LabReport?lab_Id=' + item.lab_Id + '"><i class="fa fa-eye"></i></a></td>';
+                        html += '</tr>';
+                        index++;
+                    });
+                    $('.tbodyData').html(html);
+                }
+            });
+        }
+        function DeleteLabDataById(lab_Id) {
+            var checkstr = confirm('Are You Sure You Want To Delete This?');
+            var PetObj = JSON.stringify({ lab_Id: lab_Id });
+            // var item;
+            if (checkstr == true) {
+                $.ajax({
+                    url: "/Patients/DeleteLabDataById",
+                    data: JSON.parse(PetObj),
+                    dataType: 'JSON',
+                    type: 'POST',
+                    //contentType: 'application/json; charset=utf-8',
+                    success: function (result) {
+                        if (result.msg == "Delete Successfull!!") {
+                            alert("Delete Success");
+                            ShowDataInTable();
+                        }
+                    },
+                    error: function (errormessage) {
+                        alert(errormessage.responseText);
+                    }
+                });
+            }
+            else {
+                return false;
+            }
+        }
+        function EditLabDataById(lab_Id) {
+            // var checkstr = confirm('Are You Sure You Want To Delete This?');
+            var PetObj = JSON.stringify({ lab_Id: lab_Id });
+            // var item;
+            $.ajax({
+                url: "/Patients/EditLabData",
+                data: JSON.parse(PetObj),
+                dataType: 'JSON',
+                type: 'POST',
+                //contentType: 'application/json; charset=utf-8',
+                success: function (result) {
+                    $('#btnSave').text = "UPDATE";
+                    $('#LabId').val(result.lab_Id);
+                    $('#ddlPetParent').val(result.petParent_Id)
+                    //$('#ddlAppointmentType').val(result.appointment_type);
+                    $('#hidAppointmenttype').val(result.appointment_type);
+                    $('#txtAppType').val(result.appointment_type_Name);
+                    $('#ddlLabType').val(result.labType);
+                    $('#txtLabNotes').val(result.lab_Notes);
+                    EditPetName(result.petParent_Id);
+                    //$('#ddlPetName').val(result.petName);
+                    $('#ddlPetName option[value=' + result.petName + ']').attr('selected', 'selected');
+                    ShowDataInTable();
+                },
+                error: function (errormessage) {
+                    alert(errormessage.responseText);
+                }
+            });
+        }
+        function Validation() {
+            var msg = "";
+            // if ($('#ddlpatientName').val() == "") { msg = "Patient Name can not left Blank !! \n"; }
+            //if ($('#ddlAppointmentType').val() == "") { msg += "Appointment Type can not left Blank !! \n"; }
+            if ($('#txtLabType').val() == "") { msg += "Lab Type can not left Blank !! \n"; }
+            if (msg != "") { alert(msg); return false; }
+        }
+        function EditPetName(petParent_Id) {
+            var PetObj = JSON.stringify({ petParent_Id: petParent_Id });
+            $.ajax({
+                type: "GET",
+                url: "/Patients/EditPetName",
+                datatype: "Json",
+                data: JSON.parse(PetObj),
+                // async: false,
+                success: function (result) {
+                    $('#ddlPetName').html('<option value="0">Select Pet Name</option>');
+                    PetName = '';
+                    for (var i = 0; i < result.length; i++) {
+                        PetName += '<option value="' + result[i].value + '">' + result[i].text + '</option>';
+                    }
+                    $('#ddlPetName').append(PetName);
+                    $('#ddlPetName').val().attr("selected", "true");
+                }
+            });
+        }
+        ShowDataInTable();
+        PopulatePetParentId();
+    </script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#ddlPetParent").select2({
+                dropdownParent: $("#LabModal")
+            });
+            $("#ddlPetName").select2({
+                dropdownParent: $("#LabModal")
+            });
+            $('#ddlLabType').select2({
+                dropdownParent: $("#LabModal")
+            });
+        });
+    </script>
+</body>
+</html>
+

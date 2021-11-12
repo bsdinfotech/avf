@@ -1,0 +1,178 @@
+﻿
+@{
+    ViewData["Title"] = "Patient";
+    Layout = "~/Views/Shared/_GlobalLawLayout.cshtml";
+}
+<html>
+<head>
+</head>
+<body>
+    <form class="form-row" enctype="multipart/form-data">
+        <div class="main-paients">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-7">
+                        <h5>Patients</h5>
+                    </div>
+                    <div class="col-md-5" style="text-align:right">
+                        <div class="frame-heading only-data-grid">
+                            <div class="link">
+                                <div class="f-select">
+                                    <select class="form-control inputText required" id="ddlPetBreed">
+                                        <option value="">Pet Breeds</option>
+                                        @if (ViewBag.PetBreedList != null)
+                                        {
+                                            foreach (var item in ViewBag.PetBreedList as List<SelectListItem>)
+                                            {
+                                                <option value="@item.Value">@item.Text</option>
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                                <div class="f-select">
+                                    <select class="form-control inputText required" id="ddlPetBreed">
+                                        <option value="">All Status</option>
+
+                                    </select>
+                                </div>
+                                <button style=" width: 35%; background: #652B88;" type="submit" asp-action="addpatient" asp-controller="Patients" formmethod="post" class="addbutton btn btn-primary">
+                                    +New Patient
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br />
+            <div class="col-md-12 main-table">
+                <table class="table" style="width:100%">
+                    <thead>
+                        <tr style="background: #F5F5FA !important;">
+                            @*<th>Index</th>*@
+                            <th style="display:none">Pet ID</th>
+                            <th>Pet's Parent Name</th>
+                            <th>Pet Name</th>
+                            <th>Pet Gender</th>
+                            <th>Breed</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody class="tbodyData"></tbody>
+                </table>
+            </div>
+        </div>
+    </form>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript">
+        function ShowDataInTable() {
+            var item;
+            $.ajax({
+                url: "/Patients/ShowPatientRecord",
+                data: JSON.stringify(item),
+                dataType: 'JSON',
+                type: 'GET',
+                contentType: 'application/json; charset=utf-8',
+                success: function (data) {
+                    var html = '';
+                    var index = 1;
+                    $.each(data, function (key, item) {
+                        html += '<tr>';
+                        // html += '<td>' + index + '</td>';
+                        //html += '<td>' + item.petParent_Id + '</td>';
+                        html += '<td style="display:none">' + item.pet_id + '</td>';
+                        html += '<td>' + item.fullName + '</td>';
+                        html += '<td>' + item.petName + '</td>';
+                        html += '<td>' + item.petGender + '</td>';
+                        html += '<td>' + item.breed + '</td>';
+                        html += '<td><a class="btn btn-sm" asp-area="" href="/Patients/addpatient?pet_id=' + item.pet_id + '"><i class="fa fa-edit"></i></a></td>';
+                        html += '<td><a class="btn btn-sm" href="#" onclick="return DeletePatient(' + item.pet_id + ')"><i class="fa fa-trash-o"></i></a></td>';
+                        html += '<td><a class="btn btn-sm" href="/Patients/PatientDetalis?petParent_Id=' + item.petParent_Id + '"><i class="fa fa-eye"></i></a></td>';
+                        html += '</tr>';
+                        index++;
+                    });
+                    $('.tbodyData').html(html);
+                }
+            });
+        }
+        function DeletePatient(pet_id) {
+            var checkstr = confirm('Are You Sure You Want To Delete This?');
+            var PetObj = JSON.stringify({ pet_id: pet_id });
+            // var item;
+            if (checkstr == true) {
+                $.ajax({
+                    url: "/Patients/DeletePatientById",
+                    data: JSON.parse(PetObj),
+                    dataType: 'JSON',
+                    type: 'POST',
+                    //contentType: 'application/json; charset=utf-8',
+                    success: function (result) {
+                        if (result.msg == "Delete Successfull!!") {
+                            alert("Delete Success");
+                            ShowDataInTable();
+                        }
+                    },
+                    error: function (errormessage) {
+                        alert(errormessage.responseText);
+                    }
+                });
+            }
+            else {
+                return false;
+            }
+
+        }
+        function Editbyid(pet_id) {
+            var PetObj = JSON.stringify({ pet_id: pet_id });
+            $.ajax({
+                url: "/Patients/EditByPatientId",
+                data: JSON.parse(PetObj),
+                dataType: 'JSON',
+                type: 'POST',
+                success: function (result) {
+                    //$('#id').val(result.appointment_id);
+                    //var PetParentId = result.petParent_Id;
+                    //PopulatePetParentId(PetParentId);
+                    //$("#ddlPetParent").val(PetParentId).attr("selected", "true");
+                    $('#txtFullName').val(result.fullName);
+                    $('#txtMobile').val(result.mobile_no);
+                    $('#txtEmail').val(result.email);
+                    $('#txtAddress').val(result.address);
+                    $('#txtParentNotes').val(result.notes);
+                    $('#txtPetName').val(result.petName);
+                    $('#breed').val(result.breed);
+                    $('#petType').val(result.petType);
+                    $('#petGender').val(result.petGender);
+                    $('#txtPetDob').val(result.pet_DOB);
+                    $('#txtWeight').val(result.pet_Weight);
+                    $('#petColour').val(result.colour);
+                    $('#txtAdopted').val(result.adoptedOn);
+                    $('#txtMicrochipNo').val(result.microchipNo);
+                    $('#txtdateofchipping').val(result.dateOfChipping);
+                    alert(result.data);
+                    $('#txtSpay').val(result.spay_Meutered);
+                    $('#txtLocchipping').val(result.loc_Chipping);
+                    $('#txtIncurance').val(result.insurance);
+                    $('#txtPetNotes').val(result.petNotes);
+                    ShowDataInTable();
+
+                },
+                error: function () {
+                    alert("Data Not Found  !!");
+                }
+            });
+
+        }
+        ShowDataInTable();
+    </script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+    <script>
+        $(document).ready(function () {
+             $("#ddlPetBreed").select2();
+            // $("#ddlPetName").select2();
+        });
+    </script>
+</body>
+</html>
+

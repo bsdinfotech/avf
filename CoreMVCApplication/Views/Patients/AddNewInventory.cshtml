@@ -1,0 +1,175 @@
+﻿@model CoreMVCApplication.Models.AddInventory
+@{
+    ViewData["Title"] = "AddNewInventory";
+    Layout = "~/Views/Shared/_GlobalLawLayout.cshtml";
+}
+
+<html>
+<head></head>
+<body>
+    <div class="PetAppointment">
+        <form enctype="multipart/form-data">
+            <div class="askforvetss">
+                <div class="dashbord" style=" margin-top:0px !important;">
+                    <!-- Dashboard -->
+                    <div class="breadcrum_wrapper">
+                        <ul class="breadcrum">
+                            <li>
+                                <a href="/Patients/Inventory">Inventory</a>
+                            </li>
+                            <li>
+                                <span class="current">Add New Item</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="frame-heading only-data-grid">
+                        <div class="heading flex-grid">
+                            <div class="title back_button_box"><a href="/Patients/Inventory" class="back_button"></a>Add New Item</div>
+                        </div>
+                    </div>
+                    <div class="wrap-container only-saprate-table">
+                        <div class="heading flex-grid">
+                            <div class="title up_title ">
+                                <span class="icons usericon"></span>
+                                New Item
+                            </div>
+                        </div>
+                        <div class="form_wrapper wd6">
+                            <ul class="form grid-3col">
+                                <li>
+                                    <input type="hidden" id="inventoryid" asp-for="Inventory_Id" />
+                                    <label>Name <span class="span-star">*</span></label>
+                                    <input type="text" id="txtItemName" placeholder="Item Name" asp-for="Inventory_ItemName" />
+                                    <div class="error"></div>
+                                </li>
+                                <li>
+                                    <label>Type</label>
+                                    <select id="ddlInventoryType" asp-for="Inventory_type">
+                                        <option value="">Select Type</option>
+                                    </select>
+                                </li>
+                                <li>
+                                    <label>Cross Reference <span class="span-star">*</span></label>
+                                    <input type="text" placeholder="Cross Reference" id="txtReference" asp-for="CrossReference" />
+                                    <div class="error"></div>
+                                </li>
+                            </ul>
+                            <ul class="form grid-3col">
+                                <li>
+                                    <label>Reorder Point <span class="span-star">*</span></label>
+                                    <input type="text" placeholder="Reorder Point" id="txtReorderPoint" asp-for="ReorderPoint" />
+                                    <div class="error"></div>
+                                </li>
+                                <li>
+                                    <label>Sales Price Per Unit <span class="span-star">*</span></label>
+                                    <input type="text" placeholder="Sales Price/Unit" id="txtSalesPrice" asp-for="SalesPrice" />
+                                    <div class="error"></div>
+                                </li>
+                                <li>
+                                    <lable>Distribution Unit</lable>
+                                    <select id="ddldistribution" asp-for="DistributionUnit">
+                                        <option value="">Select Unit</option>
+                                    </select>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="wrap-container">
+                        <div class="heading flex-grid">
+                            <div class="title up_title"><span class="icons dogicon"></span>Purchase Information</div>
+                        </div>
+                        <div class="row">
+                                <div class="col-md-3 mb-3">
+                                    <label>Date Recieved</label>
+                                    <input type="date" id="txtDate" placeholder="" asp-for="DateRecieved" />
+                                    <div class="error"></div>
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <label>Invoice Number</label>
+                                    <input type="text" id="txtInvoice" placeholder="Invoice Number" asp-for="Invoice_Number" />
+                                    <div class="error"></div>
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <label>Quantity <span class="span-star">*</span></label>
+                                    <input type="text" id="txtQuantity" placeholder="Quantity Cost" asp-for="Quantity" />
+                                    <div class="error"></div>
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <label>Unit</label>
+                                    <select id="ddlUnit" asp-for="Unit">
+                                        <option>Select Unit</option>
+                                    </select>
+                                    <div class="error"></div>
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <label>Purchase Cost</label>
+                                    <input type="text" id="txtPurchaseCost" placeholder="Purchase Cost" asp-for="PurchaseCost" />
+                                    <div class="error"></div>
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <label>Serial/Lot Number</label>
+                                    <input type="text" id="txtSerialNumber" placeholder="Serial/Lot Number" asp-for="SerialNumber" />
+                                    <div class="error"></div>
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <label>Expiration Date</label>
+                                    <input type="date" placeholder="" id="txtExpDate" asp-for="ExpirationDate" />
+                                    <div class="error"></div>
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <label>Vendor</label>
+                                    <input type="text" placeholder="Vendor" id="txtVendor" asp-for="Vendor" />
+                                    <div class="error"></div>
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <label>Vendor Item Number</label>
+                                    <input type="text" placeholder="Vendor Item Number" id="txtvendorItem" asp-for="VendorItemNumber" />
+                                    <div class="error"></div>
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <label>Location</label>
+                                    <input type="text" placeholder="Location" id="txtLocation" asp-for="VendorLocation" />
+                                    <div class="error"></div>
+                                </div>
+                        </div>
+                    </div>
+                    @*<div class="wrap-container nobg btnright formbutton">
+                            <a href="javascript:void(0)" class="cancel_button">Cancel</a>
+                            <a href="javascript:void(0)" class="add_button">New Patient</a>
+                        </div>*@
+                    <div class="wrap-container nobg btnright formbutton">
+                        <input type="reset" value="Cancel" class="cancel_button" id="btnCancel" />
+                        <input type="submit" value="Add" class="add_button" id="btnAdd" asp-action="SaveNewInventory" asp-controller="Patients" formmethod="post" onclick="return Validation();" />
+                    </div>
+                    @if (ViewBag.Message != null)
+                    {
+                        <script type="text/javascript">
+                        window.onload = function () {
+                            alert("@ViewBag.Message");
+                        };
+                        </script>
+                    }
+
+                    <!-- End Dashboard -->
+                </div>
+            </div>
+        </form>
+        </div>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+        <script>
+            function Validation() {
+                var msg = "";
+                if ($('#txtItemName').val() == "") { msg = "Name can not left Blank !! \n"; }
+                // if ($('#ddlInventoryType').val() == "") { msg += "Invetory Type can not left Blank !! \n"; }
+                if ($('#txtReference').val() == "") { msg += "Reference can not left Blank !! \n"; }
+                if ($('#txtReorderPoint').val() == "") { msg += "Record Point can not left Blank !! \n"; }
+                if ($('#txtSalesPrice').val() == "") { msg += "Sales Price can not left Blank !! \n"; }
+                if ($('#txtDate').val() == "") { msg += "Date Recieved can not left Blank !! \n"; }
+                if ($('#txtInvoice').val() == "") { msg += "Invoice Number can not left Blank !! \n"; }
+                if ($('#txtQuantity').val() == "") { msg += "Quantity can not left Blank !! \n"; }
+                if (msg != "") { alert(msg); return false; }
+            }
+        </script>
+</body>
+</html>
+

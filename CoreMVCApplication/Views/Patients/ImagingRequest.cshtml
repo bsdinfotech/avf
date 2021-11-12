@@ -1,0 +1,380 @@
+﻿@using Microsoft.AspNetCore.Http;
+@inject IHttpContextAccessor HttpContextAccessor
+@model CoreMVCApplication.Models.ImagingRequest
+@{
+    ViewData["Title"] = "Imaging";
+    Layout = "~/Views/Shared/_GlobalLawLayout.cshtml";
+}
+<html>
+<head>
+</head>
+<body>
+    <div class="PetAppointment">
+        <form class="form-row" enctype="multipart/form-data">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-10">
+                        <h5>Imaging Request</h5>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <button type="button" class="btn" style="background: #652B88; padding: 6px 7px; width: 100%; font-size: 13px;color:white;" data-toggle="modal" data-target="#ImagingRequestModal">
+                                +New Imaging Request
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 main-table">
+                <table id="ImgRequest" class="table">
+                    <thead>
+                        <tr style="background: #F5F5FA !important;">
+                            <th>Date Requested</th>
+                            <th>Requested By</th>
+                            <th>Patient</th>
+                            <th>Imaging Type</th>
+                            @*<th>Notes</th>*@
+                            <th>Edit</th>
+                            <th>Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody class="tbodyData"></tbody>
+                </table>
+            </div>
+            <div class="modal fade" id="ImagingRequestModal" tabindex="-1" aria-labelledby="ImagingRequestLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="ImagingRequestLabel">New Imaging Request</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form_wrapper wd6">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <input type="hidden" id="id" asp-for="Imaging_Id" />
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label>Pet Parent Id <span class="span-star">*</span></label>
+                                                <select id="ddlPetParent" asp-for="PetParent_Id">
+                                                    @*<option value="">Select Pet Parent Id</option>*@
+                                                    @if (ViewBag.petParentName != null)
+                                                    {
+                                                        foreach (var item in ViewBag.petParentName as List<SelectListItem>)
+                                                        {
+                                                            <option value="@item.Value">@item.Text</option>
+                                                        }
+                                                    }
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Pet's Name <span class="span-star">*</span></label>
+                                                <select id="ddlPetName" asp-for="PetName">
+                                                    <option value="0">Select Pet Name</option>
+                                                    @if (ViewBag.Pet != null)
+                                                    {
+                                                        foreach (var item in ViewBag.Pet as List<SelectListItem>)
+                                                        {
+                                                            <option value="@item.Value">@item.Text</option>
+                                                        }
+                                                    }
+                                                </select>
+                                                @*<input type="text" id="txtPetName" asp-for="PetName" class="inputText" placeholder="Pet's Name" />*@
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Appointment Type</label>
+                                                <input type="hidden" id="hidAppType" asp-for="Appointment_type" />
+                                                <input type="text" id="txtAppointmentType" readonly placeholder="Appointment Type" asp-for="Appointment_type_Name" />
+                                                @*<select id="ddlAppointment" asp-for="Appointment_type" disabled>
+                                                    <option value="">Select Appointment Type</option>
+                                                    @if (ViewBag.AppointmentType != null)
+                                                    {
+                                                        foreach (var item in ViewBag.AppointmentType as List<SelectListItem>)
+                                                        {
+                                                            <option value="@item.Value">@item.Text</option>
+                                                        }
+                                                    }
+                                                </select>*@
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Imaging Type</label>
+                                                <select id="ddlimgType" asp-for="Imaging_Type">
+                                                    <option value="">Select Imaging Type</option>
+                                                    @if (ViewBag.ImgType != null)
+                                                    {
+                                                        foreach (var item in ViewBag.ImgType as List<SelectListItem>)
+                                                        {
+                                                            <option value="@item.Value">@item.Text</option>
+                                                        }
+                                                    }
+                                                </select>
+                                                <div class="clearfix"></div>
+                                                <input type="text" id="txtimgOther" placeholder="Other Type Image" asp-for="OtherImaging_Type" />
+                                                @*<input type="text" placeholder="Imaging Type" id="txtimgType" asp-for="Imaging_Type" />*@
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Radiologist</label>
+                                                <input type="text" id="txtRadiologist" placeholder="Radiologist" asp-for="Imaging_Radiologist" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Requested By</label>
+                                                <input type="text" id="txtRequestedBy" placeholder="Requested By" value="@HttpContextAccessor.HttpContext.Session.GetString("firstname")" asp-for="Requested_By" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Result</label>
+                                                <input type="text" id="txtResult" placeholder="Result" asp-for="Imaging_Result" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label>Notes</label>
+                                                <textarea id="txtImgnotes" placeholder="Notes" asp-for="Imaging_Notes"></textarea>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-2 offset-7">
+                                            <button type="button" style="padding: 6px 11px; color: black; font-size: 14px; width: 100%; height: 34px; text-align: center; border: 1px solid #D8D8DC; border-radius: 8px; background-color: #efefef; " value="Cancel" class="btn" id="btnClear">Cancel</button>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <button type="submit" style="background: #652B88; border-radius: 7px; border: none; padding: 9px; padding: 6px 3px; color: white; font-size: 14px; width: -webkit-fill-available; margin-bottom: 20px;" value="Create Request" class="btn" id="btnSave" asp-action="SaveImaginRequest" asp-controller="Patients" formmethod="post" onclick="return Validation();">Create Request</button>
+                                        </div>
+                                        @if (ViewBag.Message != null)
+                                        {
+                                            <script type="text/javascript">
+                                            window.onload = function () {
+                                                alert("@ViewBag.Message");
+                                            };
+                                            </script>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @*<div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">Save changes</button>
+                            </div>*@
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () { $('#txtimgOther').hide(); });
+        $("#ddlPetParent").change(function () {
+            GetPetData();
+        });
+        $("#ddlPetName").change(function () {
+            GetAppointmentType();
+        });
+        function GetAppointmentType() {
+            var selected_val = $('#ddlPetName').find(":selected").attr('value');
+            $.ajax({  //ajax call
+                type: "GET",      //method == GET
+                url: "/Patients/GetAppointmentType", //url to be called
+                data: "id=" + selected_val, //data to be send
+                success: function (result) {
+                    $('#ddlAppointment').val(result.appointment_type);
+                },
+                error: function () {
+                    alert("Data Not Found !!");
+                }
+            });
+        }
+        function ShowDataInTable() {
+            var item;
+            $.ajax({
+                url: "/Patients/ShowDataImgRequested",
+                data: JSON.stringify(item),
+                dataType: 'JSON',
+                type: 'GET',
+                contentType: 'application/json; charset=utf-8',
+                success: function (data) {
+                    var html = '';
+                    var index = 1;
+                    $.each(data, function (key, item) {
+                        html += '<tr>';
+                        // html += '<td>' + index + '</td>';
+                        // html += '<td>' + item.imaging_Id + '</td>';
+                        html += '<td>' + item.dateRequested + '</td>';
+                        html += '<td>' + item.requested_By + '</td>';
+                        html += '<td>' + item.petName + '</td>';
+                        html += '<td>' + item.imaging_Type + '</td>';
+                        // html += '<td>' + item.imaging_Notes + '</td>';
+                        html += '<td><a class="btn btn-sm" href="#" onclick="return EditImgRequestById(' + item.imaging_Id + ')" data-toggle="modal" data-target="#ImagingRequestModal" ><i class="fa fa-edit"></i></a></td>';
+                        html += '<td><a class="btn btn-sm" href="#" onclick="return DeleteImagingById(' + item.imaging_Id + ')"><i class="fa fa-trash-o"></i></a></td>';
+                        html += '</tr>';
+                        index++;
+                    });
+                    $('.tbodyData').html(html);
+                }
+            });
+        }
+        function DeleteImagingById(imaging_Id) {
+            var checkstr = confirm('Are You Sure You Want To Delete This?');
+            var PetObj = JSON.stringify({ imaging_Id: imaging_Id });
+            // var item;
+            if (checkstr == true) {
+                $.ajax({
+                    url: "/Patients/DeleteImagingById",
+                    data: JSON.parse(PetObj),
+                    dataType: 'JSON',
+                    type: 'POST',
+                    //contentType: 'application/json; charset=utf-8',
+                    success: function (result) {
+                        if (result.msg == "Delete Successfull!!") {
+                            alert("Delete Success");
+                            ShowDataInTable();
+                        }
+                    },
+                    error: function (errormessage) {
+                        alert(errormessage.responseText);
+                    }
+                });
+            }
+            else {
+                return false;
+            }
+        }
+        function EditImgRequestById(imaging_Id) {
+            // var checkstr = confirm('Are You Sure You Want To Delete This?');
+            var PetObj = JSON.stringify({ imaging_Id: imaging_Id });
+            // var item;
+            $.ajax({
+                url: "/Patients/EditImgRequestById",
+                data: JSON.parse(PetObj),
+                dataType: 'JSON',
+                type: 'POST',
+                //contentType: 'application/json; charset=utf-8',
+                success: function (result) {
+                    $('#btnSave').text = "UPDATE";
+                    $('#id').val(result.imaging_Id);
+                    //$('#ddlAppointment').val(result.appointment_type);
+                    $('#hidAppType').val(result.appointment_type);
+                    $('#txtAppointmentType').val(result.appointment_type_Name);
+                    $('#ddlimgType').val(result.imaging_Type);
+                    $('#txtRadiologist').val(result.imaging_Radiologist);
+                    $('#txtRequestedBy').val(result.requested_By);
+                    $('#txtResult').val(result.imaging_Result);
+                    $('#txtImgnotes').val(result.imaging_Notes);
+                    $('#ddlPetParent').val(result.petParent_Id);
+                    // $('#ddlPetName').val(result.petName).attr("selected", "true");
+                    EditPetName(result.petParent_Id);
+                    $('#ddlPetName').val(result.petName);
+                    //$('#ddlPetName option[value=' + result.petName + ']').attr('selected', 'selected');
+                    //ShowDataInTable();
+                },
+                error: function (errormessage) {
+                    alert(errormessage.responseText);
+                }
+            });
+        }
+        function Validation() {
+            var msg = "";
+            if ($('#ddlPetParent').val() == "") { msg = "Pet Parent can not left Blank !! \n"; }
+            if ($('#ddlPetName').val() == "") { msg += "Pet Name can not left Blank !! \n"; }
+            //  if ($('#ddlAppointment').val() == "") { msg += "Appointment can not left Blank !! \n"; }
+            if ($('#ddlimgType').val() == "") { msg += "Imaging Type can not left Blank !! \n"; }
+            if ($('#Radiologist').val() == "") { msg += "Radiologist can not left Blank !! \n"; }
+            if ($('#txtRequestedBy').val() == "") { msg += "Requested By can not left Blank !! \n"; }
+            if (msg != "") { alert(msg); return false; }
+        }
+        function PopulatePetParentId() {
+            $.ajax({
+                type: "GET",
+                url: "/Patients/PopulatePetParentName",
+                datatype: "Json",
+                data: {},
+                // async: false,
+                success: function (data) {
+                    $('#ddlPetParent').html('<option value="0">Select Pet Parent Id</option>');
+                    var PetParentId = '';
+                    for (var i = 0; i < data.length; i++) {
+                        PetParentId += '<option value="' + data[i].value + '">' + data[i].text + '</option>';
+                    }
+                    $('#ddlPetParent').append(PetParentId);
+                }
+            });
+        }
+        function GetPetData() {
+            var selected_val = $('#ddlPetParent').find(":selected").attr('value');
+            $("#ddlPetName").prop("disabled", true);
+            $.ajax({  //ajax call
+                type: "GET",      //method == GET
+                url: "/Patients/GetPetFromParentId", //url to be called
+                data: "id=" + selected_val, //data to be send
+                success: function (json, result) {
+                    $("#ddlPetName").empty();
+                    json = json || {};
+                    for (var i = 0; i < json.length; i++) {
+                        $("#ddlPetName").append('<option value="' + json[i].petId + '">' + json[i].petName + '</option>');
+                    }
+                    GetAppointmentType();
+                    $("#ddlPetName").prop("disabled", false);
+                },
+                error: function () {
+                    alert("Data Not Found");
+                }
+            });
+        }
+        function EditPetName(petParent_Id) {
+            var PetObj = JSON.stringify({ petParent_Id: petParent_Id });
+            $.ajax({
+                type: "GET",
+                url: "/Patients/EditPetName",
+                datatype: "Json",
+                data: JSON.parse(PetObj),
+                // async: false,
+                success: function (result) {
+                    $('#ddlPetName').html('<option value="0">Select Pet Name</option>');
+                    PetName = '';
+                    for (var i = 0; i < result.length; i++) {
+                        PetName += '<option value="' + result[i].value + '">' + result[i].text + '</option>';
+                    }
+                    $('#ddlPetName').append(PetName);
+                    $('#ddlPetName').val().attr("selected", "true");
+                }
+            });
+        }
+        $('#ddlimgType').change(function () {
+            if ($('#ddlimgType option:selected').text() == "Other") {
+                $('#txtimgOther').show();
+            } else {
+                $('#txtimgOther').hide();
+            }
+        });
+        PopulatePetParentId();
+        ShowDataInTable();
+    </script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#ddlPetParent").select2({
+                dropdownParent: $("#ImagingRequestModal")
+            });
+            $("#ddlPetName").select2({
+                dropdownParent: $("#ImagingRequestModal")
+            });
+            $('#ddlimgType').select2({
+                dropdownParent: $("#ImagingRequestModal")
+            });
+        });
+    </script>
+</body>
+</html>
+

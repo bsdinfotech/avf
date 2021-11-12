@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="16.667" height="18.333" viewBox="0 0 16.667 18.333">
+  <g id="Group_66" data-name="Group 66" transform="translate(-0.666 -0.833)">
+    <path id="Path_109" data-name="Path 109" d="M3.166,4.167A.833.833,0,0,0,2.333,5V16.667a.833.833,0,0,0,.833.833H14.833a.833.833,0,0,0,.833-.833V5a.833.833,0,0,0-.833-.833ZM.666,5a2.5,2.5,0,0,1,2.5-2.5H14.833a2.5,2.5,0,0,1,2.5,2.5V16.667a2.5,2.5,0,0,1-2.5,2.5H3.166a2.5,2.5,0,0,1-2.5-2.5Z" fill="#aeaeb2" fill-rule="evenodd"/>
+    <path id="Path_110" data-name="Path 110" d="M12.333.833a.833.833,0,0,1,.833.833V5A.833.833,0,0,1,11.5,5V1.667A.833.833,0,0,1,12.333.833Z" fill="#aeaeb2" fill-rule="evenodd"/>
+    <path id="Path_111" data-name="Path 111" d="M5.667.833a.833.833,0,0,1,.833.833V5A.833.833,0,0,1,4.834,5V1.667A.833.833,0,0,1,5.667.833Z" fill="#aeaeb2" fill-rule="evenodd"/>
+    <path id="Path_112" data-name="Path 112" d="M.666,8.333A.833.833,0,0,1,1.5,7.5h15a.833.833,0,1,1,0,1.667H1.5A.833.833,0,0,1,.666,8.333Z" fill="#aeaeb2" fill-rule="evenodd"/>
+  </g>
+</svg>

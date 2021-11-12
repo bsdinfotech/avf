@@ -1,0 +1,69 @@
+
+@font-face {
+    font-family: 'campton';
+    src: url('campton-book-webfont.woff2') format('woff2'),
+         url('campton-book-webfont.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+
+}
+
+
+
+
+@font-face {
+    font-family: 'campton-campton';
+    src: url('campton-book-webfont.woff2') format('woff2'),
+         url('campton-book-webfont.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+
+}
+
+
+
+
+@font-face {
+    font-family: 'campton';
+    src: url('campton-medium-webfont.woff2') format('woff2'),
+         url('campton-medium-webfont.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+
+}
+
+
+
+
+@font-face {
+    font-family: 'campton';
+    src: url('campton-medium-webfont.woff2') format('woff2'),
+         url('campton-medium-webfont.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+
+}
+
+
+
+
+@font-face {
+    font-family: 'camptonsemibold';
+    src: url('campton-semibold-webfont.woff2') format('woff2'),
+         url('campton-semibold-webfont.woff') format('woff');
+    font-weight: 600;
+    font-style: normal;
+
+}
+
+
+
+
+@font-face {
+    font-family: 'campton';
+    src: url('campton-semibold-webfont.woff2') format('woff2'),
+         url('campton-semibold-webfont.woff') format('woff');
+    font-weight: 600;
+    font-style: normal;
+
+}

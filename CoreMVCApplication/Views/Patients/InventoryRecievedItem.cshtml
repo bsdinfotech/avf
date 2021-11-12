@@ -1,0 +1,236 @@
+﻿@model CoreMVCApplication.Models.InventoryRecieved
+@{
+    ViewData["Title"] = "AddRecievedItem";
+    Layout = "~/Views/Shared/_GlobalLawLayout.cshtml";
+}
+<html>
+<head>
+</head>
+<body>
+    <div class="PetAppointment">
+        <form enctype="multipart/form-data">
+            <div class="askforvetss">
+                <div class="dashbord" style=" margin-top:0px !important;">
+                    <!-- Dashboard -->
+                    <div class="breadcrum_wrapper">
+                        <ul class="breadcrum">
+                            <li>
+                                <a href="/Patients/Inventory">Inventory</a>
+                            </li>
+                            <li>
+                                <span class="current">Inventory Item Recieved</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="frame-heading only-data-grid">
+                        <div class="heading flex-grid">
+                            <div class="title back_button_box"><a href="/Patients/Inventory" class="back_button"></a>Inventory Item Recieved</div>
+                        </div>
+                    </div>
+
+                    <div class="wrap-container only-saprate-table">
+                        <div class="heading flex-grid">
+                            <div class="title up_title ">
+                                <span class="icons usericon"></span>
+                                Inventory Item Recieved
+                            </div>
+                        </div>
+                        <div class="form_wrapper wd6">
+                            <ul class="form grid-2col">
+                                <li>
+                                    <label>Date Recieved</label>
+                                    <input type="date" id="daterecieved" asp-for="DateRecieved" />
+                                    <div class="error"></div>
+                                </li>
+                                <li>
+                                    <label>Vendor</label>
+                                    <select id="ddlVendor" asp-for="Vendor">
+                                        <option value="">Select Vendor</option>
+                                    </select>
+                                </li>
+                            </ul>
+                            <ul class="form grid-2col">
+                                <li>
+                                    <label>Invoice Number</label>
+                                    <input type="text" placeholder="Invoice Number" id="txtInvoiceNumber" value="" asp-for="Invoice_Number" />
+                                    <div class="error"></div>
+                                </li>
+                                <li>
+                                    <label>Location</label>
+                                    <input type="text" placeholder="Location" id="txtLocation" value="" asp-for="Location" />
+                                    <div class="error"></div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="wrap-container">
+                        <div class="heading flex-grid">
+                            <div class="title up_title"><span class="icons dogicon"></span>Invoice Line Item</div>
+                        </div>
+                        <div class=" row">
+                            <div class="col-md-3">
+                                <label>Inventory Item</label>
+                                <input type="text" id="txtInventoryItem" placeholder="Inventory Item" value="" asp-for="Inventory_ItemName" />
+                                <div class="error"></div>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label>Quantity</label>
+                                <select id="ddlQuantity" asp-for="Quantity">
+                                    <option value="">Select Quantity</option>
+                                </select>
+                                <div class="error"></div>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label>Purchase Cost</label>
+                                <input type="text" id="txtPurchaseCost" placeholder="Purchase Cost" value="" asp-for="PurchaseCost" />
+                                <div class="error"></div>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label>Vendor Item Number</label>
+                                <input type="text" placeholder="Vendor Item Number" id="txtvendorItem" value="" asp-for="VendorItemNumber" />
+                                <div class="error"></div>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label>Serial/Lot Number</label>
+                                <input type="text" id="txtSerialNumber" placeholder="Serial/Lot Number" asp-for="SerialLotNumber" />
+                                <div class="error"></div>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label>Expiration Date</label>
+                                <input type="date" placeholder="" id="txtExpDate" value="" asp-for="ExpirationDate" />
+                                <div class="error"></div>
+                            </div>
+                        </div>
+                    </div>
+                    @*<div class="wrap-container nobg btnright formbutton">
+                        <a href="javascript:void(0)" class="cancel_button">Cancel</a>
+                        <a href="javascript:void(0)" class="add_button">New Patient</a>
+                    </div>*@
+                    <div class="wrap-container nobg btnright formbutton">
+                        <input type="reset" value="Cancel" class="cancel_button" id="btnCancel" onclick="Cancel();" />
+                        <input type="submit" value="Add" class="add_button" id="btnAdd" asp-action="SaveInventoryRecieved" asp-controller="Patients" formmethod="post" onclick="return Validation();" />&nbsp;&nbsp;
+
+                    </div>
+                    @if (ViewBag.Message != null)
+                    {
+                        <script type="text/javascript">
+                        window.onload = function () {
+                            alert("@ViewBag.Message");
+                        };
+                        </script>
+                    }
+                    <!-- End Dashboard -->
+                </div>
+                <br /><br />
+                <div class="col-md-12 main-table">
+                    <table class="table">
+                        <thead>
+                            <tr style="background: #F5F5FA !important;">
+                                <th>Name</th>
+                                <th>Quantity</th>
+                                <th>Cost</th>
+                                <th>Item Number</th>
+                                <th>Serial Lot Number</th>
+                                <th>Expiration Date</th>
+                                <th>Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody class="tbodyData"></tbody>
+                    </table>
+                </div>
+            </div>
+        </form>
+    </div>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script>
+        function ShowDataInTable() {
+            var item;
+            $.ajax({
+                url: "/Patients/ShowInventoryRecieved",
+                data: JSON.stringify(item),
+                dataType: 'JSON',
+                type: 'GET',
+                contentType: 'application/json; charset=utf-8',
+                success: function (data) {
+                    var html = '';
+                    var index = 1;
+                    $.each(data, function (key, item) {
+                        html += '<tr class="gradeX">';
+                        // html += '<td>' + index + '</td>';
+                        // html += '<td>' + item.in_RecievedID + '</td>';
+                        html += '<td>' + item.inventory_ItemName + '</td>';
+                        html += '<td>' + item.quantity + '</td>';
+                        html += '<td>' + item.purchaseCost + '</td>';
+                        html += '<td>' + item.vendorItemNumber + '</td>';
+                        html += '<td>' + item.serialLotNumber + '</td>';
+                        html += '<td>' + item.expirationDate + '</td>';
+                        // html += '<td><a class="btn btn-primary btn-sm" href="#" onclick="return Editbyid(' + item.in_RecievedID + ')" data-toggle="modal" data-target="#exampleModal" >Edit</a></td>';
+                        html += '<td><a class="btn btn-sm" href="#" onclick="return DeletebyId(' + item.in_RecievedID + ')"><i class="fa fa-trash-o"></i></a></td>';
+                        html += '</tr>';
+                        index++;
+                    });
+                    $('.tbodyData').html(html);
+                }
+            });
+        }
+        function DeletebyId(in_RecievedID) {
+            var checkstr = confirm('Are You Sure You Want To Delete This?');
+            var PetObj = JSON.stringify({ in_RecievedID: in_RecievedID });
+            // var item;
+            if (checkstr == true) {
+                $.ajax({
+                    url: "/Patients/DelInventoryRecieved",
+                    data: JSON.parse(PetObj),
+                    dataType: 'JSON',
+                    type: 'POST',
+                    //contentType: 'application/json; charset=utf-8',
+                    success: function (result) {
+                        if (result.msg == "Delete Successfull!!") {
+                            alert("Delete Success");
+                            ShowDataInTable();
+                        }
+                    },
+                    error: function (errormessage) {
+                        alert(errormessage.responseText);
+                    }
+                });
+            }
+            else {
+                return false;
+            }
+        }
+        function clear() {
+            $('#daterecieved').val("");
+            $('#ddlVendor').val("");
+            $('#txtInvoiceNumber').val();
+            $('#txtLocation').val();
+            $('#txtInventoryItem').val("");
+            $('#').val();
+        }
+        function Cancel() {
+            var item;
+            $.ajax({
+                url: "/Patients/InventoryRecievedItem",
+                data: JSON.stringify(item),
+                dataType: 'JSON',
+                type: 'GET',
+                contentType: 'application/json; charset=utf-8',
+                success: function (data) {
+                    clear();
+                }
+            });
+        }
+        function Validation() {
+            var msg = "";
+            if ($('#daterecieved').val() == "") { msg = "Date Recieve can not left Blank !! \n"; }
+            if ($('#txtInvoiceNumber').val() == "") { msg += "Invoice Number can not left Blank !! \n"; }
+            if ($('#txtLocation').val() == "") { msg += "Location can not left Blank !! \n"; }
+            if ($('#txtInventoryItem').val() == "") { msg += "Inventory Number can not left Blank !! \n"; }
+            if ($('#txtPurchaseCost').val() == "") { msg += "Purchase Cost can not left Blank !! \n"; }
+            if (msg != "") { alert(msg); return false; }
+        }
+        ShowDataInTable();
+    </script>
+</body>
+</html>
+

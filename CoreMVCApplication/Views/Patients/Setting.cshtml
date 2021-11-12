@@ -1,0 +1,441 @@
+﻿@model CoreMVCApplication.Models.User
+@{
+    ViewData["Title"] = "Setting";
+    Layout = "~/Views/Shared/_GlobalLawLayout.cshtml";
+}
+
+<html>
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial;
+        }
+
+        /* Style the tab */
+        .tab {
+            overflow: hidden;
+            border-bottom: 1px solid #ccc;
+            background-color: #f1f1f100;
+        }
+
+            /* Style the buttons inside the tab */
+            .tab button {
+                background-color: inherit;
+                float: left;
+                border: none;
+                outline: none;
+                cursor: pointer;
+                padding: 14px 16px;
+                transition: 0.3s;
+                font-size: 17px;
+            }
+
+                /* Change background color of buttons on hover */
+                .tab button:hover {
+                    background-color: #ddd;
+                }
+
+                /* Create an active/current tablink class */
+                .tab button.active {
+                    background-color: #ccc0;
+                    border-bottom: 3px solid #652B88;;
+                }
+
+        /* Style the tab content */
+        .tabcontent {
+            display: none;
+            padding: 6px 12px;
+            border: 1px solid #ccc;
+        }
+
+        input[type="password"] {
+            height: 56px;
+            border: 1px solid #D8D8DC;
+            border-radius: 8px;
+            display: flex;
+            -webkit-box-align: center;
+            padding: 0px 15px;
+            width: 100%;
+            outline: none
+        }
+        .faeye {
+            margin-top: 0px;
+            margin-left: 435px;
+            right: 32px;
+            cursor: pointer;
+            position: absolute;
+            top: 52%;
+        }
+
+        #frmCheckPassword {
+            border-top: #F0F0F0 2px solid;
+            background: #808080;
+            padding: 10px;
+        }
+
+        .demoInputBox {
+            padding: 7px;
+            border: #F0F0F0 1px solid;
+            border-radius: 4px;
+        }
+
+        #password-strength-status {
+            padding: 5px 10px;
+            color: #FFFFFF;
+            border-radius: 4px;
+            margin-top: 5px;
+            cursor: pointer;
+        }
+
+        .medium-password {
+            background-color: #b7d60a;
+            border: #BBB418 1px solid;
+        }
+
+        .weak-password {
+            background-color: #ce1d14;
+            border: #AA4502 1px solid;
+        }
+
+        .strong-password {
+            background-color: #12CC1A;
+            border: #0FA015 1px solid;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="PetAppointment">
+        <form enctype="multipart/form-data">
+            @*<div class="col-md-8">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5>Setting</h5>
+                        </div>
+                        <div class="col-md-3">
+                            <button type="button" class="btn btn-primary">+Add Deposite</button>
+                        </div>
+                        <div class="col-md-3">
+                            <button type="button" class="btn btn-primary">+New Invoice</button>
+                        </div>
+                    </div>
+                </div>*@
+            @*<div class="row">
+                <div class="col-md-12">
+                    <h5>Appointments</h5>
+                </div>
+            </div>*@
+            <div class="tab">
+                <button type="button" class="tablinks" onclick="openInvoice(event, 'Account')" id="defaultOpen">Account</button>
+                <button type="button" class="tablinks" onclick="openInvoice(event, 'Password')">Password</button>
+                <button type="button" class="tablinks" onclick="openInvoice(event, 'Notifications')">Notifications</button>
+                <button type="button" class="tablinks" onclick="openInvoice(event, 'Help')">Help</button>
+            </div>
+            @*<div id="mySidenav" class="sidenav">
+                    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                    <a href="Account">Account</a>
+                    <a href="Password">Password</a>
+                    <a href="Notifications">Notifications</a>
+                    <a href="Help">Help</a>
+                </div>*@
+            <br />
+            <div id="Account" class="tabcontent wrap-container">
+                <br />
+                <div class="col-md-12">
+                    <h5>Account Details</h5>
+                    <p style="color: #8E8E93;">Update your account details</p>
+                    <br />
+                    <small style="color: #B2B3BD;">Your Avatar</small>
+                    <p></p>
+                    <ul  class="mobile-ul-data" style="padding: 0px; display: flex;">
+                        <li style="float: left;">
+                            <img width="80%" src="~/image/dummy-pic.png" />
+                        </li>
+                        <li style="float:left; margin-top: 40px; ">
+                            <input type="submit" class="btn" style="background: #652B88; color:white; padding: 6px 7px;" formmethod="post" value="Upload New" />
+
+                        </li>
+                        <li style=" margin-top: 40px; margin-left: 10px;">
+                            <input type="submit" class="btn" style=" color: black; padding: 6px 7px; border: 1px solid #E4E4E4;" value="Delete Avatar" />
+
+                        </li>
+                    </ul>
+                </div>
+                <hr />
+                <div class="col-md-12">
+                    <div style="width:80%">
+                        <div>
+                            <div class="row">
+
+                                <div class="col-md-4" style=" margin-top: 15px;">
+                                    <input type="hidden" id="id" asp-for="id" />
+                                    <label>Name</label>
+                                    <input type="text" id="txtname" placeholder="name*" class="form-control" asp-for="Firstname" />
+                                    <label style="display:none;color:red;" id="txtnameerror"></label>
+                                </div>
+                                <div class="col-md-4"  style=" margin-top: 15px;">
+                                    <label>Mobile Number</label>
+                                    <input type="text" class="form-control" id="txtmobileno" placeholder="Mobile Number*" asp-for="Mobile_No" onkeyup="check_contNo()" />
+                                    <label style="display:none;color:red;" id="txtmobilenoerror"></label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4"  style=" margin-top: 15px;">
+                                    <div class="form-group">
+                                        <label>Email</label>
+                                        <input type="text" class="form-control" id="txtEmail" placeholder="Email*" asp-for="Email" onkeyup="check_Email()" />
+                                        <label style="display:none;color:red;" id="txtEmailerror"></label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4"  style=" margin-top: 15px;">
+                                    <div class="form-group">
+                                        <label>City</label>
+                                        <input type="text" class="form-control" id="txtcity" placeholder="City*" asp-for="City" />
+                                        <label style="display:none;color:red;" id="txtcityerror"></label>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="form-group">
+                                        <label>Address</label>
+                                        <input type="text" class="form-control" id="txtAddress" placeholder="Address*" asp-for="Address" />
+                                        <label style="display:none;color:red;" id="txtAddresserror"></label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                            @if (ViewBag.Message != null)
+                            {
+                                <script type="text/javascript">
+                              window.onload = function () {
+                            alert("@ViewBag.Message");
+                             };
+                                </script>
+                            }
+                        </div>
+                        <div class="AccountbodyData"></div>
+                    </div>
+                    <br />
+                    <div class="wrap-container nobg btnright">
+                        @*<input type="button" value="Cancel" class="cancel_button" id="btnCancel" />*@
+                        <input type="submit" class="btn" style="background: #652B88; color:white; padding: 6px 7px;" value="@ViewBag.SubmitValue" asp-action="AccountUpdate" asp-controller="Patients" formmethod="post" id="btnsave" />
+                    </div>
+                </div>
+            </div>
+            <div id="Password" class="tabcontent wrap-container">
+                <br />
+                <div class="col-md-12">
+                    <h5>Change your password</h5>
+                    <p style="color: #8E8E93;">Update your password</p>
+                </div>
+                <div class="col-md-12">
+                    <div style="width:100%">
+                        <div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Current Password</label>
+                                        <input type="password" id="txtcurrentp" placeholder="Current Password*" asp-for="Password" />
+                                        <i class="far fa-eye faeye" id="togglePassword" onclick="cupassword()"></i>
+                                        <div id="password-strength-status"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>New Password</label>
+                                        <input type="password" id="txtnewp" placeholder="New Password*" asp-for="NewPassword" onkeyup="checknewPasswordStrength();" />
+                                        <i class="far fa-eye faeye" id="togglePassword1" onclick="newpassword()"></i>
+                                        <div id="passwords-strength-status"></div>
+                                        @*@Html.ValidationMessageFor(x => x.NewPassword, "", new { @class = "text-danger" })*@
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Confirm Password</label>
+                                        <input type="password" id="txtConfirmPassword" placeholder="Confirm Password*" asp-for="ConfirmPassword" />
+                                        <i class="far fa-eye faeye" id="togglesPasswords" onclick="showpsw()"></i>
+                                        <div id="password-strength-status"></div>
+                                    </div>
+                                    <div id="ErrorMessage">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                            <br />
+                            <div class="wrap-container nobg btnright">
+                                <input type="submit" class="btn" style="background: #652B88; color:white; padding: 6px 7px;" value="@ViewBag.SubmitValue" asp-action="ChangePassword" asp-controller="Patients" formmethod="post" id="btnsave" onclick="return validate();" />
+                            </div>
+
+                            @if (ViewBag.Message != null)
+                            {
+                                <script type="text/javascript">
+                              window.onload = function () {
+                            alert("@ViewBag.Message");
+                             };
+                                </script>
+                            }
+
+                        </div>
+                        <div class="PasswordbodyData"></div>
+                    </div>
+                </div>
+
+            </div>
+            <div id="Notifications" class="tabcontent wrap-container">
+                <br />
+                <div class="col-md-12">
+                    <h5>Notifications</h5>
+                    <p style="color: #8E8E93;">Awesome sentences to replace your placeholder</p>
+                    <h6>Notifications</h6>
+                </div>
+                <div class="col-md-12">
+                    <div style="width:100%">
+                        <div>
+                            <input type="radio" name="yes" value="Yes"> Yes
+                            <input type="radio" name="yes" value="No"> No
+                        </div>
+                        <div class="NotificationsbodyData"></div>
+                    </div>
+                </div>
+                <br />
+            </div>
+            <div id="Help" class="tabcontent wrap-container">
+
+
+            </div>
+        </form>
+        </div>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+        <script>
+            function openInvoice(evt, Invoices) {
+                var i, tabcontent, tablinks;
+                tabcontent = document.getElementsByClassName("tabcontent");
+                for (i = 0; i < tabcontent.length; i++) {
+                    tabcontent[i].style.display = "none";
+                }
+                tablinks = document.getElementsByClassName("tablinks");
+                for (i = 0; i < tablinks.length; i++) {
+                    tablinks[i].className = tablinks[i].className.replace(" active", "");
+                }
+                document.getElementById(Invoices).style.display = "block";
+                evt.currentTarget.className += " active";
+            }
+            document.getElementById("defaultOpen").click();
+            function checkPasswordMatch() {
+                var Password = $("#txtnewp").val();
+                var ConfirmPassword = $("#txtConfirmPassword").val();
+                if (Password != ConfirmPassword) {
+                    $("#ErrorMessage").removeClass();
+                    $("#ErrorMessage").addClass('weak-password');
+                    $("#ErrorMessage").html("Passwords does not match!");
+                }
+                else {
+                    $("#ErrorMessage").removeClass();
+                    $("#ErrorMessage").addClass('strong-password');
+                    $("#ErrorMessage").html("Passwords match.");
+                }
+            }
+            $(document).ready(function () {
+                $("#txtConfirmPassword").keyup(checkPasswordMatch);
+            });
+            function validate() {
+                var msg = "";
+                if ($('#txtcurrentp').val() == "") { msg = "Current Password  can not left Blank !! \n"; }
+                if ($('#txtnewp').val() == "") { msg += "New Password can not left Blank !! \n"; }
+                if ($('#txtConfirmPassword').val() == "") { msg += "Confirm Password can not left Blank !! \n"; }
+                if (msg != "") { alert(msg); return false; }
+            }
+            function check_contNo() {
+                var valid = true;
+                var phone = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
+                if (!$('#txtmobileno').val().match(phone)) {
+                    $("#txtmobilenoerror").text("enter correct mobile number...!").show();
+                    valid = false;
+                }
+                else {
+                    $("#txtmobilenoerror").text("enter correct mobile number...!").hide();
+                    $("#txtmobilenoerror").hide();
+                }
+                return valid;
+            }
+            function check_Email() {
+                var valid = true;
+                var EmailFormate = /^([a-zA-Z0-9_.+-])+\@@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+                if (!$('#txtEmail').val().match(EmailFormate)) {
+                    $("#txtEmailerror").text("enter correct email...!").show();
+                    valid = false;
+                }
+                else {
+                    $("#txtEmailerror").text("enter correct email...!").hide();
+                    $("#txtEmailerror").hide();
+                }
+                return valid;
+            }
+            function checknewPasswordStrength() {
+                var number = /([0-9])/;
+                var alphabets = /([a-zA-Z])/;
+                var special_characters = /([~,!,@@,#,$,%,^,&,*,-,_,+,=,?,>,<])/;
+                if ($('#txtnewp').val().length < 6) {
+                    $('#passwords-strength-status').removeClass();
+                    $('#passwords-strength-status').addClass('weak-password');
+                    $('#passwords-strength-status').html("Weak (should be atleast 6 characters.)");
+                } else {
+                    if ($('#txtnewp').val().match(number) && $('#txtnewp').val().match(alphabets) && $('#txtnewp').val().match(special_characters)) {
+                        $('#passwords-strength-status').removeClass();
+                        $('#passwords-strength-status').addClass('strong-password');
+                        $('#passwords-strength-status').html("Strong");
+                    } else {
+                        $('#passwords-strength-status').removeClass();
+                        $('#passwords-strength-status').addClass('medium-password');
+                        $('#passwords-strength-status').html("Medium (should include alphabets, numbers and special characters.)");
+                    }
+                }
+            }
+
+            function cupassword() {
+                const togglePassword = document.querySelector('#togglePassword');
+                const password = document.querySelector('#txtcurrentp');
+                togglePassword.addEventListener('click', function (e) {
+                    // toggle the type attribute
+                    const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+                    password.setAttribute('type', type);
+                    // toggle the eye slash icon
+                    this.classList.toggle('fa-eye-slash');
+                });
+            }
+
+
+            function newpassword() {
+                const togglePassword = document.querySelector('#togglePassword1');
+                const password = document.querySelector('#txtnewp');
+                togglePassword.addEventListener('click', function (e) {
+                    // toggle the type attribute
+                    const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+                    password.setAttribute('type', type);
+                    // toggle the eye slash icon
+                    this.classList.toggle('fa-eye-slash');
+                });
+            }
+            function showpsw() {
+                const togglePassword = document.querySelector('#togglesPasswords');
+                const password = document.querySelector('#txtConfirmPassword');
+                togglePassword.addEventListener('click', function (e) {
+                    // toggle the type attribute
+                    const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+                    password.setAttribute('type', type);
+                    // toggle the eye slash icon
+                    this.classList.toggle('fa-eye-slash');
+                });
+            }
+
+        </script>
+
+</body>
+</html>

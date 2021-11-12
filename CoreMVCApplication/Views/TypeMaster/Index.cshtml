@@ -1,0 +1,26 @@
+﻿@using Microsoft.AspNetCore.Http;
+@inject IHttpContextAccessor HttpContextAccessor
+
+@model CoreMVCApplication.Models.TypeMode
+
+
+<form asp-action="Index" method="post">
+    <div class="form-row">
+        <div class="col-4">
+            <div>
+                useremail: @HttpContextAccessor.HttpContext.Session.GetString("email")
+
+            </div>
+
+            <input type="text" asp-for=" type" class="form-control" placeholder="Enter Type" /><br />
+            @*<input type="text" asp-for=" Employment_type" class="form-control" placeholder="Enter Employment type" /><br />
+                <input type="text" asp-for=" bread_type" class="form-control" placeholder="Enter bread type" /><br />
+                <input type="text" asp-for=" prep_type" class="form-control" placeholder="Enter prep type" /><br />*@
+            <input asp-for="status" type="checkbox" class="custom-checkbox" /> Active
+            <br />
+            <input id="btncreate" type="submit" value="Create Type" class="btn btn-primary  text-center" style="width:100%" />
+            <br /><br />
+            <h6 class="text-success">@ViewData["msg"]</h6>
+        </div>
+    </div>
+</form>

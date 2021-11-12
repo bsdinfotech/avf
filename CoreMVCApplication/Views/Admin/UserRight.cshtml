@@ -1,0 +1,227 @@
+﻿@model CoreMVCApplication.Models.AdminUserMaster
+@{
+    ViewData["Title"] = "UserRight";
+    Layout = "~/Views/Shared/_GlobalLawLayout.cshtml";
+}
+<div>
+    <h6>User Right</h6>
+    <form class="form-row">
+        <div class="col-6">
+            <div class="form-inline">
+                <label>Profile</label>&nbsp;
+                <select asp-for="profiletype" class="form-control required" id="ddlprofiletype">
+                    <option value="">--Select Profile--</option>
+                    @if (ViewBag.Websitelist != null)
+                    {
+                        foreach (var item in ViewBag.Websitelist as List<SelectListItem>)
+                        {
+                            <option value="@item.Value">@item.Text</option>
+                        }
+                    }
+                </select>
+            </div>
+        </div>
+        <br />
+        <div class="col-6">
+            @*<input type="submit" class="btn btn-primary" id=" btnshow" asp-action="GetMenuList" asp-controller="Admin" formmethod="get" value="Show" />*@
+            <input type="submit" class="btn btn-primary" id="btnsave" asp-action="SaveMenuUserRights" asp-controller="Admin"  value="@ViewBag.SubmitValue"/>
+            <input type="submit" class="btn btn-danger" value="Delete" asp-controller="" asp-action="" />
+            <input type="submit" class="btn btn-warning" value="Clear" asp-controller="Admin" asp-action="ClearUserRight" />
+        </div>
+        <br /><br /><br />
+        <div class="col-12">
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>Index</th>
+                        <th>Menu ID</th>
+                        <th>Menu Name</th>
+                        <th>Flag View</th>
+                        <th>Flag Add</th>
+                        <th>Flag Modify</th>
+                        <th>Flag Delete</th>
+                        <th>Other Name1</th>
+                        <th>Flag Other1</th>
+                        <th>Other Name2</th>
+                        <th>Flag Other2</th>
+                        <th>Other Name3</th>
+                        <th>Flag Other3</th>
+                        @*<th>Edit</th>
+                            <th>Delete</th>*@
+                    </tr>
+                </thead>
+                <tbody class="tbodyData"></tbody>
+            </table>
+        </div>
+    </form>
+</div>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script>
+    jQuery(document).ready(function () {
+        $("#ddlprofiletype").change(function () {
+            var id = $(this).find(":selected").val();
+            var clientID = JSON.stringify({ clientID: id });
+            //console.log(id);
+            $.ajax({
+                url: "/Admin/GetMenuListByUserRight",
+                data: JSON.parse(clientID),
+                dataType: 'JSON',
+                type: 'POST',
+                //contentType: 'application/json; charset=utf-8',
+                success: function (data) {
+                    var html = '';
+                    var index = 1;
+                    $.each(data, function (key, item) {
+                        html += '<tr>';
+                        html += '<td>' + index + '</td>';
+                        html += '<td>' + item.id + '</td>';
+                        html += '<td>' + item.menuName + '</td>';
+                        html += "<td><input type=checkbox id=chkflagView onclick=checkvalue()></td>";
+                        html += "<td><input type=checkbox id=chkflagAdd onclick=checkvalue() ></td>";
+                        html += "<td><input type=checkbox id=chkflagMod  onclick=checkvalue()></td>";
+                        html += "<td><input type=checkbox id=chkflagDel onclick=checkvalue()></td>";
+                        html += "<td><input type=checkbox id=chkothname1></td>";
+                        html += "<td><input type=checkbox id=chkflothname1 ></td>";
+                        html += "<td><input type=checkbox id=chkothname2 ></td>";
+                        html += "<td><input type=checkbox id=chkflgothname2 ></td>";
+                        html += "<td><input type=checkbox id=chkothname3></td>";
+                        html += "<td><input type=checkbox id=chkflgothname3></td>";
+                        html += '</tr>';
+                        index++;
+                    });
+                    $('.tbodyData').html(html);
+                }
+            });
+
+        });
+    });
+
+    function checkvalue() {
+        var chkflagView= $("#chkflagView").attr("checked") ? 1 : 0;
+        var chkflagAdd = $("#chkflagAdd").attr("checked") ? 1 : 0;
+        var chkflagMod = $("#chkflagMod").attr("checked") ? 1 : 0;
+        var chkflagDel = $("#chkflagDel").attr("checked") ? 1 : 0;
+        console.log(chkflagView);
+        console.log(chkflagAdd);
+        console.log(chkflagMod);
+        console.log(chkflagDel);
+        var obj = {
+            chkflagView: chkflagView,
+            chkflagAdd: chkflagAdd,
+            chkflagMod: chkflagMod,
+            chkflagDel: chkflagDel,
+        }
+        submitMenu(obj);
+    }
+
+    function submitMenu(obj) {
+        $.ajax({
+            url: "",
+            method: "POST",
+            data: obj,
+            success: function (data) {
+                data = JSON.parse(data);
+                console.log(data);
+            },
+            error: function (er) {
+                console.error(er);
+            }
+        });
+    }
+
+    //jQuery(document).ready(function() {
+    //    var chkflagView = document.getElementById('#chkflagView').chek;
+    //    var chkflagAdd = document.getElementById('#chkflagAdd').value;
+    //    var chkflagMod = document.getElementById('#chkflagMod').value;
+    //    var chkflagDel = document.getElementById('#chkflagDel').value;
+    //    var chkothname1 = document.getElementById('#chkothname1').value;
+    //    var chkflothname1 = document.getElementById('#chkflothname1').value;
+    //    var chkothname2 = document.getElementById('#chkothname2').value;
+    //    var chkflgothname2 = document.getElementById('#chkflgothname2').value;
+    //    var chkothname3 = document.getElementById('#chkothname3').value;
+    //    var chkflgothname3 = document.getElementById('#chkflgothname3').value;
+    //    alert(chkflagAdd);
+    //});
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+    /*table bind */
+   /*  function tableBind() {
+        $.getJSON("/Admin/GetMenuListByUserRight",
+            function (json) {
+                var tr;
+                //Append each row to html table
+                for (var i = 0; i < json.length; i++) {
+                    tr = $('<tr/>');
+                    tr.append("<td>" + json[i].MenuId + "</td>");
+                    tr.append("<td>" + json[i].Menuname + "</td>");
+                    tr.append("<td>" + json[i].FlagView + "</td>");
+                    tr.append("<td>" + json[i].FlagAdd + "</td>");
+                    tr.append("<td>" + json[i].FlagModify + "</td>");
+                    tr.append("<td>" + json[i].FlagDelete + "</td>");
+                    tr.append("<td>" + json[i].OtherName1 + "</td>");
+                    tr.append("<td>" + json[i].FlagOther1 + "</td>");
+                    tr.append("<td>" + json[i].OtherName2 + "</td>");
+                    tr.append("<td>" + json[i].FlagOther2 + "</td>");
+                    tr.append("<td>" + json[i].OtherName3 + "</td>");
+                    tr.append("<td>" + json[i].FlagOther3 + "</td>");
+                    $(".tbodyData").append(tr);
+                }
+            });
+    }*/
+    /* jQuery(document).ready(function () {
+      $("#ddlprofiletype").change(function () {
+          var id;
+          id = document.getElementById('ddlprofiletype').value;
+          $.ajax({
+              url: "/Admin/GetAllMenuList1",
+              //data: JSON.stringify('id=' + $(this).val()), // Send value of the drop down change of option
+              data: '{id: "' + id + '" }',
+              type: 'POST',
+              contentType: 'application/json; charset=utf-8',
+              success: function (data) {
+                  // Variable data contains the data you get from the action method
+                  //  alert("succsess");
+              }
+          });
+      });
+  });*/
+    /*   $(document).ready(function () {
+          //Call EmpDetails jsonResult Method
+          $.getJSON("/Admin/GetMenuListByUserRight",
+              function (json) {
+                  var tr;
+                  //Append each row to html table
+                  for (var i = 0; i < json.length; i++) {
+                      tr = $('<tr/>');
+                      tr.append("<td>" + json[i].Menuname + "</td>");
+                      tr.append("<td>" + json[i].FlagView + "</td>");
+                      tr.append("<td>" + json[i].FlagAdd + "</td>");
+                      tr.append("<td>" + json[i].FlagModify + "</td>");
+                      tr.append("<td>" + json[i].FlagDelete + "</td>");
+                      tr.append("<td>" + json[i].OtherName1 + "</td>");
+                      tr.append("<td>" + json[i].FlagOther1 + "</td>");
+                      tr.append("<td>" + json[i].OtherName2 + "</td>");
+                      tr.append("<td>" + json[i].FlagOther2 + "</td>");
+                      tr.append("<td>" + json[i].OtherName3 + "</td>");
+                      tr.append("<td>" + json[i].FlagOther3 + "</td>");
+                      $('table').append(tr);
+                  }
+              });
+      }); */
+</script>
+
+

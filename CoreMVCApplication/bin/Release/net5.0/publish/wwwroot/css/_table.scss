@@ -1,0 +1,151 @@
+.only-saprate-table{
+    table { 
+	width: 100%; 
+	border-collapse: collapse; 
+	margin:10px auto;
+    tr{
+        border-bottom: 1px solid #cccc;
+        &:last-child{border-bottom: none;}
+    }
+    tr:nth-of-type(odd) { 
+        background: #eee; 
+        }
+    
+    th { 
+        background: #3498db; 
+        color: white; 
+        font-weight: bold; 
+        }
+    
+    td, th { 
+        padding: 10px; 
+        border: 1px solid #ccc; 
+        text-align: left; 
+        font-size: 18px;
+        }
+    &.theme-noborder{
+        position: relative;
+        tr:nth-of-type(odd) { 
+            background: transparent
+            }
+        
+        th { 
+            background: #3498db; 
+            color: white; 
+            font-weight: bold; 
+            }
+        
+        td, th { 
+            padding:20px 10px 10px; 
+            text-align: left; 
+            border: none;
+            font-size: 18px; vertical-align: top;
+            }
+    }
+	}
+
+
+  @media only screen and (max-width: 640px){  
+	  table{width: 100%;}
+    table, thead, tbody, th, td, tr {display: block;}
+    thead tr { position: absolute; top: -9999px; left: -9999px; }
+    tr { border-bottom: 1px solid #ccc; }
+    td { 
+      border: none; border-bottom: 1px solid #eee; 
+      position: relative; padding-left: 50%; 
+    }
+    td:before { 
+      position: absolute; top: 6px; left: 6px; width: 45%; 
+      padding-right: 10px; white-space: nowrap; content: attr(data-column); 
+      color: #000; font-weight: bold; 
+    }
+  }
+  
+}
+
+.actionbtn{
+    position: relative;text-align:center;
+    .fm{
+        display: inline-block;
+        font-size: 18px;
+        margin: 0px 10px;
+        &.update{color:#652B88}
+        &.delete{color:#F93030}
+        &.view{color:#253858}
+        &.logout{color:$green}
+    }
+}
+
+
+.only-data-grid{
+    position: relative;
+    
+    th:first-child{border-radius: 8px 0 0 0 !important;}
+    th:last-child{border-radius: 0px 8px 0px 0px !important;
+        
+    }
+    .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, 
+    .table>thead>tr>td, .table>thead>tr>th{    padding: 10px 25px;}
+    tr:last-child td:first-child{border-radius: 0px 0px 0px 8px !important;}
+    tr:last-child td:last-child{border-radius: 0px 0px 8px 0px !important;}
+    .table-bordered>tbody>tr>td, .table-bordered>tbody>tr>th, .table-bordered>tfoot>tr>td, .table-bordered>tfoot>tr>th, .table-bordered>thead>tr>td, .table-bordered>thead>tr>th {
+        border: none;
+        border-top: 1px solid #ddd;color:#8E8E93;
+    }
+    .dataTables_length {
+        display: none;
+    }
+  
+    table.dataTable thead .sorting::after {
+        content: "" !important;
+        background: url(../images/sorting-typ1.png) no-repeat center center !important;
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        opacity: 1 !important;
+    }
+    table.dataTable thead .sorting.sortingnone:after{display: none !important;}
+    table.dataTable thead .sorting_asc::after {
+        content: "" !important;
+        background: url(../images/sorting-acs-typ1.png) no-repeat center center !important;
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        opacity: 1 !important;
+    }
+    table.dataTable thead .sorting_desc::after {
+        content: "" !important;
+        background: url(../images/sorting-dsc-typ1.png) no-repeat center center !important;
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        opacity: 1 !important;
+    }
+    .table-bordered>thead>tr>th, .table-bordered>thead>tr>td {
+        border-bottom-width: 0px !important;
+    }
+    table {
+    &.table {
+        clear:both;
+        margin-bottom:6px !important;
+        max-width:none !important;
+        border-radius: 8px;
+        
+    th{
+        background-color: #F5F5FA !important; 
+        color:#8E8E93; 
+        font-weight: 400;
+    }
+    }
+        &.dataTable {
+            th:active {outline:none}
+        }
+    }
+    table.table-bordered tbody th, table.table-bordered tbody td {
+        border-left-width: 0;
+        border-bottom-width: 0;
+        background: #fff;
+    }
+
+
+}

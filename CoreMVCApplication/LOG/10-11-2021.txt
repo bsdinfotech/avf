@@ -1,0 +1,2 @@
+10-11-2021 18:05:03 - Final transaction Detail ===> Status-,Message-,  Query  ===> ,Total Fetch Data ===>  - ,Fetch Data List ===>  -  -  Select query - PetAppointment.cshtml -  - AppFunction Name ===>'GetPetFromParentId'
+10-11-2021 18:05:03 - Final transaction Detail ===> Status-,Message-,  Query  ===> ,Total Fetch Data ===>  - ,Fetch Data List ===>  -  -  Select query - PetAppointment.cshtml -  - AppFunction Name ===>'GetPetPatientData'

@@ -1,0 +1,48 @@
+﻿
+@{
+    ViewData["Title"] = "Breed";
+    Layout = "~/Views/Shared/_GlobalLawLayout.cshtml";
+}
+
+<html>
+<head></head>
+<body>
+    <form enctype="multipart/form-data">
+        <div class="col-md-12">
+            <div class="row">
+               <div class="col-md-6">
+                   <div class="form-group">
+                       <label>Breed Category</label>
+                       <input type="text" placeholder="Breed Category" id="BreedCategory" />
+                   </div>
+               </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Breed</label>
+                        <input type="text" placeholder="Breed" id="txtBreed" />
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Country</label>
+                        <select>
+                            <option value="">Select Country</option>
+                            @if (ViewBag.Country != null)
+                            {
+                                foreach (var item in ViewBag.Country as List<SelectListItem>)
+                                {
+                                    <option value="@item.Value">@item.Text</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <input type="submit" class="btn btn-primary" value="Save" />
+                </div>
+            </div>
+        </div>
+    </form>
+</body>
+</html>
+

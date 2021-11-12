@@ -1,0 +1,112 @@
+﻿
+@{
+    ViewData["Title"] = "Inventory";
+    Layout = "~/Views/Shared/_GlobalLawLayout.cshtml";
+}
+
+<html>
+<head>
+</head>
+<body>
+    <div class="main-table-data PetAppointment">
+        <form class="form-row" enctype="multipart/form-data">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-8">
+                        <h5>Inventory</h5>
+                    </div>
+                    <div class="col-md-2" style="text-align:right">
+                        <div class="form-group">
+                            <button type="submit" style=" padding: 6px 7px; width: 100%; font-weight: 400; font-size: 14px; color: black; border: 1px solid #D8D8DC; background-color: white;" class="btn" asp-action="InventoryRecievedItem" asp-controller="Patients">
+                                + Add Recieved Item
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-md-2" style="text-align:right">
+                        <div class="form-group">
+                            <input type="submit" style="background: #652B88; padding: 6px 7px; width: 100%; font-size: 13px;" class="btn btn-primary" value="+ Add New Item" asp-action="AddNewInventory" asp-controller="Patients">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br /><br />
+            <div class="col-md-12 main-table">
+                <table class="table" style="width:100%">
+                    <thead>
+                        <tr style="background: #F5F5FA !important;">
+                            @*<th>Index</th>*@
+                            <th>Inventory ID</th>
+                            <th>Name</th>
+                            <th>Quantity(Pcs.)</th>
+                            @*<th>Requested On</th>
+                            <th>Requested By</th>*@
+                            <th>Edit</th>
+                            <th>Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody class="tbodyDataInventory"></tbody>
+                </table>
+            </div>
+        </form>
+    </div>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script>
+    function ShowInTable() {
+        var item;
+        $.ajax({
+            url: "/Patients/ShowInventory",
+            data: JSON.stringify(item),
+            dataType: 'JSON',
+            type: 'GET',
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                var html = '';
+                var index = 1;
+                $.each(data, function (key, item) {
+                    html += '<tr class="gradeX">';
+                    // html += '<td>' + index + '</td>';
+                    // html += '<td>' + item.in_RecievedID + '</td>';
+                    html += '<td>' + item.inventory_Id + '</td>';
+                    html += '<td>' + item.inventory_ItemName + '</td>';
+                    html += '<td>' + item.quantity + '</td>';
+                    html += '<td><a class="btn btn-primary btn-sm" href="/Patients/AddNewInventory?inventoryid=' + item.inventory_Id +'" >Edit</a></td>';
+                    html += '<td><a class="btn btn-danger btn-sm" href="#" onclick="return DeleteinventorybyId(' + item.inventory_Id + ')">Delete</a></td>';
+                    html += '</tr>';
+                    index++;
+                });
+                $('.tbodyDataInventory').html(html);
+            }
+        });
+    }
+
+    function DeleteinventorybyId(inventory_Id) {
+        var checkstr = confirm('Are You Sure You Want To Delete This?');
+        var PetObj = JSON.stringify({ inventoryId: inventory_Id });
+        // var item;
+        if (checkstr == true) {
+            $.ajax({
+                url: "/Patients/DeleteInventoryById",
+                data: JSON.parse(PetObj),
+                dataType: 'JSON',
+                type: 'POST',
+                //contentType: 'application/json; charset=utf-8',
+                success: function (result) {
+                    if (result.msg == "Delete Successfull!!") {
+                        alert("Delete Success");
+                        ShowInTable();
+                    }
+                },
+                error: function (errormessage) {
+                    alert(errormessage.responseText);
+                }
+            });
+        }
+        else {
+            return false;
+        }
+    }
+    ShowInTable();
+    </script>
+</body>
+</html>
+

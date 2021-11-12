@@ -1,0 +1,197 @@
+﻿@model CoreMVCApplication.Models.Report
+@{
+    ViewData["Title"] = "LabReport";
+    Layout = "~/Views/Shared/_GlobalLawLayout.cshtml";
+}
+
+<html>
+<head>
+</head>
+<body>
+    <form enctype="multipart/form-data">
+        <div class="askforvetss">
+            <div class="dashbord" style=" margin-top:0px !important;">
+                <!-- Dashboard -->
+                <div class="breadcrum_wrapper">
+                    <ul class="breadcrum">
+                        <li>
+                            <a href="/Patients/Inventory">Labs</a>
+                        </li>
+                        <li>
+                            <span class="current">Request Completed</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="frame-heading only-data-grid">
+                    <div class="heading flex-grid">
+                        <div class="title back_button_box"><a href="javascript:void(0)" class="back_button"></a>Akshat Shindey-Lab Report</div>
+                    </div>
+                </div>
+                <div class="wrap-container only-saprate-table">
+                    <input type="hidden" id="Lab_Id" asp-for="Lab_Id" />
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h1>VETSERV</h1>
+                                <b>Innovative Animal Daignostics</b>
+                            </div>
+                            <div class="col-md-6" style="text-align:right;">
+                                <div class="form-group">
+                                    <h6>A-15,Lower Ground Floor<br />Below State Bank Of India<br />Hauz Khas,New Delhi-110016<br />+91-11-41704826,9999449312<br />Website:www.vetserv.co.in</h6>
+                                </div>
+                            </div>
+                        </div>
+                        <hr />
+                    </div>
+                    <div class="form_wrapper wd6">
+                        <ul>
+                            <li>
+                                <center><u><b>REPORT</b></u></center>
+                            </li>
+
+                        </ul>
+                        <ul class="form grid-3col">
+                            <li>
+                                <label>Date :</label>
+                            </li>
+                            <li>
+                                <label asp-for="Lab_Id">Lab ID: @Model.Lab_Id</label>
+                            </li>
+                            <li>
+                                <label asp-for="FullName">Pet Guardian: @Model.FullName</label>
+                            </li>
+                        </ul>
+                        <ul class="form grid-3col">
+                            <li>
+                                <label asp-for="PetName">Name: @Model.PetName</label>
+                            </li>
+                            <li>
+                                <label asp-for="Pet_DOB">Age/Sex : @Model.Pet_DOB/@Model.GenderName</label>
+                            </li>
+                            <li>
+                                <label asp-for="PetBreedName">Breed: @Model.PetBreedName</label>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="form_wrapper wd6">
+                        <ul class="form grid-3col">
+                            <li>
+                                <label asp-for="Ref">Ref By: @Model.Ref</label>
+                            </li>
+                            <li>
+                                <label asp-for="Clientcode">Client Code</label>
+                            </li>
+                            <li>
+                                <label asp-for="ReDate">Report Dt & Tm : @Model.ReDate</label>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="form_wrapper wd6">
+                        <ul class="form grid-2col">
+                            <li>
+                                <label asp-for="Mobile_No">Mobile: @Model.Mobile_No</label>
+                            </li>
+                            <li>
+                                <label asp-for="Email">E-Mail: @Model.Email</label>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="wrap-container">
+                    <div style="border-bottom:double">
+                        <ul>
+                            <li>
+                                <center><ul><hra>High/Low  Normal</hra></ul></center>
+                            </li>  
+                        </ul>
+                    </div>
+                    @*<div class="heading flex-grid">
+                <div class="title up_title"><span class="icons dogicon"></span>Invoice Line Item</div>
+            </div>*@
+
+                    <div class="form_wrapper wd6">
+                        <div>
+                            <ul>
+                                <li>
+                                    <center><u><b>MICRO-ROUTINE</b></u></center>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="wrap-container only-saprate-table">
+                            @*<div class="heading flex-grid">
+
+                    </div>*@
+
+                            <div class="form_wrapper wd6">
+                                <ul class="form grid-2col">
+                                    <li>
+                                        <label>COLOR</label>
+                                    </li>
+                                    <li>
+                                        <label>BROWNISH</label>
+                                    </li>
+                                </ul>
+                                <hr />
+                                <ul class="form grid-2col">
+                                    <li>
+                                        <label>ODOUR</label>
+                                    </li>
+                                    <li>
+                                        <label>OFFENSIVE</label>
+                                    </li>
+                                </ul>
+                                <hr />
+                            </div>
+                            <div class="form_wrapper wd6">
+                                <ul class="form grid-2col">
+                                    <li>
+                                        <label>CONSISTENCY</label>
+                                    </li>
+                                    <li>
+                                        <label>FORMED</label>
+                                    </li>
+                                </ul>
+                                <hr />
+                                <ul class="form grid-2col">
+                                    <li>
+                                        <label>MUCUS</label>
+                                    </li>
+                                    <li>
+                                        <label>NIL</label>
+                                    </li>
+                                </ul>
+                                <hr />
+                            </div>
+                            <div class="form_wrapper wd6">
+                                <ul class="form grid-2col">
+                                    <li>
+                                        <label>Undigested</label>
+                                    </li>
+                                    <li>
+                                        <label>PRESENT</label>
+                                    </li>
+                                </ul>
+                                <hr />
+                                <ul class="form grid-2col">
+                                    <li>
+                                        <label>Parasite/Segment(naked eyed)</label>
+                                    </li>
+                                    <li>
+                                        <label>NOT SEEN</label>
+                                    </li>
+                                </ul>
+                                <hr />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="wrap-container nobg btnright formbutton">
+                    <input type="submit" value="@ViewBag.SubmitValue" class="add_button"  id="btnAdd" asp-action="LabsReport" asp-controller="Patients" formmethod="get" />&nbsp;&nbsp;
+                </div>
+            </div>
+        </div>
+    </form>
+</body>
+</html>
+
+

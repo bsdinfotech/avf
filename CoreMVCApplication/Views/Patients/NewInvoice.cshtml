@@ -1,0 +1,591 @@
+﻿@model CoreMVCApplication.Models.NewInvoice
+@{
+    ViewData["Title"] = "NewInvoice";
+    Layout = "~/Views/Shared/_GlobalLawLayout.cshtml";
+}
+<html>
+<head>
+    <style>
+        .only-saprate-table table td, .only-saprate-table table th {
+            padding: 10px;
+            border: none;
+            background: white;
+            font-size: 16px;
+            line-height: 20px;
+            font-weight: 300;
+            color: #000000;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="PetAppointment">
+        <form enctype="multipart/form-data">
+            <div class="askforvetss">
+                <div class="dashbord" style="margin-top:0px !important;">
+                    <div class="breadcrum_wrapper">
+                        <ul class="breadcrum">
+                            <li>
+                                <a href="/Patients/Billing">Billing</a>
+                            </li>
+                            <li>
+                                <span class="current">Create New Invoice</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="frame-heading only-data-grid">
+                        <div class="heading flex-grid">
+                            <div class="title back_button_box"><a href="javascript:void(0)" class="back_button"></a>Create New Invoice</div>
+                        </div>
+                    </div>
+                    <div class="wrap-container only-saprate-table">
+                        <div class="form_wrapper wd6">
+                            <input type="hidden" asp-for="Appointment_id" />
+                            <ul class="form grid-3col">
+                                <li>
+                                    <label>Invoice ID : </label>
+                                    <lable id="lblInvoiceId"></lable>
+                                    <div class="error"></div>
+                                </li>
+                                <li>
+                                    <label>Patient ID :</label>
+                                    <label id="lblPatientId"></label>
+                                </li>
+                            </ul>
+                            <ul class="form grid-3col">
+                                <li>
+                                    <label>Invoice To</label>
+                                    @*<input type="text" placeholder="Invoice To" id="txtInvoiceTo" asp-for="InvoiceTo" />*@
+                                    <select id="ddlPetParent" asp-for="InvoiceTo">
+                                        <option value="">Select Pet Parent Id</option>
+                                        @if (ViewBag.petParentName != null)
+                                        {
+                                            foreach (var item in ViewBag.petParentName as List<SelectListItem>)
+                                            {
+                                                <option value="@item.Value">@item.Text</option>
+                                            }
+                                        }
+                                    </select>
+                                    <div class="error"></div>
+                                </li>
+                                <li>
+                                    <label>Pet Name</label>
+                                    <select id="ddlPetName" asp-for="PetName">
+                                        <option value="">Select Pet Name</option>
+                                        @if (ViewBag.Pet != null)
+                                        {
+                                            foreach (var item in ViewBag.Pet as List<SelectListItem>)
+                                            {
+                                                <option value="@item.Value">@item.Text</option>
+                                            }
+                                        }
+                                    </select>
+                                </li>
+                                <li>
+                                    <label>Admission Date</label>
+                                    <input type="date" id="txtAdmissionDate" asp-for="AdmissionDate" />
+                                    <div class="error"></div>
+                                </li>
+                                <li>
+                                    <lable>Appointment Type</lable>
+                                    <select asp-for="AppointmentType" id="ddlAppointment">
+                                        <option value="">--Select Appointment Type--</option>
+                                        @if (ViewBag.AppointmentType != null)
+                                        {
+                                            foreach (var item in ViewBag.AppointmentType as List<SelectListItem>)
+                                            {
+                                                <option value="@item.Value">@item.Text</option>
+                                            }
+                                        }
+                                    </select>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="wrap-container only-saprate-table">
+                        <div class="form_wrapper wd6">
+                            <ul class="form grid-4col" id="additem" style="display:none">
+                                <li>
+                                    <label>Descriptions </label>
+                                    <input type="text" id="txtDescriptions" placeholder="Descriptions" asp-for="Descriptions" />
+                                    <div class="error"></div>
+                                </li>
+                                <li>
+                                    <label>Qty.</label>
+                                    <input type="text" id="txtQty" placeholder="Qty." asp-for="Quantity" />
+                                    <div class="error"></div>
+                                </li>
+                                <li>
+                                    <label>Actual Charges </label>
+                                    <input type="text" id="txtActual" placeholder="Actual Charges" asp-for="ActualCharges" />
+                                    <div class="error"></div>
+                                </li>
+                                <li>
+                                    <label>Discount</label>
+                                    <input type="text" id="txtDiscount" placeholder="Discount" asp-for="Discount" />
+                                    <div class="error"></div>
+                                </li>
+                                <li>
+                                    <label>Total</label>
+                                    <input type="text" id="txtTotal" placeholder="Total" asp-for="TotalRupees" />
+                                    <div class="error"></div>
+                                </li>
+                            </ul>
+                            <div class="row" id="divAddItem">
+                                <table class="table" id="tbladd">
+                                    <thead>
+                                        <tr>
+                                            <th width="25%">Descriptions</th>
+                                            <th width="8%">Qty</th>
+                                            <th>Per Qty Price</th>
+                                            <th>Actual Charges</th>
+                                            <th width="15%">Discount(%)</th>
+                                            <th>Total</th>
+                                            <th>Remove</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr id=row0>
+                                            <td><input type='text' class='Descriptions' placeholder="Descriptions" asp-for="Descriptions" /></td>
+                                            <td><input type='text' class='Qty' placeholder="Qty" asp-for="Quantity"/></td>
+                                            <td><input type='text' class='QtyPrice' placeholder="Per Qty Price" /></td>
+                                            <td><input type='text' class='ActualCharges' placeholder="Actual Charges" /></td>
+                                            <td><input type='text' class='Discount' placeholder="Discount"  /></td>
+                                            <td><input type='text' class='Total' placeholder="Total" onchange="grandtotal()"  asp-for="TotalRupees" /></td>
+                                            <td><a class='deleterow' style='margin-right: 10px; margin-left: 10px'><i class='fa fa-trash-o'></i></a></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                                <div class="col-md-2">
+                                    <input type="button" id="btnAddItem" style=" text-align: center; padding: 0px 39px; background: white !important; height: 40px !important;" value="Add Item+" />
+                                </div>
+
+                                <div class="col-md-8" style="text-align:end">
+                                    Grand Total :
+                                </div>
+                                <div class="col-md-2">
+                                    <label id="lblGrandTotal"></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr />
+                    <div class="wrap-container only-saprate-table">
+                        <div class="form_wrapper wd6">
+                            <ul class="form grid-1col">
+                                <li>
+                                    <label>Remarks</label>
+                                    <textarea typeof="text" placeholder="Remarks" rows="3" id="txtRemarks"></textarea>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row wrap-container">
+                        <div class="col-md-9">
+                            <label>Payment</label>
+                            <br />
+                            <p>You can do the payment here message goes here.</p>
+                        </div>
+                        <div class="col-md-3">
+                            <button type="button" class="btn" style="border: 1px solid #D8D8DC;" data-toggle="modal" data-target="#addpayment">+ Add Payment</button>
+                        </div>
+                        <div class="col-md-12 main-table">
+                            <table class="table" id="tablePayment">
+                                <thead>
+                                    <tr style="background: #F5F5FA !important;">
+                                        <th>Date</th>
+                                        <th>Amount</th>
+                                        <th>Type</th>
+                                        <th>Notes</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody class="paymenttbody">
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="wrap-container nobg btnright formbutton">
+                        <input type="button" value="Cancel" class="cancel_button" onclick="clearInvoice()" id="btnCancel" />
+                        <input type="button" value="Save" class="add_button" id="btnSave" />
+                    </div>
+                    @if (ViewBag.Message != null)
+                    {
+                        <script type="text/javascript">
+                       window.onload = function () {
+                           alert("@ViewBag.Message");
+                       };
+                        </script>
+                    }
+                </div>
+            </div>
+        </form>
+        <form>
+            <div class="modal fade" id="addpayment" tabindex="-1" aria-labelledby="addpaymentlbl" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="addpaymentlbl">Add Payment</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <input type="hidden" id="id" />
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>Pet Parent Name </label>
+                                            <select id="ddlPetParentpay" class="TypeAssistDropDown">
+                                                <option value="">Select Pet Parent Id</option>
+                                                @if (ViewBag.petParentName != null)
+                                                {
+                                                    foreach (var item in ViewBag.petParentName as List<SelectListItem>)
+                                                    {
+                                                        <option value="@item.Value">@item.Text</option>
+                                                    }
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Pet's Name</label>
+                                            <select id="ddlPetNamepay">
+                                                <option value="">Select Pet Name</option>
+                                               
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Payment Mode</label>
+                                            <select id="ddlPayment">
+                                                <option value="0">--Select Payment Mode--</option>
+                                                <option value="1">Cash</option>
+                                                <option value="2">Online</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Amount</label>
+                                            <input type="text" id="txtamount" placeholder="Amount" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Paid on</label>
+                                            <input type="date" id="txtPaidon" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>Transaction ID</label>
+                                            <input type="text" id="txttransaction" placeholder="Transaction ID" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>Notes</label>
+                                            <textarea type="text" row="2" class="form-control text-area" id="txtNotes" placeholder="Any notes"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 offset-7">
+                                        <input type="button" value="Cancel" asp-action="PetAppointment" asp-controller="Patients" class="form-control inputText" id="btnClear" />
+
+                                    </div>
+                                    <div class="col-md-3">
+                                        <input type="button" value="+ Add Payment" style=" background: #652B88; border-radius: 7px;border:none; padding: 9px; padding: 6px 15px; color: white; font-size: 14px; width: -webkit-fill-available; margin-bottom: 20px;" id="btnAddPayment" />
+                                    </div>
+                                    <br />
+                                   
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+        <script src="~/js/ControlFunctions.js"></script>
+        <script type="text/javascript">
+            var i = 0; currentRow = null;
+            $("#ddlPetName").change(function () {
+                GetPatientData();
+            });
+            $("#ddlPetParent").change(function () {
+                GetPetData();
+                //GetPatientData();
+            });
+            function GetPetData() {
+                var selected_val = $('#ddlPetParent').find(":selected").attr('value');
+                $("#ddlPetName").prop("disabled", true);
+                $.ajax({  //ajax call
+                    type: "GET",      //method == GET
+                    url: "/Patients/GetPetFromParentId", //url to be called
+                    data: "id=" + selected_val, //data to be send
+                    success: function (json, result) {
+                        $("#ddlPetName").empty();
+                        json = json || {};
+                        for (var i = 0; i < json.length; i++) {
+                            $("#ddlPetName").append('<option value="' + json[i].petId + '">' + json[i].petName + '</option>');
+                        }
+                        GetPatientData();
+                        $("#ddlPetName").prop("disabled", false);
+                    },
+                    error: function () {
+                        alert("Data Not Found");
+                    }
+                });
+            }
+            function GetPatientData() {
+                var selected_val = $('#ddlPetName').find(":selected").attr('value');
+                $.ajax({
+                    type: "GET",
+                    // url: "/Patients/GetDetailsForInvoice", //url to be called
+                    url: "/Patients/GetPetAppointment",
+                    data: "id=" + selected_val,
+                    success: function (result) {
+                        $('#txtAdmissionDate').val(result.admissionDate);
+                        $('#ddlAppointment  option[value=' + result.appointmentType + ']').attr('selected', 'selected');
+                    },
+                    error: function () {
+                        alert("Data Not Found");
+                    }
+                });
+            }
+            $(document).ready(function () {
+                $("#btnAddItem").on("click", function () {
+                    i++;
+                    var new_row = "<tr id='row" + i + "'><td><input type='text' class='Descriptions' placeholder='Descriptions' asp-for='Descriptions'/></td><td><input type='text' class='Qty' placeholder='Qty' asp-for='Quantity'/></td><td><input type='text' class='QtyPrice' placeholder='Per Qty Price' /></td><td><input type='text' class='ActualCharges' placeholder='Actual Charges' asp-for='ActualCharges'/></td><td><input type='text' class='Discount' placeholder='Discount' /></td><td><input type='text' class='Total' placeholder='Total'onchange='grandtotal()' /></td><td><a class='deleterow' style='margin-right: 10px; margin-left: 10px'><i class='fa fa-trash-o'></i></a></td></tr>";
+                    if (currentRow) {
+                        $("table tbody").find($(currentRow)).replaceWith(new_row);
+                        currentRow = null;
+                    }
+                    else {
+                        $("table tbody").append(new_row);
+                    }
+                    var rowCount = document.getElementById("tbladd").rows.length - 1;
+                    var grandTotal = 0;
+                    $('input.Total').each(function () {
+                        grandTotal += ConDbl($(this).val(), 2);
+                    });
+                    $("#lblGrandTotal").html(grandTotal);
+                });
+            });
+
+            $(document).ready(function () {
+                $("#btnAddPayment").on("click", function () {
+                    var PetParentId = $('#ddlPetParentpay').find("option:selected").val();
+                    var PetParentName = $('#ddlPetParentpay').find("option:selected").text();
+                    var PetId = $('#ddlPetNamepay').find("option:selected").val();
+                    var PetName = $('#ddlPetNamepay').find("option:selected").text();
+                    var PaymentModeId = $('#ddlPayment').find("option:selected").val();
+                    var PaymentMode = $('#ddlPayment').find("option:selected").text();
+                    var Amount = $('#txtamount').val();
+                    var PaidOn = $('#txtPaidon').val();
+                    var TransactionId = $('#txttransaction').val();
+                    var Notes = $('#txtNotes').val();
+                    
+                    i++;
+                    var new_row = "<tr id='row" + i + "'><td><span class='Date'>" + PaidOn + "</span></td><td><span class='Amount'>" + Amount + "</span></td><td><span class='type'>" + PaymentMode + "</span></td><td><span class='Notes'>" + Notes + "</span></td><td><span class='transaction' style='display:none'>" + TransactionId +"</span></td></tr>";
+                    if (currentRow) {
+                        $("table tbody.paymenttbody").find($(currentRow)).replaceWith(new_row);
+                        currentRow = null;
+                    }
+                    else {
+                        $("table tbody.paymenttbody").append(new_row);
+                    }
+                    var rowCount = document.getElementById("tablePayment").rows.length - 1;
+                });
+            });
+            $(document).on('click', 'a.deleterow', function () {
+                $(this).parents('tr').remove();
+                grandtotal();
+                return false;
+            });
+            $(document).on('keyup', 'input.QtyPrice', function () {
+                calculateActualPrice(this);
+                grandtotal();
+            });
+            $(document).on('keyup', 'input.Discount', function () {
+                calculateActualPrice(this);
+                grandtotal();
+            });
+            function calculateActualPrice(inp) {
+                var perQuantity;
+                var price;
+                var actual;
+                perQuantity = ConDbl($(inp).closest('tr').find('input.Qty').val(), 2);
+                price = ConDbl($(inp).closest('tr').find('input.QtyPrice').val(), 2);
+                actual = ConDbl(perQuantity * price, 2);
+                $(inp).closest('tr').find('input.ActualCharges').val(actual);
+                var discount;
+                var total;
+                discount = ConDbl($(inp).closest('tr').find('input.Discount').val(), 2);
+                total = ConDbl(actual - ((actual * discount) / 100), 2);
+                $(inp).closest('tr').find('input.Total').val(total);
+
+            }
+            function grandtotal() {
+                var grandTotal = 0;
+                $('input.Total').each(function () {
+                    grandTotal += ConDbl($(this).val(), 2);
+                });
+                $("#lblGrandTotal").html(ConDbl(grandTotal, 2));
+            }
+            $(document).ready(function () {
+                $("#btnSave").click(function () {
+                    var Invoice_ID = $('#lblInvoiceId').val();
+                    var Patient_ID = $('#lblPatientId').val();
+                    var PetParentId = $('#ddlPetParent').find("option:selected").val();
+                    var PetParentName = $('#ddlPetParent').find("option:selected").text();
+                    var PetNameId = $('#ddlPetName').find("option:selected").val();
+                    var PetName = $('#ddlPetName').find("option:selected").text();
+                    var AdmissionDate = $('#txtAdmissionDate').val();
+                    var AppointmentTypeId = $('#ddlAppointment').find("option:selected").val();
+                    var AppointmentTypeText = $('#ddlAppointment').find("option:selected").text();
+                    var Remarks = $('#txtRemarks').val();
+                    var grandtotal = $("#lblGrandTotal").html();
+                    var customers = new Array();
+                    $("#tbladd tbody tr").each(function () {
+                        var row = $(this);
+                        var customer = {};
+                        customer.Descriptions = row.find("input.Descriptions").val();
+                        customer.Qty = row.find('input.Qty').val();
+                        customer.PerQtyPrice = row.find('input.QtyPrice').val();
+                        customer.ActualCharges = row.find('input.ActualCharges').val();
+                        customer.Discount = row.find('input.Discount').val();
+                        customer.Total = row.find('input.Total').val();
+                        customers.push(customer);
+                    });
+                    var jsonInput = JSON.stringify(customers)
+                    var payments = new Array();
+                    $("#tablePayment tbody tr").each(function () {
+                        var row = $(this);
+                        var payment = {};
+                        payment.Date = row.find("span.Date").text();
+                        payment.Amount = row.find('span.Amount').text();
+                        payment.PaymentType = row.find('span.type').text();
+                        payment.PaymentNotes = row.find('span.Notes').text();
+                        payment.TransactionId = row.find('span.transaction').text();
+                        payments.push(payment);
+                    });
+                    var paymentJson = JSON.stringify(payments)
+                    $.ajax({
+                        type: "POST",
+                        url: '/Patients/SaveNewInvoice',
+                        data: { jsonInput: jsonInput, Invoice_ID: Invoice_ID, Patient_ID: Patient_ID, PetParentId: PetParentId, PetParentName: PetParentName, PetNameId: PetNameId, PetName: PetName, AdmissionDate: AdmissionDate, AppointmentTypeId: AppointmentTypeId, AppointmentTypeText: AppointmentTypeText, Remarks: Remarks, grandtotal: grandtotal, paymentJson: paymentJson},
+                        dataType: "JSON",
+                        success: function (result) {
+                            if (result.msg == "Invoice added") {
+                                clearInvoice();
+                                alert("Invoice added successfully.");
+                            }
+                        },
+                        error: function () {
+                            alert("Invoice not added.");
+                        }
+                    });
+                });
+            });
+            $("#ddlPetParentpay").change(function () {
+                GetPetDataPay();
+            });
+            function GetPetDataPay() {
+                var selected_val = $('#ddlPetParentpay').find(":selected").attr('value');
+                $("#ddlPetNamepay").prop("disabled", true);
+                $.ajax({  //ajax call
+                    type: "GET",      //method == GET
+                    url: "/Patients/GetPetFromParentId", //url to be called
+                    data: "id=" + selected_val, //data to be send
+                    success: function (json, result) {
+                        $("#ddlPetNamepay").empty();
+                        json = json || {};
+                        for (var i = 0; i < json.length; i++) {
+                            $("#ddlPetNamepay").append('<option value="' + json[i].petId + '">' + json[i].petName + '</option>');
+                        }
+                        GetPatientData();
+                        $("#ddlPetNamepay").prop("disabled", false);
+                    },
+                    error: function () {
+                        alert("Data Not Found");
+                    }
+                });
+            }
+            function clearInvoice() {
+                $('#lblInvoiceId').val();
+                $('#lblPatientId').val();
+                $('#ddlPetParent').find("option:selected").val(0);
+                $('#ddlPetName').find("option:selected").val(0);
+                $('#txtAdmissionDate').val();
+                $('#ddlAppointment').find("option:selected").val(0);
+                $('#txtRemarks').val();
+                $("#lblGrandTotal").html();
+                $("#tbladd tbody tr").each(function () {
+                    var row = $(this);
+                    row.find("input.Descriptions").val();
+                    row.find('input.Qty').val();
+                    row.find('input.QtyPrice').val();
+                    row.find('input.ActualCharges').val();
+                    row.find('input.Discount').val();
+                    row.find('input.Total').val();
+                });
+            }
+
+            $(document).ready(function () {
+                $('#btnAddPayment').click(function () {
+                    var PetParentId = $('#ddlPetParentpay').find("option:selected").val();
+                    var PetParentName = $('#ddlPetParentpay').find("option:selected").text();
+                    var PetId = $('#ddlPetNamepay').find("option:selected").val();
+                    var PetName = $('#ddlPetNamepay').find("option:selected").text();
+                    var PaymentModeId = $('#ddlPayment').find("option:selected").val();
+                    var PaymentMode = $('#ddlPayment').find("option:selected").text();
+                    var Amount = $('#txtamount').val();
+                    var PaidOn = $('#txtPaidon').val();
+                    var TransactionId = $('#txttransaction').val();
+                    var Notes = $('#txtNotes').val();
+                    var PaymentData = new Array();
+                    var payment = {};
+                    payment.PetParentId = PetParentId;
+                    payment.PetParentName = PetParentName;
+                    payment.PetId = PetId;
+                    payment.PetName = PetName;
+                    payment.PaymentModeId = PaymentModeId;
+                    payment.PaymentMode = PaymentMode;
+                    payment.Amount = Amount;
+                    payment.PaidOn = PaidOn;
+                    payment.TransactionId = TransactionId;
+                    payment.Notes = Notes;
+                    PaymentData.push(payment);
+                    var jsondata = JSON.stringify(PaymentData);
+                    $.ajax({
+                        type: "POST",
+                        url: "/Patients/AddPayment",
+                        dataType: "JSON",
+                        data: { jsondata: jsondata },
+                        success: function (result) {
+                            if (result.msg == "Payment added") {
+                                clearInvoice();
+                                alert("Payment added successfully.");
+                            }
+                        },
+                        error: function () {
+                            alert("Payment not added.");
+                        }
+                    });
+
+                });
+            });
+        </script>
+</body>
+</html>
+
